@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/view_instructions"
+        android:title="@string/view_instructions"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/load_new_restaurant"
+        android:title="@string/load_new_restaurant"
+        app:showAsAction="ifRoom"/>
+</menu>

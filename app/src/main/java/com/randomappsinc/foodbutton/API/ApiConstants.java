@@ -10,4 +10,6 @@ public class ApiConstants {
     public static final String CONSUMER_SECRET = "VnqYejGKu_sGG8jxIHLLsgonGXk";
     public static final String TOKEN = "4rPzE_3oNCAALX1fE5FUmqLC5XZyIfHF";
     public static final String TOKEN_SECRET = "NeedeJYjORYDDNiHB37tcR0_7OA";
+
+    public static final int HTTP_STATUS_OK = 200;
 }

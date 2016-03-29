@@ -1,5 +1,8 @@
 package com.randomappsinc.foodbutton.API;
 
+import com.randomappsinc.foodbutton.API.OAuth.DecodeInterceptor;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -22,9 +25,16 @@ public class RestClient {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(getHttpClient())
                 .build();
 
         yelpService = retrofit.create(YelpService.class);
+    }
+
+    private OkHttpClient getHttpClient() {
+        return new OkHttpClient.Builder()
+                .addInterceptor(new DecodeInterceptor())
+                .build();
     }
 
     public YelpService getYelpService() {
