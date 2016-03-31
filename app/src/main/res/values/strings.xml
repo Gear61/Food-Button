@@ -41,16 +41,22 @@
     <string name="will_rate">Sure, I\'ll help</string>
     <string name="no_im_good">No, I\'m good</string>
 
-    <string name="view_instructions">View instructions</string>
+    <string name="view_tutorial">View tutorial</string>
     <string name="load_new_restaurant">Load new restaurant</string>
 
     <string name="instructions">Instructions</string>
-    <string name="restaurant_instructions">
-        1. Click the address to start heading over to the restaurant.
-        \n\n2. Click the phone number to give the restaurant a call.
-        \n\n3. Click the refresh button in the toolbar to immediately load another restaurant suggestion.
-        \n\nYou can review these instructions at any time by clicking on the info button in the toolbar.
-        Happy eating!
+    <string name="got_it">Got it</string>
+    <string name="refresh_info">
+        Click the refresh button to immediately load another restaurant suggestion.
+    </string>
+    <string name="map_info">
+        Click the address to immediately start heading over to the restaurant.
+    </string>
+    <string name="phone_info">
+        Click the phone number to give the restaurant a call.
+    </string>
+    <string name="tutorial_info">
+        You can review this tutorial at any time by clicking the info button. Happy eating!
     </string>
 
     <string name="location_services_needed">

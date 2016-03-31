@@ -3,12 +3,15 @@ package com.randomappsinc.foodbutton.Activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.SimpleShowcaseEventListener;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.Models.Restaurant;
@@ -16,6 +19,7 @@ import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.RestaurantServer;
 import com.randomappsinc.foodbutton.Utils.PreferencesManager;
 import com.randomappsinc.foodbutton.Utils.RatingUtils;
+import com.randomappsinc.foodbutton.Utils.ToolbarActionItemTarget;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
@@ -29,6 +33,7 @@ import butterknife.OnClick;
  * Created by alexanderchiou on 3/27/16.
  */
 public class RestaurantActivity extends StandardActivity {
+    @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.restaurant_picture) ImageView restaurantPicture;
     @Bind(R.id.restaurant_name) TextView restaurantName;
     @Bind(R.id.categories) TextView categories;
@@ -46,12 +51,14 @@ public class RestaurantActivity extends StandardActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadNewRestaurant();
         if (PreferencesManager.get().shouldShowInstructions()) {
-            showInstructions();
+            startTutorial(true);
         }
     }
 
@@ -65,25 +72,22 @@ public class RestaurantActivity extends StandardActivity {
         String numReviewsText = String.format(getString(R.string.num_reviews), currentRestaurant.getNumReviews());
         numReviews.setText(numReviewsText);
 
-        String addressText = getString(R.string.map_icon) + "  " + currentRestaurant.getAddress();
-        address.setText(addressText);
-
-        String phoneNumberText = getString(R.string.phone_icon) + "  " +
-                UIUtils.humanizePhoneNumber(currentRestaurant.getPhoneNumber());
-        phoneNumber.setText(phoneNumberText);
+        address.setText(currentRestaurant.getAddress());
+        phoneNumber.setText(UIUtils.humanizePhoneNumber(currentRestaurant.getPhoneNumber()));
     }
 
-    @OnClick(R.id.address)
+    @OnClick(R.id.address_container)
     public void goToRestaurant() {
         if (!currentRestaurant.getAddress().equals(Business.NO_ADDRESS)) {
-            String mapUri = "google.navigation:q=" + currentRestaurant.getAddress();
+            String mapUri = "google.navigation:q=" + currentRestaurant.getAddress()
+                    + " " + currentRestaurant.getName();
             startActivity(Intent.createChooser(
                     new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(mapUri)),
                     getString(R.string.navigate_with)));
         }
     }
 
-    @OnClick(R.id.phone_number)
+    @OnClick(R.id.phone_number_container)
     public void callRestaurant() {
         if (!currentRestaurant.getPhoneNumber().equals(Business.NO_PHONE_NUMBER)) {
             String phoneUri = "tel:" + phoneNumber.getText().toString();
@@ -98,18 +102,73 @@ public class RestaurantActivity extends StandardActivity {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentRestaurant.getMobileUrl())));
     }
 
-    private void showInstructions() {
-        new MaterialDialog.Builder(this)
-                .title(R.string.instructions)
-                .content(R.string.restaurant_instructions)
-                .positiveText(android.R.string.yes)
-                .show();
+    private void startTutorial(final boolean firstTime) {
+        // Refresh button
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setContentText(getString(R.string.refresh_info))
+                .setTarget(new ToolbarActionItemTarget(toolbar, R.id.load_new_restaurant))
+                .setShowcaseEventListener(
+                        new SimpleShowcaseEventListener() {
+                            @Override
+                            public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                                showMapInfo(firstTime);
+                            }
+                        }
+                )
+                .setStyle(R.style.showcase_theme)
+                .build();
+    }
+
+    private void showMapInfo(final boolean firstTime) {
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setContentText(getString(R.string.map_info))
+                .setTarget(new ViewTarget(R.id.address_icon, this))
+                .setShowcaseEventListener(
+                        new SimpleShowcaseEventListener() {
+                            @Override
+                            public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                                showPhoneNumberInfo(firstTime);
+                            }
+                        }
+                )
+                .setStyle(R.style.showcase_theme)
+                .build();
+    }
+
+    private void showPhoneNumberInfo(final boolean firstTime) {
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setContentText(getString(R.string.phone_info))
+                .setTarget(new ViewTarget(R.id.phone_icon, this))
+                .setShowcaseEventListener(
+                        new SimpleShowcaseEventListener() {
+                            @Override
+                            public void onShowcaseViewDidHide(ShowcaseView showcaseView) {
+                                if (firstTime) {
+                                    endTutorial();
+                                }
+                            }
+                        }
+                )
+                .setStyle(R.style.showcase_theme)
+                .build();
+    }
+
+    private void endTutorial() {
+        new ShowcaseView.Builder(this)
+                .withMaterialShowcase()
+                .setContentText(getString(R.string.tutorial_info))
+                .setTarget(new ToolbarActionItemTarget(toolbar, R.id.view_tutorial))
+                .setStyle(R.style.showcase_theme)
+                .build();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.restaurant_menu, menu);
-        UIUtils.loadMenuIcon(menu, R.id.view_instructions, IoniconsIcons.ion_information_circled);
+        UIUtils.loadMenuIcon(menu, R.id.view_tutorial, IoniconsIcons.ion_information_circled);
         UIUtils.loadMenuIcon(menu, R.id.load_new_restaurant, IoniconsIcons.ion_android_refresh);
         return true;
     }
@@ -117,8 +176,8 @@ public class RestaurantActivity extends StandardActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.view_instructions:
-                showInstructions();
+            case R.id.view_tutorial:
+                startTutorial(false);
                 return true;
             case R.id.load_new_restaurant:
                 loadNewRestaurant();

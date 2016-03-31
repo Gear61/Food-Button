@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/app_red"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <com.rey.material.widget.Button
         android:id="@+id/view_on_yelp"
         android:layout_alignParentBottom="true"
@@ -13,6 +20,7 @@
         app:rd_style="@style/button_ripple_attributes"/>
 
     <ScrollView
+        android:layout_below="@id/toolbar"
         android:layout_above="@+id/view_on_yelp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -92,21 +100,45 @@
                 android:textColor="@color/dark_gray"
                 android:layout_gravity="center_vertical"/>
 
-            <com.joanzapata.iconify.widget.IconTextView
-                android:id="@+id/address"
+            <LinearLayout
+                android:id="@+id/address_container"
+                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/dark_gray"/>
+                android:layout_height="wrap_content">
 
-            <com.joanzapata.iconify.widget.IconTextView
-                android:id="@+id/phone_number"
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/address_icon"
+                    android:text="@string/map_icon"
+                    style="@style/restaurant_icon"/>
+
+                <TextView
+                    android:id="@+id/address"
+                    style="@style/restaurant_info_text"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/phone_number_container"
+                android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/dark_gray"/>
+                android:layout_height="wrap_content">
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/phone_icon"
+                    android:text="@string/phone_icon"
+                    style="@style/restaurant_icon"/>
+
+                <TextView
+                    android:id="@+id/phone_number"
+                    style="@style/restaurant_info_text"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/toolbar_shadow"
+        android:layout_below="@id/toolbar"/>
 </RelativeLayout>

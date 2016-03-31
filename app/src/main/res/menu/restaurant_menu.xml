@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/view_instructions"
-        android:title="@string/view_instructions"
+        android:id="@+id/view_tutorial"
+        android:title="@string/view_tutorial"
         app:showAsAction="ifRoom"/>
 
     <item

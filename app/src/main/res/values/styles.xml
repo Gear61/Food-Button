@@ -5,6 +5,14 @@
         <item name="colorAccent">@color/app_red</item>
     </style>
 
+    <style name="RestaurantTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/app_red</item>
+        <item name="colorPrimaryDark">@color/dark_red</item>
+        <item name="colorAccent">@color/app_red</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
     <style name="ripple_button_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -21,12 +29,6 @@
         <item name="rd_delayClick">untilRelease</item>
     </style>
 
-    <style name="rating_star">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginRight">2dp</item>
-    </style>
-
     <style name="giant_fab">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -41,5 +43,18 @@
         <item name="android:contentDescription">@string/powered_by_yelp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="showcase_theme" parent="ShowcaseView">
+        <item name="sv_backgroundColor">@color/transparent_red</item>
+        <item name="sv_showcaseColor">@color/white</item>
+        <item name="sv_buttonText">@string/got_it</item>
+        <item name="sv_tintButtonColor">false</item>
+        <item name="sv_detailTextAppearance">@style/showcase_text</item>
+    </style>
+
+    <style name="showcase_text" parent="TextAppearance.ShowcaseView.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
     </style>
 </resources>

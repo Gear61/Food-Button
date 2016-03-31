@@ -8,8 +8,8 @@ android {
         applicationId "com.randomappsinc.foodbutton"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 101
-        versionName "1.0.1"
+        versionCode 102
+        versionName "1.0.2"
         generatedDensities = []
     }
     aaptOptions {
@@ -38,4 +38,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.1'
     compile 'com.github.rey5137:material:1.2.2'
+    compile 'com.github.amlcurran.showcaseview:library:5.4.1'
 }
