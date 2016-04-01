@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Restaurant menu -->
+    <string name="share_restaurant">Share restaurant info</string>
+    <string name="load_new_restaurant">Load new restaurant</string>
+
+    <string name="instructions">Instructions</string>
+    <string name="got_it">Got it</string>
+    <string name="refresh_info">Click the refresh button to immediately load another restaurant suggestion.</string>
+    <string name="map_info">Click the address to immediately start heading over to the restaurant.</string>
+    <string name="phone_info">Click the phone number to give the restaurant a call.</string>
+    <string name="share_info">
+        Eating with friends? Use the share button to tell them all about the restaurant.
+    </string>
+
+    <string name="location_services_needed">
+        You need to enable location services in order for Food Button to help you find nearby restaurants.
+    </string>
+    <string name="enable_location_services">Enable location services</string>
+    <string name="use_default_location">Use default location instead</string>
+
+    <string name="navigate_with">Navigate with</string>
+    <string name="call_with">Call with</string>
+    <string name="share_with">Share restaurant info with</string>
+
+    <string name="name_prefix">Name:&#160;</string>
+    <string name="address_prefix">Address:&#160;</string>
+    <string name="phone_prefix">Phone number:&#160;</string>
+</resources>

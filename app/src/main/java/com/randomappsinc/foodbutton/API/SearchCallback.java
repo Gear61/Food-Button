@@ -4,8 +4,8 @@ import android.os.Handler;
 
 import com.randomappsinc.foodbutton.API.Models.SearchResponse;
 import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
-import com.randomappsinc.foodbutton.Models.Restaurant;
-import com.randomappsinc.foodbutton.RestaurantServer;
+import com.randomappsinc.foodbutton.Restaurant.Restaurant;
+import com.randomappsinc.foodbutton.Restaurant.RestaurantServer;
 
 import org.greenrobot.eventbus.EventBus;
 

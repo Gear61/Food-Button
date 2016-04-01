@@ -1,4 +1,4 @@
-package com.randomappsinc.foodbutton.Utils;
+package com.randomappsinc.foodbutton.Restaurant;
 
 import android.widget.ImageView;
 
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by alexanderchiou on 3/28/16.
  */
-public class RatingUtils {
+public class RestaurantUtils {
     public static void loadStarImages(List<ImageView> starPictures, float rating) {
         int[] starIds = getStarIds(rating);
         for (int i = 0; i < 5; i++) {
