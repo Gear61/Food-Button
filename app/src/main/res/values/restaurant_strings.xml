@@ -14,10 +14,10 @@
     </string>
 
     <string name="location_services_needed">
-        You need to enable location services in order for Food Button to help you find nearby restaurants.
+        Your default location is currently set to \"Automatic"\,
+        which means that you need to enable location services to allow Food Button to get your current location.
+        Would you like to do that now?
     </string>
-    <string name="enable_location_services">Enable location services</string>
-    <string name="use_default_location">Use default location instead</string>
 
     <string name="navigate_with">Navigate with</string>
     <string name="call_with">Call with</string>

@@ -1,7 +1,6 @@
 package com.randomappsinc.foodbutton.Activities;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,20 +93,19 @@ public class MainActivity extends StandardActivity {
     public void findFood() {
         foodButton.setEnabled(false);
         if (PermissionUtils.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            if (LocationUtils.isLocationEnabled()) {
-                String location = LocationUtils.getCurrentAddress();
-                if (location.isEmpty()) {
-                    location = PreferencesManager.get().getDefaultLocation();
-                    if (location.isEmpty()) {
-                        showDefaultLocationDialog(R.string.need_default_location, true);
-                    } else {
-                        fetchSuggestions(location);
-                    }
+            String defaultLocation = PreferencesManager.get().getDefaultLocation();
+            if (defaultLocation.equals(getString(R.string.automatic))) {
+                String currentLocation = LocationUtils.getCurrentAddress();
+                if (currentLocation.isEmpty()) {
+                    new MaterialDialog.Builder(this)
+                            .content(R.string.auto_location_fail)
+                            .positiveText(android.R.string.yes)
+                            .show();
                 } else {
-                    fetchSuggestions(location);
+                    fetchSuggestions(currentLocation);
                 }
             } else {
-                showLocationServicesDialog();
+                fetchSuggestions(defaultLocation);
             }
         } else {
             PermissionUtils.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, LOCATION_REQUEST_CODE);
@@ -130,27 +127,66 @@ public class MainActivity extends StandardActivity {
     }
 
     private void showLocationServicesDialog() {
-        final Context context = this;
         new MaterialDialog.Builder(this)
                 .content(R.string.location_services_needed)
-                .inputType(InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS)
-                .negativeText(R.string.use_default_location)
-                .positiveText(R.string.enable_location_services)
+                .negativeText(android.R.string.cancel)
+                .positiveText(android.R.string.yes)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                .show();
+    }
+
+    private void chooseDefaultLocation() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.choose_default_location)
+                .content(R.string.default_instructions)
+                .items(PreferencesManager.get().getLocationsArray())
+                .itemsCallbackSingleChoice(PreferencesManager.get().getCurrentLocationIndex(),
+                        new MaterialDialog.ListCallbackSingleChoice() {
+                            @Override
+                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                PreferencesManager.get().setDefaultLocation(text.toString());
+                                UIUtils.showSnackbar(parent, getString(R.string.default_location_set));
+                                return true;
+                            }
+                        })
+                .positiveText(R.string.choose)
+                .negativeText(android.R.string.cancel)
+                .neutralText(R.string.add_location)
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        String defaultLocation = PreferencesManager.get().getDefaultLocation();
-                        if (defaultLocation.isEmpty()) {
-                            showDefaultLocationDialog(R.string.need_default_location, true);
-                        } else {
-                            fetchSuggestions(defaultLocation);
-                        }
+                        addLocation();
+                    }
+                })
+                .show();
+    }
+
+    private void addLocation() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.add_location_title)
+                .input(getString(R.string.location), "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, @NonNull CharSequence input) {
+                        String currentInput = input.toString().trim();
+                        dialog.getActionButton(DialogAction.POSITIVE)
+                                .setEnabled(!PreferencesManager.get().alreadyHasLocation(input.toString().trim())
+                                && !currentInput.isEmpty());
+                    }
+                })
+                .alwaysCallInputCallback()
+                .positiveText(R.string.add)
+                .negativeText(android.R.string.no)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        String newLocation = dialog.getInputEditText().getText().toString();
+                        PreferencesManager.get().addSavedLocation(newLocation);
+                        UIUtils.showSnackbar(parent, getString(R.string.location_added));
                     }
                 })
                 .show();
@@ -180,37 +216,6 @@ public class MainActivity extends StandardActivity {
         }
     }
 
-    private void showDefaultLocationDialog(int contentId, final boolean shouldFetchAfterwards) {
-        String currentDefaultLocation = PreferencesManager.get().getDefaultLocation();
-        String defaultLocationHint = getString(R.string.default_location);
-        new MaterialDialog.Builder(this)
-                .title(R.string.set_default_location_title)
-                .content(contentId)
-                .inputType(InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS)
-                .input(defaultLocationHint, currentDefaultLocation, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        dialog.getActionButton(DialogAction.POSITIVE)
-                                .setEnabled(!input.toString().trim().isEmpty());
-                    }
-                })
-                .alwaysCallInputCallback()
-                .negativeText(android.R.string.no)
-                .positiveText(R.string.set)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        String location = dialog.getInputEditText().getText().toString();
-                        PreferencesManager.get().setDefaultLocation(location);
-                        UIUtils.showSnackbar(parent, getString(R.string.default_location_set));
-                        if (shouldFetchAfterwards) {
-                            fetchSuggestions(location);
-                        }
-                    }
-                })
-                .show();
-    }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -235,7 +240,7 @@ public class MainActivity extends StandardActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.set_default_location:
-                showDefaultLocationDialog(R.string.default_location_explanation, false);
+                chooseDefaultLocation();
                 return true;
             case R.id.settings:
                 startActivity(new Intent(this, SettingsActivity.class));
