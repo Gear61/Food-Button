@@ -36,5 +36,10 @@
             android:label="@string/settings"
             android:configChanges="orientation|screenSize">
         </activity>
+        <activity
+            android:name=".Activities.EditLocationsActivity"
+            android:label="@string/edit_saved_locations_title"
+            android:configChanges="orientation|screenSize">
+        </activity>
     </application>
 </manifest>

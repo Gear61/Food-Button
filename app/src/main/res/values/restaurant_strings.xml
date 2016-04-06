@@ -4,19 +4,12 @@
     <string name="share_restaurant">Share restaurant info</string>
     <string name="load_new_restaurant">Load new restaurant</string>
 
-    <string name="instructions">Instructions</string>
     <string name="got_it">Got it</string>
     <string name="refresh_info">Click the refresh button to immediately load another restaurant suggestion.</string>
     <string name="map_info">Click the address to immediately start heading over to the restaurant.</string>
     <string name="phone_info">Click the phone number to give the restaurant a call.</string>
     <string name="share_info">
         Eating with friends? Use the share button to tell them all about the restaurant.
-    </string>
-
-    <string name="location_services_needed">
-        Your default location is currently set to \"Automatic"\,
-        which means that you need to enable location services to allow Food Button to get your current location.
-        Would you like to do that now?
     </string>
 
     <string name="navigate_with">Navigate with</string>
@@ -26,4 +19,10 @@
     <string name="name_prefix">Name:&#160;</string>
     <string name="address_prefix">Address:&#160;</string>
     <string name="phone_prefix">Phone number:&#160;</string>
+
+    <string name="num_reviews">%d reviews</string>
+    <string name="phone_icon">{ion-android-call}</string>
+    <string name="map_icon">{ion-android-map}</string>
+
+    <string name="view_on_yelp">View on Yelp</string>
 </resources>

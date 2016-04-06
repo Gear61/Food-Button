@@ -20,6 +20,7 @@
         app:rd_style="@style/button_ripple_attributes"/>
 
     <ScrollView
+        android:background="@color/white"
         android:layout_below="@id/toolbar"
         android:layout_above="@+id/view_on_yelp"
         android:layout_width="match_parent"

@@ -13,14 +13,6 @@
         We failed to find a restaurant suggestion for you. Please try again later.
     </string>
 
-    <string name="num_reviews">%d reviews</string>
-    <string name="phone_icon">{ion-android-call}</string>
-    <string name="map_icon">{ion-android-map}</string>
-
-    <string name="view_on_yelp">View on Yelp</string>
-
-    <string name="default_location_set">Your default location has been set.</string>
-
     <string name="please_rate">
         Hey, it looks like you\'re a frequent user of Food Button!
         If you have a couple seconds, I would be incredibly grateful if you could rate this app in the Play Store.
@@ -29,9 +21,10 @@
     </string>
     <string name="will_rate">Sure, I\'ll help</string>
     <string name="no_im_good">No, I\'m good</string>
-    
+
+    <string name="default_location_set">Your default location has been set.</string>
     <string name="choose_default_location">Choose Default Location</string>
-    <string name="default_instructions">Your default location is where the Food Button searches when you press it.</string>
+    <string name="default_instructions">Your default location is where the Food Button searches for restaurants.</string>
     <string name="automatic">Automatic</string>
     <string name="choose">Choose</string>
     <string name="add_location">Add location</string>
@@ -42,7 +35,12 @@
 
     <string name="auto_location_fail">
         We are unable to get your current location right now.
-        Please use the map button in the toolbar to explicitly set a location,
-        and press the Food Button again.
+        Please use the map button in the toolbar to explicitly set a location and try again.
+    </string>
+
+    <string name="location_services_needed">
+        Your default location is currently set to \"Automatic"\,
+        which means that you need to enable location services to allow Food Button to get your current location.
+        Would you like to do that now?
     </string>
 </resources>
