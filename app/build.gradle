@@ -10,10 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 112
         versionName "1.1.2"
-        generatedDensities = []
-    }
-    aaptOptions {
-        additionalParameters "--no-version-vectors"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
