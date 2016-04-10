@@ -1,16 +1,20 @@
 package com.randomappsinc.foodbutton.Restaurant;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by alexanderchiou on 3/27/16.
  */
-public class Restaurant {
+public class Restaurant implements Parcelable {
     private String mobileUrl;
     private String name;
     private List<String> categories;
@@ -19,6 +23,8 @@ public class Restaurant {
     private String address;
     private float rating;
     private int numReviews;
+
+    public Restaurant() {}
 
     public String getMobileUrl() {
         return mobileUrl;
@@ -109,4 +115,55 @@ public class Restaurant {
 
         return shareText.toString();
     }
+
+    protected Restaurant(Parcel in) {
+        mobileUrl = in.readString();
+        name = in.readString();
+        if (in.readByte() == 0x01) {
+            categories = new ArrayList<>();
+            in.readList(categories, String.class.getClassLoader());
+        } else {
+            categories = null;
+        }
+        phoneNumber = in.readString();
+        imageUrl = in.readString();
+        address = in.readString();
+        rating = in.readFloat();
+        numReviews = in.readInt();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mobileUrl);
+        dest.writeString(name);
+        if (categories == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeList(categories);
+        }
+        dest.writeString(phoneNumber);
+        dest.writeString(imageUrl);
+        dest.writeString(address);
+        dest.writeFloat(rating);
+        dest.writeInt(numReviews);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Restaurant> CREATOR = new Parcelable.Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel in) {
+            return new Restaurant(in);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
 }

@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/load_new_restaurant"
-        android:title="@string/load_new_restaurant"
+        android:id="@+id/load_random_restaurant"
+        android:title="@string/load_random_restaurant"
         app:showAsAction="ifRoom"/>
 </menu>

@@ -17,37 +17,18 @@ public class RestaurantServer {
         return instance;
     }
 
-    private List<Restaurant> unchosenRestaurants;
-    private List<Restaurant> chosenRestaurants;
+    private List<Restaurant> restaurants;
 
     private RestaurantServer () {
-        unchosenRestaurants = new ArrayList<>();
-        chosenRestaurants = new ArrayList<>();
+        restaurants = new ArrayList<>();
     }
 
     public void setRestaurantList(List<Restaurant> restaurants) {
-        unchosenRestaurants = restaurants;
-        Collections.shuffle(unchosenRestaurants);
+        this.restaurants = restaurants;
+        Collections.shuffle(restaurants);
     }
 
-    public Restaurant getRestaurant() {
-        if (unchosenRestaurants.isEmpty()) {
-            if (chosenRestaurants.isEmpty()) {
-                return null;
-            }
-            else {
-                resetList();
-            }
-        }
-        Restaurant chosenOne = unchosenRestaurants.get(0);
-        unchosenRestaurants.remove(0);
-        chosenRestaurants.add(chosenOne);
-        return chosenOne;
-    }
-
-    private void resetList() {
-        unchosenRestaurants.addAll(chosenRestaurants);
-        Collections.shuffle(unchosenRestaurants);
-        chosenRestaurants.clear();
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
     }
 }
