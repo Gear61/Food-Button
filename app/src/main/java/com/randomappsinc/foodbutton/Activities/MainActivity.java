@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         Intent intent = null;
         switch (position) {
             case 0:
-                intent = new Intent(this, SettingsActivity.class);
+                intent = new Intent(this, FavoritesActivity.class);
                 break;
             case 1:
                 intent = new Intent(this, EditLocationsActivity.class);

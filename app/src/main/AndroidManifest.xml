@@ -40,5 +40,10 @@
             android:label="@string/my_locations"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".Activities.FavoritesActivity"
+            android:label="@string/favorites"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 </manifest>

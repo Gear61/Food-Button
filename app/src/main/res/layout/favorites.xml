@@ -6,18 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/no_locations"
-        android:padding="@dimen/default_margin"
-        android:layout_marginTop="75dp"
-        android:text="@string/no_locations"
-        android:textSize="24sp"
+    <com.joanzapata.iconify.widget.IconTextView
+        android:id="@+id/no_favorites"
+        android:padding="50dp"
+        android:text="@string/no_favorites"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"/>
 
     <ListView
-        android:id="@+id/locations"
+        android:id="@+id/favorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

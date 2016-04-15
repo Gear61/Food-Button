@@ -14,8 +14,8 @@ import butterknife.ButterKnife;
  * Created by alexanderchiou on 4/5/16.
  */
 public class EditLocationsActivity extends StandardActivity{
-    @Bind(R.id.locations) ListView configs;
-    @Bind(R.id.no_locations) View noConfigs;
+    @Bind(R.id.locations) ListView locations;
+    @Bind(R.id.no_locations) View noLocations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,6 @@ public class EditLocationsActivity extends StandardActivity{
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        configs.setAdapter(new LocationsAdapter(this, noConfigs));
+        locations.setAdapter(new LocationsAdapter(this, noLocations));
     }
 }

@@ -3,7 +3,11 @@ package com.randomappsinc.foodbutton.Persistence;
 import android.content.Context;
 
 import com.randomappsinc.foodbutton.Restaurant.Restaurant;
+import com.randomappsinc.foodbutton.Restaurant.RestaurantUtils;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -61,5 +65,16 @@ public class DatabaseManager {
         return realm.where(RestaurantDO.class)
                 .equalTo("yelpId", restaurant.getYelpId())
                 .findFirst() != null;
+    }
+
+    public List<Restaurant> getFavorites() {
+        List<Restaurant> restaurants = new ArrayList<>();
+
+        List<RestaurantDO> restaurantDOs = realm.where(RestaurantDO.class).findAll();
+        for (RestaurantDO restaurantDO : restaurantDOs) {
+            restaurants.add(RestaurantUtils.extractFromDO(restaurantDO));
+        }
+
+        return restaurants;
     }
 }

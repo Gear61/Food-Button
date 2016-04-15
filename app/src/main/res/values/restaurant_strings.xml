@@ -26,4 +26,9 @@
         \n\n3. Click the restaurant\'s phone number to give it a call.
         \n\nHappy eating!
     </string>
+
+    <string name="no_favorites">
+        If you see a restaurant you like, click on the {ion-android-star-outline},
+        and Food Button will save it here for you.
+    </string>
 </resources>
