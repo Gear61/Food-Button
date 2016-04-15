@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <com.joanzapata.iconify.widget.IconTextView
-        android:id="@+id/settings_icon"
+        android:id="@+id/item_icon"
         android:gravity="center"
         android:layout_width="25dp"
         android:layout_height="25dp"
@@ -16,7 +16,7 @@
         android:layout_gravity="center_vertical"/>
 
     <TextView
-        android:id="@+id/settings_option"
+        android:id="@+id/item_name"
         android:textSize="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

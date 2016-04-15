@@ -1,72 +1,82 @@
 package com.randomappsinc.foodbutton.Activities;
 
-import android.Manifest;
+import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
-import com.randomappsinc.foodbutton.API.RestClient;
-import com.randomappsinc.foodbutton.API.SearchCallback;
+import com.randomappsinc.foodbutton.Fragments.FoodButtonFragment;
+import com.randomappsinc.foodbutton.Fragments.NavigationDrawerFragment;
 import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Utils.LocationUtils;
-import com.randomappsinc.foodbutton.Utils.PermissionUtils;
 import com.randomappsinc.foodbutton.Utils.PreferencesManager;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends StandardActivity {
-    public static final int LOCATION_REQUEST_CODE = 1;
-
+public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
     @Bind(R.id.parent) View parent;
-    @Bind(R.id.food_button) FloatingActionButton foodButton;
-
-    private MaterialDialog fetchingSuggestion;
+    @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadLayout(getResources().getConfiguration().orientation);
-        EventBus.getDefault().register(this);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        fetchingSuggestion = new MaterialDialog.Builder(this)
-                .content(R.string.finding_you_food)
-                .progress(true, 0)
-                .cancelable(false)
-                .build();
+        NavigationDrawerFragment mNavigationDrawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
+        mNavigationDrawerFragment.setUp(R.id.navigation_drawer, drawerLayout);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FoodButtonFragment foodButtonFragment = new FoodButtonFragment();
+        fragmentManager.beginTransaction().replace(R.id.container, foodButtonFragment).commit();
 
         if (PreferencesManager.get().shouldAskToRate()) {
             showPleaseRateDialog();
         }
     }
 
-    private void loadLayout(int currentOrientation) {
-        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setContentView(R.layout.activity_main_landscape);
-        } else if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            setContentView(R.layout.activity_main_portrait);
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_right_out, R.anim.slide_right_in);
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+        Intent intent = null;
+        switch (position) {
+            case 0:
+                intent = new Intent(this, SettingsActivity.class);
+                break;
+            case 1:
+                intent = new Intent(this, EditLocationsActivity.class);
+                break;
+            case 2:
+                intent = new Intent(this, SettingsActivity.class);
         }
-        ButterKnife.bind(this);
-        foodButton.setImageDrawable(new IconDrawable(this, IoniconsIcons.ion_android_restaurant)
-                .colorRes(R.color.white));
+        startActivity(intent);
+    }
+
+    public void showSnackbar(String message) {
+        UIUtils.showSnackbar(parent, message);
     }
 
     private void showPleaseRateDialog() {
@@ -77,64 +87,13 @@ public class MainActivity extends StandardActivity {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+                        Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                         if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
                             UIUtils.showSnackbar(parent, getString(R.string.play_store_error));
                             return;
                         }
                         startActivity(intent);
-                    }
-                })
-                .show();
-    }
-
-    @OnClick(R.id.food_button)
-    public void findFood() {
-        foodButton.setEnabled(false);
-        if (PermissionUtils.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            String defaultLocation = PreferencesManager.get().getDefaultLocation();
-            if (defaultLocation.equals(getString(R.string.automatic))) {
-                String currentLocation = LocationUtils.getCurrentAddress();
-                if (currentLocation.isEmpty()) {
-                    new MaterialDialog.Builder(this)
-                            .content(R.string.auto_location_fail)
-                            .positiveText(android.R.string.yes)
-                            .show();
-                } else {
-                    fetchSuggestions(currentLocation);
-                }
-            } else {
-                fetchSuggestions(defaultLocation);
-            }
-        } else {
-            PermissionUtils.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, LOCATION_REQUEST_CODE);
-        }
-        foodButton.setEnabled(true);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case LOCATION_REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    findFood();
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    private void showLocationServicesDialog() {
-        new MaterialDialog.Builder(this)
-                .content(R.string.location_services_needed)
-                .negativeText(android.R.string.cancel)
-                .positiveText(android.R.string.yes)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
                 .show();
@@ -175,7 +134,7 @@ public class MainActivity extends StandardActivity {
                         String currentInput = input.toString().trim();
                         dialog.getActionButton(DialogAction.POSITIVE)
                                 .setEnabled(!PreferencesManager.get().alreadyHasLocation(input.toString().trim())
-                                && !currentInput.isEmpty());
+                                        && !currentInput.isEmpty());
                     }
                 })
                 .alwaysCallInputCallback()
@@ -192,47 +151,10 @@ public class MainActivity extends StandardActivity {
                 .show();
     }
 
-    public void fetchSuggestions(String location) {
-        fetchingSuggestion.show();
-        RestClient.get().getYelpService()
-                .doSearch(ApiUtils.getSearchQueryMap(location))
-                .enqueue(new SearchCallback(1, location));
-    }
-
-    @Subscribe
-    public void onEvent(String event) {
-        fetchingSuggestion.dismiss();
-        switch (event) {
-            case SearchCallback.RESTAURANTS_FETCHED:
-                Intent loadRestaurant = new Intent(this, RestaurantActivity.class);
-                loadRestaurant.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(loadRestaurant);
-                break;
-            case SearchCallback.NO_RESTAURANTS:
-                UIUtils.showSnackbar(parent, getString(R.string.no_restaurants));
-                break;
-            case SearchCallback.SEARCH_FAIL:
-                UIUtils.showSnackbar(parent, getString(R.string.search_fail));
-        }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        loadLayout(newConfig.orientation);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         UIUtils.loadMenuIcon(menu, R.id.set_default_location, IoniconsIcons.ion_android_map);
-        UIUtils.loadMenuIcon(menu, R.id.settings, IoniconsIcons.ion_android_settings);
         return true;
     }
 
@@ -240,10 +162,8 @@ public class MainActivity extends StandardActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.set_default_location:
+                drawerLayout.closeDrawers();
                 chooseDefaultLocation();
-                return true;
-            case R.id.settings:
-                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

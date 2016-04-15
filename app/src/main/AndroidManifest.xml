@@ -27,18 +27,18 @@
         <activity
             android:name=".Activities.RestaurantActivity"
             android:label="@string/restaurant_view"
-            android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Activities.SettingsActivity"
             android:label="@string/settings"
-            android:configChanges="orientation|screenSize">
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Activities.EditLocationsActivity"
-            android:label="@string/edit_saved_locations_title"
-            android:configChanges="orientation|screenSize">
+            android:label="@string/my_locations"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 </manifest>

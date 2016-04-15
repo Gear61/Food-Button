@@ -6,10 +6,5 @@
     <item
         android:id="@+id/set_default_location"
         android:title="@string/set_default_location"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/settings"
-        android:title="@string/settings"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 </menu>

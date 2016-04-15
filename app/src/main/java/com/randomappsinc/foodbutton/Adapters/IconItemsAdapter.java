@@ -14,59 +14,58 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by alexanderchiou on 3/27/16.
+ * Created by alexanderchiou on 4/14/16.
  */
-public class SettingsAdapter extends BaseAdapter {
-    private String[] options;
-    private String[] icons;
+public class IconItemsAdapter extends BaseAdapter {
     private Context context;
+    private String[] itemNames;
+    private String[] itemIcons;
 
-    public SettingsAdapter(Context context) {
+    public IconItemsAdapter(Context context, int optionIds, int iconIds) {
         this.context = context;
-        this.options = context.getResources().getStringArray(R.array.settings_options);
-        this.icons = context.getResources().getStringArray(R.array.settings_icons);
+        this.itemNames = context.getResources().getStringArray(optionIds);
+        this.itemIcons = context.getResources().getStringArray(iconIds);
     }
 
     @Override
     public int getCount() {
-        return options.length;
+        return itemNames.length;
     }
 
     @Override
     public String getItem(int position) {
-        return options[position];
+        return itemNames[position];
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
-    public class SettingsViewHolder {
-        @Bind(R.id.settings_icon)
-        IconTextView icon;
-        @Bind(R.id.settings_option)
-        TextView option;
+    public class IconItemViewHolder {
+        @Bind(R.id.item_icon) IconTextView itemIcon;
+        @Bind(R.id.item_name) TextView itemName;
 
-        public SettingsViewHolder(View view) {
+        public IconItemViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
 
-    @Override
     public View getView(int position, View view, ViewGroup parent) {
-        SettingsViewHolder holder;
+        IconItemViewHolder holder;
         if (view == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = vi.inflate(R.layout.settings_list_item, parent, false);
-            holder = new SettingsViewHolder(view);
+            view = vi.inflate(R.layout.icon_item_cell, parent, false);
+            holder = new IconItemViewHolder(view);
             view.setTag(holder);
         }
         else {
-            holder = (SettingsViewHolder) view.getTag();
+            holder = (IconItemViewHolder) view.getTag();
         }
-        holder.icon.setText(icons[position]);
-        holder.option.setText(options[position]);
+
+        holder.itemName.setText(itemNames[position]);
+        holder.itemIcon.setText(itemIcons[position]);
+
         return view;
     }
 }
