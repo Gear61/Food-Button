@@ -89,11 +89,9 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
-                            UIUtils.showSnackbar(parent, getString(R.string.play_store_error));
-                            return;
+                        if (getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
+                            startActivity(intent);
                         }
-                        startActivity(intent);
                     }
                 })
                 .show();

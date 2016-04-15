@@ -3,12 +3,10 @@ package com.randomappsinc.foodbutton.Activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
 
 import com.randomappsinc.foodbutton.Adapters.IconItemsAdapter;
 import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import butterknife.Bind;
 import butterknife.BindString;
@@ -22,9 +20,7 @@ public class SettingsActivity extends StandardActivity {
     public static final String SUPPORT_EMAIL = "chessnone@gmail.com";
     public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/dev?id=9093438553713389916";
 
-    @Bind(R.id.parent) View parent;
     @Bind(R.id.settings_options) ListView settingsOptions;
-    @BindString(R.string.play_store_error) String playStoreError;
     @BindString(R.string.feedback_subject) String feedbackSubject;
     @BindString(R.string.send_email) String sendEmail;
 
@@ -60,7 +56,6 @@ public class SettingsActivity extends StandardActivity {
                 Uri uri =  Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
                 intent = new Intent(Intent.ACTION_VIEW, uri);
                 if (!(getPackageManager().queryIntentActivities(intent, 0).size() > 0)) {
-                    UIUtils.showSnackbar(parent, playStoreError);
                     return;
                 }
                 break;

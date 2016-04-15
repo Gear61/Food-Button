@@ -8,7 +8,6 @@
         <item>@string/my_other_apps</item>
         <item>@string/rate_this_app</item>
     </array>
-    <string name="play_store_error">Unable to open the Play Store.</string>
     <string name="feedback_subject">Food Button Feedback</string>
     <string name="send_email">Send email</string>
 
