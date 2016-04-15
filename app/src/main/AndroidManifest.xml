@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.RestaurantActivity"
+            android:name=".Activities.SuggestionsActivity"
             android:label="@string/restaurant_view"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
@@ -43,6 +43,11 @@
         <activity
             android:name=".Activities.FavoritesActivity"
             android:label="@string/favorites"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".Activities.RestaurantActivity"
+            android:label="@string/restaurant_view"
             android:screenOrientation="portrait">
         </activity>
     </application>

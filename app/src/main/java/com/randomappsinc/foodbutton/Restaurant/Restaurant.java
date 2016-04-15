@@ -158,16 +158,18 @@ public class Restaurant implements Parcelable {
     }
 
     protected Restaurant(Parcel in) {
+        yelpId = in.readString();
         mobileUrl = in.readString();
         name = in.readString();
         if (in.readByte() == 0x01) {
-            categories = new ArrayList<>();
+            categories = new ArrayList<String>();
             in.readList(categories, String.class.getClassLoader());
         } else {
             categories = null;
         }
         phoneNumber = in.readString();
         imageUrl = in.readString();
+        city = in.readString();
         address = in.readString();
         rating = in.readFloat();
         numReviews = in.readInt();
@@ -180,6 +182,7 @@ public class Restaurant implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(yelpId);
         dest.writeString(mobileUrl);
         dest.writeString(name);
         if (categories == null) {
@@ -190,6 +193,7 @@ public class Restaurant implements Parcelable {
         }
         dest.writeString(phoneNumber);
         dest.writeString(imageUrl);
+        dest.writeString(city);
         dest.writeString(address);
         dest.writeFloat(rating);
         dest.writeInt(numReviews);

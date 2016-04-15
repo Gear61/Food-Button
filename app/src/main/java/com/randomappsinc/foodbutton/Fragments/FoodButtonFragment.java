@@ -20,7 +20,7 @@ import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
 import com.randomappsinc.foodbutton.API.RestClient;
 import com.randomappsinc.foodbutton.API.SearchCallback;
 import com.randomappsinc.foodbutton.Activities.MainActivity;
-import com.randomappsinc.foodbutton.Activities.RestaurantActivity;
+import com.randomappsinc.foodbutton.Activities.SuggestionsActivity;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.LocationUtils;
@@ -134,7 +134,7 @@ public class FoodButtonFragment extends Fragment {
         fetchingSuggestion.dismiss();
         switch (event) {
             case SearchCallback.RESTAURANTS_FETCHED:
-                Intent loadRestaurant = new Intent(getActivity(), RestaurantActivity.class);
+                Intent loadRestaurant = new Intent(getActivity(), SuggestionsActivity.class);
                 loadRestaurant.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 getActivity().startActivity(loadRestaurant);
                 break;
