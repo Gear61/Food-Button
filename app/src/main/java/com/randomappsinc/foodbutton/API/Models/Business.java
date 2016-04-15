@@ -15,6 +15,10 @@ public class Business {
     public static final String NO_PHONE_NUMBER = "No phone number provided";
     public static final String NO_ADDRESS = "No address provided";
 
+    @SerializedName("id")
+    @Expose
+    private String yelpId;
+
     @SerializedName("mobile_url")
     @Expose
     private String mobileUrl;
@@ -57,6 +61,7 @@ public class Business {
 
     public Restaurant toRestaurant() {
         Restaurant restaurant = new Restaurant();
+        restaurant.setYelpId(yelpId);
         restaurant.setMobileUrl(mobileUrl);
         restaurant.setName(name);
 
@@ -73,6 +78,7 @@ public class Business {
         restaurant.setPhoneNumber(phoneNumber == null ? NO_PHONE_NUMBER : phoneNumber);
         restaurant.setImageUrl(imageUrl);
 
+        restaurant.setCity(location.getCity());
         List<String> displayAddress = location.getDisplayAddress();
         if (displayAddress != null) {
             StringBuilder addressText = new StringBuilder();
@@ -98,9 +104,17 @@ public class Business {
     }
 
     public class Location {
+        @SerializedName("city")
+        @Expose
+        private String city;
+
         @SerializedName("display_address")
         @Expose
         private List<String> displayAddress = new ArrayList<>();
+
+        public String getCity() {
+            return city;
+        }
 
         public List<String> getDisplayAddress() {
             return displayAddress;

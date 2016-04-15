@@ -1,9 +1,10 @@
-package com.randomappsinc.foodbutton.Utils;
+package com.randomappsinc.foodbutton.Persistence;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.randomappsinc.foodbutton.R;
+import com.randomappsinc.foodbutton.Utils.MyApplication;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -21,10 +21,10 @@ import com.randomappsinc.foodbutton.API.RestClient;
 import com.randomappsinc.foodbutton.API.SearchCallback;
 import com.randomappsinc.foodbutton.Activities.MainActivity;
 import com.randomappsinc.foodbutton.Activities.RestaurantActivity;
+import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.LocationUtils;
 import com.randomappsinc.foodbutton.Utils.PermissionUtils;
-import com.randomappsinc.foodbutton.Utils.PreferencesManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

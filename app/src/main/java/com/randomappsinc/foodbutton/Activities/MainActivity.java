@@ -16,8 +16,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Fragments.FoodButtonFragment;
 import com.randomappsinc.foodbutton.Fragments.NavigationDrawerFragment;
+import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Utils.PreferencesManager;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import butterknife.Bind;

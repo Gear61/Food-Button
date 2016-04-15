@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.randomappsinc.foodbutton.API.Models.Business;
+import com.randomappsinc.foodbutton.Persistence.CategoryDO;
+import com.randomappsinc.foodbutton.Persistence.RestaurantDO;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
@@ -11,20 +13,32 @@ import com.randomappsinc.foodbutton.Utils.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.RealmList;
+
 /**
  * Created by alexanderchiou on 3/27/16.
  */
 public class Restaurant implements Parcelable {
+    private String yelpId;
     private String mobileUrl;
     private String name;
     private List<String> categories;
     private String phoneNumber;
     private String imageUrl;
+    private String city;
     private String address;
     private float rating;
     private int numReviews;
 
     public Restaurant() {}
+
+    public String getYelpId() {
+        return yelpId;
+    }
+
+    public void setYelpId(String yelpId) {
+        this.yelpId = yelpId;
+    }
 
     public String getMobileUrl() {
         return mobileUrl;
@@ -73,6 +87,10 @@ public class Restaurant implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -114,6 +132,29 @@ public class Restaurant implements Parcelable {
         }
 
         return shareText.toString();
+    }
+
+    public RestaurantDO toRestaurantDO() {
+        RestaurantDO restaurantDO = new RestaurantDO();
+        restaurantDO.setYelpId(yelpId);
+        restaurantDO.setMobileUrl(mobileUrl);
+        restaurantDO.setName(name);
+
+        RealmList<CategoryDO> categoryDOs = new RealmList<>();
+        for (String category : categories) {
+            CategoryDO categoryDO = new CategoryDO();
+            categoryDO.setCategory(category);
+            categoryDOs.add(categoryDO);
+        }
+        restaurantDO.setCategories(categoryDOs);
+
+        restaurantDO.setPhoneNumber(phoneNumber);
+        restaurantDO.setImageUrl(imageUrl);
+        restaurantDO.setCity(city);
+        restaurantDO.setAddress(address);
+        restaurantDO.setRating(rating);
+        restaurantDO.setNumReviews(numReviews);
+        return restaurantDO;
     }
 
     protected Restaurant(Parcel in) {

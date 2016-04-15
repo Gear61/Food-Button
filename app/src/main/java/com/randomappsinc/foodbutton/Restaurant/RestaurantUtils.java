@@ -2,8 +2,11 @@ package com.randomappsinc.foodbutton.Restaurant;
 
 import android.widget.ImageView;
 
+import com.randomappsinc.foodbutton.Persistence.CategoryDO;
+import com.randomappsinc.foodbutton.Persistence.RestaurantDO;
 import com.randomappsinc.foodbutton.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,5 +73,28 @@ public class RestaurantUtils {
             return R.drawable.half_star_3;
         }
         return R.drawable.half_star_4;
+    }
+
+    public static Restaurant extractFromDO(RestaurantDO restaurantDO) {
+        Restaurant restaurant = new Restaurant();
+
+        restaurant.setYelpId(restaurantDO.getYelpId());
+        restaurant.setMobileUrl(restaurantDO.getMobileUrl());
+        restaurant.setName(restaurantDO.getName());
+
+        List<String> categories = new ArrayList<>();
+        for (CategoryDO categoryDO : restaurantDO.getCategories()) {
+            categories.add(categoryDO.getCategory());
+        }
+        restaurant.setCategories(categories);
+
+        restaurant.setPhoneNumber(restaurantDO.getPhoneNumber());
+        restaurant.setImageUrl(restaurantDO.getImageUrl());
+        restaurant.setCity(restaurantDO.getCity());
+        restaurant.setAddress(restaurantDO.getAddress());
+        restaurant.setRating(restaurantDO.getRating());
+        restaurant.setNumReviews(restaurantDO.getNumReviews());
+
+        return restaurant;
     }
 }

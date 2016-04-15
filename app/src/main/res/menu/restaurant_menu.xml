@@ -4,6 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/favorite_restaurant"
+        android:title="@string/favorite_restaurant"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/share_restaurant"
         android:title="@string/share_restaurant"
         app:showAsAction="ifRoom"/>

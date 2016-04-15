@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Utils.PreferencesManager;
 
 import java.util.Collections;
 import java.util.List;
