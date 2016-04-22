@@ -85,6 +85,9 @@ public class PreferencesManager {
     }
 
     public void changeSavedLocation(String oldLocation, String newLocation) {
+        if (oldLocation.equals(getDefaultLocation())) {
+            setDefaultLocation(newLocation);
+        }
         removeSavedLocation(oldLocation);
         addSavedLocation(newLocation);
     }
