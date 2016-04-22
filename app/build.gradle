@@ -9,8 +9,8 @@ android {
         applicationId "com.randomappsinc.foodbutton"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 201
-        versionName "2.0.1"
+        versionCode 210
+        versionName "2.1.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -41,4 +41,5 @@ dependencies {
     compile 'com.joanzapata.iconify:android-iconify-ionicons:2.2.1'
     compile 'com.github.rey5137:material:1.2.2'
     compile 'com.android.support:support-v13:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
 }

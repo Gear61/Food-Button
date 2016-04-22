@@ -38,6 +38,7 @@
         <activity
             android:name=".Activities.EditLocationsActivity"
             android:label="@string/my_locations"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
         </activity>
         <activity

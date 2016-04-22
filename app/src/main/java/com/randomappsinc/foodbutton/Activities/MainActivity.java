@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                         })
                 .positiveText(R.string.choose)
                 .negativeText(android.R.string.cancel)
-                .neutralText(R.string.add_location)
+                .neutralText(R.string.add_location_title)
                 .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

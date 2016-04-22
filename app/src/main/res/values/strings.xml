@@ -26,9 +26,7 @@
     <string name="default_instructions">Your default location is where the Food Button searches for restaurants.</string>
     <string name="automatic">Automatic</string>
     <string name="choose">Choose</string>
-    <string name="add_location">Add location</string>
     <string name="add_location_title">Add Location</string>
-    <string name="location_added">Location added.</string>
     <string name="location">Location</string>
     <string name="add">Add</string>
 

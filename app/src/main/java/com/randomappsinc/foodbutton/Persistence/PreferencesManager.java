@@ -74,6 +74,10 @@ public class PreferencesManager {
     }
 
     public void removeSavedLocation(String location) {
+        if (location.equals(getDefaultLocation())) {
+            prefs.edit().remove(DEFAULT_LOCATION_KEY).apply();
+        }
+
         Set<String> savedLocations = getSavedLocations();
         prefs.edit().remove(SAVED_LOCATIONS_KEY).apply();
         savedLocations.remove(location);

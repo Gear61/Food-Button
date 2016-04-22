@@ -12,6 +12,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
+import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,13 +28,13 @@ public class LocationsAdapter extends BaseAdapter {
     private Context context;
     private List<String> content;
     private View noContent;
-    private String locationHint;
+    private View parent;
 
-    public LocationsAdapter(Context context, View noContent) {
+    public LocationsAdapter(Context context, View noContent, View parent) {
         this.context = context;
         this.content = PreferencesManager.get().getUserLocations();
         this.noContent = noContent;
-        this.locationHint = context.getString(R.string.location);
+        this.parent = parent;
         setNoContent();
     }
 
@@ -42,11 +43,21 @@ public class LocationsAdapter extends BaseAdapter {
         noContent.setVisibility(viewVisibility);
     }
 
+    public void addLocation(String location) {
+        PreferencesManager.get().addSavedLocation(location);
+        content.add(location);
+        Collections.sort(content);
+        notifyDataSetChanged();
+        setNoContent();
+        UIUtils.showSnackbar(parent, context.getString(R.string.location_added));
+    }
+
     public void removeLocation(int index) {
         PreferencesManager.get().removeSavedLocation(getItem(index));
         content.remove(index);
         notifyDataSetChanged();
         setNoContent();
+        UIUtils.showSnackbar(parent, context.getString(R.string.location_deleted));
     }
 
     public void changeLocation(int position, String newLocation) {
@@ -55,6 +66,7 @@ public class LocationsAdapter extends BaseAdapter {
         content.set(position, newLocation);
         Collections.sort(content);
         notifyDataSetChanged();
+        UIUtils.showSnackbar(parent, context.getString(R.string.location_changed));
     }
 
     public void showDeleteDialog(final int position) {
@@ -77,8 +89,8 @@ public class LocationsAdapter extends BaseAdapter {
 
     public void showRenameDialog(final int position) {
         new MaterialDialog.Builder(context)
-                .title(R.string.change_location)
-                .input(locationHint, getItem(position), new MaterialDialog.InputCallback() {
+                .title(R.string.change_location_title)
+                .input(context.getString(R.string.location), getItem(position), new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         boolean submitEnabled = !(input.toString().trim().isEmpty()
@@ -111,17 +123,31 @@ public class LocationsAdapter extends BaseAdapter {
 
         public void loadLocation(int position) {
             this.position = position;
-            locationText.setText(getItem(position));
+            this.locationText.setText(getItem(position));
         }
 
-        @OnClick(R.id.edit_icon)
-        public void editLocation() {
-            showRenameDialog(position);
-        }
-
-        @OnClick(R.id.delete_icon)
-        public void deleteLocation() {
-            showDeleteDialog(position);
+        @OnClick(R.id.list_icon)
+        public void showLocationOptions() {
+            new MaterialDialog.Builder(context)
+                    .title(getItem(position))
+                    .items(context.getResources().getStringArray(R.array.location_options))
+                    .itemsCallback(new MaterialDialog.ListCallback() {
+                        @Override
+                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            switch (which) {
+                                case 0:
+                                    PreferencesManager.get().setDefaultLocation(getItem(position));
+                                    UIUtils.showSnackbar(parent, context.getString(R.string.default_location_set));
+                                    break;
+                                case 1:
+                                    showRenameDialog(position);
+                                    break;
+                                case 2:
+                                    showDeleteDialog(position);
+                            }
+                        }
+                    })
+                    .show();
         }
     }
 
@@ -148,8 +174,7 @@ public class LocationsAdapter extends BaseAdapter {
             view = vi.inflate(R.layout.location_cell, parent, false);
             holder = new LocationViewHolder(view);
             view.setTag(holder);
-        }
-        else {
+        } else {
             holder = (LocationViewHolder) view.getTag();
         }
         holder.loadLocation(position);

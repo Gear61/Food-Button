@@ -19,13 +19,4 @@
         <item>@string/android_icon</item>
         <item>@string/rate_icon</item>
     </array>
-
-    <!-- Edit locations -->
-    <string name="no_locations">You don\'t have any saved locations.</string>
-    <string name="delete_title">Confirm Location Deletion</string>
-    <string name="location_delete_confirmation">Are you sure you want to delete the location:&#160;</string>
-    <string name="change_location">Change Location</string>
-
-    <string name="delete_icon">{ion-android-cancel}</string>
-    <string name="edit_icon">{ion-edit}</string>
 </resources>
