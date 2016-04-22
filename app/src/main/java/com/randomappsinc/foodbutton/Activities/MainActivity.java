@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 intent = new Intent(this, FavoritesActivity.class);
                 break;
             case 1:
-                intent = new Intent(this, EditLocationsActivity.class);
+                intent = new Intent(this, MyLocationsActivity.class);
                 break;
             case 2:
                 intent = new Intent(this, SettingsActivity.class);
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         String newLocation = dialog.getInputEditText().getText().toString();
                         PreferencesManager.get().addSavedLocation(newLocation);
-                        UIUtils.showSnackbar(parent, getString(R.string.location_added));
+                        UIUtils.showAddedSnackbar(newLocation, parent);
                     }
                 })
                 .show();

@@ -49,7 +49,7 @@ public class LocationsAdapter extends BaseAdapter {
         Collections.sort(content);
         notifyDataSetChanged();
         setNoContent();
-        UIUtils.showSnackbar(parent, context.getString(R.string.location_added));
+        UIUtils.showAddedSnackbar(location, parent);
     }
 
     public void removeLocation(int index) {

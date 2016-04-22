@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.joanzapata.iconify.Icon;
 import com.joanzapata.iconify.IconDrawable;
+import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 
 /**
@@ -62,5 +63,23 @@ public class UIUtils {
             String numberPart2 = phoneNumber.substring(6, 10);
             return areaCode + numberPart1 + numberPart2;
         }
+    }
+
+    public static void showAddedSnackbar(final String location, final View parent) {
+        final Context context = MyApplication.getAppContext();
+        Snackbar snackbar = Snackbar.make(parent, context.getString(R.string.location_added), Snackbar.LENGTH_INDEFINITE);
+        View rootView = snackbar.getView();
+        snackbar.getView().setBackgroundColor(context.getResources().getColor(R.color.app_red));
+        TextView tv = (TextView) rootView.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(Color.WHITE);
+        snackbar.setActionTextColor(Color.WHITE);
+        snackbar.setAction(android.R.string.yes, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PreferencesManager.get().setDefaultLocation(location);
+                showSnackbar(parent, context.getString(R.string.default_location_set));
+            }
+        });
+        snackbar.show();
     }
 }

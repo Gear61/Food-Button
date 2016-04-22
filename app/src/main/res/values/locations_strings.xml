@@ -8,7 +8,7 @@
 
     <string name="list_icon">{ion-android-list}</string>
 
-    <string name="location_added">Location added.</string>
+    <string name="location_added">Location added. Would you like to set it as your default location?</string>
     <string name="location_deleted">Location deleted.</string>
     <string name="location_changed">Location changed.</string>
 

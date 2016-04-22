@@ -40,7 +40,7 @@ public class SettingsActivity extends StandardActivity {
         Intent intent = null;
         switch (position) {
             case 0:
-                intent = new Intent(this, EditLocationsActivity.class);
+                intent = new Intent(this, MyLocationsActivity.class);
                 break;
             case 1:
                 String uriText = "mailto:" + SUPPORT_EMAIL + "?subject=" + Uri.encode(feedbackSubject);

@@ -20,7 +20,7 @@ import butterknife.OnClick;
 /**
  * Created by alexanderchiou on 4/5/16.
  */
-public class EditLocationsActivity extends StandardActivity {
+public class MyLocationsActivity extends StandardActivity {
     @Bind(R.id.parent) View parent;
     @Bind(R.id.location_input) EditText locationInput;
     @Bind(R.id.plus_icon) ImageView plusIcon;
@@ -44,6 +44,7 @@ public class EditLocationsActivity extends StandardActivity {
 
     @OnClick(R.id.add_location)
     public void addLocation() {
+        UIUtils.hideKeyboard(this);
         String location = locationInput.getText().toString();
         locationInput.setText("");
         if (location.isEmpty()) {

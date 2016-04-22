@@ -36,7 +36,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".Activities.EditLocationsActivity"
+            android:name=".Activities.MyLocationsActivity"
             android:label="@string/my_locations"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:screenOrientation="portrait">
