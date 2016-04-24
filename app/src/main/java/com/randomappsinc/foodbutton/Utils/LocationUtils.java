@@ -6,7 +6,11 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 
+import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
+import com.randomappsinc.foodbutton.R;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,5 +50,16 @@ public class LocationUtils {
         boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         return gpsEnabled || networkEnabled;
+    }
+
+    public static String[] getLocationOptions(String location) {
+        Context context = MyApplication.getAppContext();
+        List<String> options = new ArrayList<>();
+        if (!location.equals(PreferencesManager.get().getDefaultLocation())) {
+            options.add(context.getString(R.string.set_as_default));
+        }
+        options.add(context.getString(R.string.change_location));
+        options.add(context.getString(R.string.delete_location));
+        return options.toArray(new String[options.size()]);
     }
 }

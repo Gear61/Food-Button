@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         String newLocation = dialog.getInputEditText().getText().toString();
                         PreferencesManager.get().addSavedLocation(newLocation);
-                        UIUtils.showAddedSnackbar(newLocation, parent);
+                        UIUtils.showAddedSnackbar(newLocation, parent, null);
                     }
                 })
                 .show();

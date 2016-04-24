@@ -12,6 +12,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
+import com.randomappsinc.foodbutton.Utils.LocationUtils;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import java.util.Collections;
@@ -49,7 +50,7 @@ public class LocationsAdapter extends BaseAdapter {
         Collections.sort(content);
         notifyDataSetChanged();
         setNoContent();
-        UIUtils.showAddedSnackbar(location, parent);
+        UIUtils.showAddedSnackbar(location, parent, this);
     }
 
     public void removeLocation(int index) {
@@ -114,6 +115,7 @@ public class LocationsAdapter extends BaseAdapter {
 
     public class LocationViewHolder {
         @Bind(R.id.location) TextView locationText;
+        @Bind(R.id.check_icon) View checkIcon;
 
         private int position;
 
@@ -124,26 +126,29 @@ public class LocationsAdapter extends BaseAdapter {
         public void loadLocation(int position) {
             this.position = position;
             this.locationText.setText(getItem(position));
+            if (getItem(position).equals(PreferencesManager.get().getDefaultLocation())) {
+                checkIcon.setAlpha(1);
+            } else {
+                checkIcon.setAlpha(0);
+            }
         }
 
         @OnClick(R.id.list_icon)
         public void showLocationOptions() {
             new MaterialDialog.Builder(context)
                     .title(getItem(position))
-                    .items(context.getResources().getStringArray(R.array.location_options))
+                    .items(LocationUtils.getLocationOptions(getItem(position)))
                     .itemsCallback(new MaterialDialog.ListCallback() {
                         @Override
                         public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            switch (which) {
-                                case 0:
-                                    PreferencesManager.get().setDefaultLocation(getItem(position));
-                                    UIUtils.showSnackbar(parent, context.getString(R.string.default_location_set));
-                                    break;
-                                case 1:
-                                    showRenameDialog(position);
-                                    break;
-                                case 2:
-                                    showDeleteDialog(position);
+                            if (text.toString().equals(context.getString(R.string.set_as_default))) {
+                                PreferencesManager.get().setDefaultLocation(getItem(position));
+                                notifyDataSetChanged();
+                                UIUtils.showSnackbar(parent, context.getString(R.string.default_location_set));
+                            } else if (text.toString().equals(context.getString(R.string.change_location))) {
+                                showRenameDialog(position);
+                            } else if (text.toString().equals(context.getString(R.string.delete_location))) {
+                                showDeleteDialog(position);
                             }
                         }
                     })

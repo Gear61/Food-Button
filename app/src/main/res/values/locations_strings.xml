@@ -6,6 +6,7 @@
     <string name="location_delete_confirmation">Are you sure you want to delete the location:&#160;</string>
     <string name="change_location_title">Change Location</string>
 
+    <string name="check_icon">{ion-checkmark}</string>
     <string name="list_icon">{ion-android-list}</string>
 
     <string name="location_added">Location added. Would you like to set it as your default location?</string>
@@ -18,9 +19,4 @@
     <string name="set_as_default">Set as default location</string>
     <string name="change_location">Change location</string>
     <string name="delete_location">Delete location</string>
-    <string-array name="location_options">
-        <item>@string/set_as_default</item>
-        <item>@string/change_location</item>
-        <item>@string/delete_location</item>
-    </string-array>
 </resources>

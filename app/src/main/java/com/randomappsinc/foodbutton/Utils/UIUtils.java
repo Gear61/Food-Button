@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.Icon;
@@ -65,7 +66,7 @@ public class UIUtils {
         }
     }
 
-    public static void showAddedSnackbar(final String location, final View parent) {
+    public static void showAddedSnackbar(final String location, final View parent, final BaseAdapter adapter) {
         final Context context = MyApplication.getAppContext();
         Snackbar snackbar = Snackbar.make(parent, context.getString(R.string.location_added), Snackbar.LENGTH_INDEFINITE);
         View rootView = snackbar.getView();
@@ -77,6 +78,9 @@ public class UIUtils {
             @Override
             public void onClick(View v) {
                 PreferencesManager.get().setDefaultLocation(location);
+                if (adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
                 showSnackbar(parent, context.getString(R.string.default_location_set));
             }
         });
