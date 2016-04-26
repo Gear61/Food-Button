@@ -14,6 +14,7 @@ import com.randomappsinc.foodbutton.Restaurant.Restaurant;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,6 +42,12 @@ public class FavoritesAdapter extends BaseAdapter {
     public void setNoContent() {
         int viewVisibility = restaurantList.isEmpty() ? View.VISIBLE : View.GONE;
         noFavorites.setVisibility(viewVisibility);
+    }
+
+    public Restaurant getRandomRestaurant() {
+        Random generator = new Random();
+        int randomIndex = generator.nextInt(getCount());
+        return getItem(randomIndex);
     }
 
     public class RestaurantViewHolder {
