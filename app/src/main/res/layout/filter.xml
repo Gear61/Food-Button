@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -65,7 +64,7 @@
                     android:layout_marginBottom="5dp"/>
 
                 <FrameLayout
-                    android:id="@+id/american_container"
+                    android:id="@+id/american"
                     style="@style/category_container">
 
                     <TextView
@@ -78,15 +77,132 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:id="@+id/chinese_container"
+                    android:id="@+id/fast_food"
                     style="@style/category_container">
 
                     <TextView
-                        android:text="@string/chinese"
+                        android:text="@string/fast_food"
                         style="@style/category_text"/>
 
                     <com.rey.material.widget.CheckBox
-                        android:id="@+id/chinese_toggle"
+                        android:id="@+id/fast_food_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/french"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/french"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/french_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/indian"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/indian"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/indian_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/japanese"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/japanese"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/japanese_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/korean"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/korean"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/korean_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/mediterranean"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/mediterranean"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/mediterranean_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/middle_eastern"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/middle_eastern"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/middle_eastern_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/mexican"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/mexican"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/mexican_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/pizza"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/pizza"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/pizza_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/thai"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/thai"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/thai_toggle"
                         style="@style/checkbox_style"/>
                 </FrameLayout>
             </LinearLayout>
