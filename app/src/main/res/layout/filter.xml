@@ -77,6 +77,19 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/chinese"
+                    style="@style/category_container">
+
+                    <TextView
+                        android:text="@string/chinese"
+                        style="@style/category_text"/>
+
+                    <com.rey.material.widget.CheckBox
+                        android:id="@+id/chinese_toggle"
+                        style="@style/checkbox_style"/>
+                </FrameLayout>
+
+                <FrameLayout
                     android:id="@+id/fast_food"
                     style="@style/category_container">
 

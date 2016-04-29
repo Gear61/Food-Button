@@ -29,11 +29,13 @@ public class Filter implements Parcelable {
         return categories;
     }
 
-    public void processCategory(String category, boolean isChecked) {
-        if (isChecked) {
+    public boolean processCategory(String category) {
+        if (!categories.contains(category)) {
             categories.add(category);
+            return true;
         } else {
             categories.remove(category);
+            return false;
         }
     }
 
