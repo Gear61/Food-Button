@@ -5,6 +5,7 @@ import android.util.Base64;
 import com.randomappsinc.foodbutton.API.ApiConstants;
 import com.randomappsinc.foodbutton.API.Models.SearchResponse;
 import com.randomappsinc.foodbutton.API.RestClient;
+import com.randomappsinc.foodbutton.R;
 
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
@@ -90,6 +91,68 @@ public class ApiUtils {
         }
         catch (Exception e) {
             return "";
+        }
+    }
+
+    public static String getCategoryFromId(int categoryId) {
+        switch (categoryId) {
+            case R.id.american:
+                return "newamerican,tradamerican";
+            case R.id.chinese:
+                return "chinese";
+            case R.id.fast_food:
+                return "hotdogs";
+            case R.id.french:
+                return "french";
+            case R.id.indian:
+                return "indpak";
+            case R.id.japanese:
+                return "japanese";
+            case R.id.korean:
+                return "korean";
+            case R.id.mediterranean:
+                return "mediterranean";
+            case R.id.middle_eastern:
+                return "mideastern";
+            case R.id.mexican:
+                return "mexican";
+            case R.id.pizza:
+                return "pizza";
+            case R.id.thai:
+                return "thai";
+            default:
+                return "";
+        }
+    }
+
+    public static int getCheckboxId(int categoryId) {
+        switch (categoryId) {
+            case R.id.american:
+                return R.id.american_toggle;
+            case R.id.chinese:
+                return R.id.chinese_toggle;
+            case R.id.fast_food:
+                return R.id.fast_food_toggle;
+            case R.id.french:
+                return R.id.french_toggle;
+            case R.id.indian:
+                return R.id.indian_toggle;
+            case R.id.japanese:
+                return R.id.japanese_toggle;
+            case R.id.korean:
+                return R.id.korean_toggle;
+            case R.id.mediterranean:
+                return R.id.mediterranean_toggle;
+            case R.id.middle_eastern:
+                return R.id.middle_eastern_toggle;
+            case R.id.mexican:
+                return R.id.mexican_toggle;
+            case R.id.pizza:
+                return R.id.pizza_toggle;
+            case R.id.thai:
+                return R.id.thai_toggle;
+            default:
+                return 0;
         }
     }
 }

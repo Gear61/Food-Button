@@ -38,7 +38,7 @@ public class Filter implements Parcelable {
             return false;
         }
     }
-
+    
     protected Filter(Parcel in) {
         searchTerm = in.readString();
         if (in.readByte() == 0x01) {

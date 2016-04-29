@@ -7,12 +7,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.joanzapata.iconify.fonts.IoniconsIcons;
+import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
 import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 import com.rey.material.widget.CheckBox;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -22,18 +22,9 @@ import butterknife.OnClick;
 public class FilterActivity extends StandardActivity {
     public static String FILTER_KEY = "filter";
 
-    @Bind(R.id.american_toggle) CheckBox americanToggle;
-    @Bind(R.id.chinese_toggle) CheckBox chineseToggle;
-    @Bind(R.id.fast_food_toggle) CheckBox fastFoodToggle;
-    @Bind(R.id.french_toggle) CheckBox frenchToggle;
-    @Bind(R.id.indian_toggle) CheckBox indianToggle;
-    @Bind(R.id.japanese_toggle) CheckBox japaneseToggle;
-    @Bind(R.id.korean_toggle) CheckBox koreanToggle;
-    @Bind(R.id.mediterranean_toggle) CheckBox mediterraneanToggle;
-    @Bind(R.id.middle_eastern_toggle) CheckBox middleEasternToggle;
-    @Bind(R.id.mexican_toggle) CheckBox mexicanToggle;
-    @Bind(R.id.pizza_toggle) CheckBox pizzaToggle;
-    @Bind(R.id.thai_toggle) CheckBox thaiToggle;
+    public static final int[] categoryIds = new int[] {R.id.american, R.id.chinese, R.id.fast_food, R.id.french,
+            R.id.indian, R.id.japanese, R.id.korean, R.id.mediterranean, R.id.middle_eastern,
+            R.id.mexican, R.id.pizza, R.id.thai};
 
     private Filter filter;
 
@@ -45,16 +36,23 @@ public class FilterActivity extends StandardActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         filter = getIntent().getParcelableExtra(FILTER_KEY);
+
+        for (int categoryId : categoryIds) {
+            String category = ApiUtils.getCategoryFromId(categoryId);
+            if (filter.getCategories().contains(category)) {
+                int checkboxId = ApiUtils.getCheckboxId(categoryId);
+                CheckBox checkBox = (CheckBox) findViewById(checkboxId);
+                checkBox.setCheckedImmediately(true);
+            }
+        }
     }
 
     @OnClick({R.id.american, R.id.chinese, R.id.fast_food, R.id.french, R.id.indian, R.id.japanese, R.id.korean,
               R.id.mediterranean, R.id.middle_eastern, R.id.mexican, R.id.pizza, R.id.thai})
     public void categoryClicked (View view) {
-        switch (view.getId()) {
-            case R.id.american:
-                processClick("newamerican,tradamerican", americanToggle);
-                break;
-        }
+        int checkboxId = ApiUtils.getCheckboxId(view.getId());
+        CheckBox checkBox = (CheckBox) findViewById(checkboxId);
+        processClick(ApiUtils.getCategoryFromId(view.getId()), checkBox);
     }
 
     private void processClick(String category, CheckBox checkBox) {
