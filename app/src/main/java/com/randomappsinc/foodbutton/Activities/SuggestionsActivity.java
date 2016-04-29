@@ -10,10 +10,10 @@ import android.view.MenuItem;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Adapters.RestaurantsAdapter;
+import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Restaurant.Restaurant;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import butterknife.Bind;

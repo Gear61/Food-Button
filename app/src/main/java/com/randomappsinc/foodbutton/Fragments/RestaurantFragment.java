@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.randomappsinc.foodbutton.API.Models.Business;
+import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Restaurant.Restaurant;
-import com.randomappsinc.foodbutton.Restaurant.RestaurantUtils;
+import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 import com.squareup.picasso.Picasso;
 

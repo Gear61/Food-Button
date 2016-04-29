@@ -1,4 +1,6 @@
-package com.randomappsinc.foodbutton.Restaurant;
+package com.randomappsinc.foodbutton.Utils;
+
+import com.randomappsinc.foodbutton.Models.Restaurant;
 
 import java.util.ArrayList;
 import java.util.Collections;

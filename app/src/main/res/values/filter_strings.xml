@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filters">Filters</string>
+
+    <string name="apply_filters">Apply filters</string>
+    <string name="clear_filters">Clear filters</string>
+</resources>

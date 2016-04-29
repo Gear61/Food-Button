@@ -1,4 +1,4 @@
-package com.randomappsinc.foodbutton.Restaurant;
+package com.randomappsinc.foodbutton.Models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

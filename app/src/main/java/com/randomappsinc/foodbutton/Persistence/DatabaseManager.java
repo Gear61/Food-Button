@@ -2,9 +2,9 @@ package com.randomappsinc.foodbutton.Persistence;
 
 import android.content.Context;
 
-import com.randomappsinc.foodbutton.Restaurant.Restaurant;
-import com.randomappsinc.foodbutton.Restaurant.RestaurantUtils;
+import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
+import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
 
 import java.util.ArrayList;
 import java.util.List;

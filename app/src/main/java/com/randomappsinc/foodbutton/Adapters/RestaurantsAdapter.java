@@ -5,8 +5,8 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.randomappsinc.foodbutton.Fragments.RestaurantFragment;
-import com.randomappsinc.foodbutton.Restaurant.Restaurant;
-import com.randomappsinc.foodbutton.Restaurant.RestaurantServer;
+import com.randomappsinc.foodbutton.Models.Restaurant;
+import com.randomappsinc.foodbutton.Utils.RestaurantServer;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/filters"
-        android:title="@string/filters"
+        android:id="@+id/apply_filters"
+        android:title="@string/apply_filters"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/set_default_location"
-        android:title="@string/set_default_location"
+        android:id="@+id/clear_filters"
+        android:title="@string/clear_filters"
         app:showAsAction="ifRoom"/>
 </menu>

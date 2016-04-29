@@ -51,5 +51,10 @@
             android:label="@string/restaurant_view"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".Activities.FilterActivity"
+            android:label="@string/filters"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 </manifest>

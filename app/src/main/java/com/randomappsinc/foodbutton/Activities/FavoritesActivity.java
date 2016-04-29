@@ -10,8 +10,8 @@ import android.widget.ListView;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Adapters.FavoritesAdapter;
 import com.randomappsinc.foodbutton.Fragments.RestaurantFragment;
+import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Restaurant.Restaurant;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import butterknife.Bind;

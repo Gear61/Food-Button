@@ -8,9 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Restaurant.Restaurant;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

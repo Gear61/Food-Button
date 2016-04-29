@@ -1,7 +1,8 @@
-package com.randomappsinc.foodbutton.Restaurant;
+package com.randomappsinc.foodbutton.Utils;
 
 import android.widget.ImageView;
 
+import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.CategoryDO;
 import com.randomappsinc.foodbutton.Persistence.RestaurantDO;
 import com.randomappsinc.foodbutton.R;
