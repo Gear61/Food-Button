@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="category_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="category_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="checkbox_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">end|center_vertical</item>
+        <item name="cbd_animDuration">@integer/shorter_anim_length</item>
+        <item name="cbd_strokeColor">@color/app_red</item>
+        <item name="cbd_tickColor">@color/white</item>
+    </style>
+</resources>

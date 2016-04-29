@@ -4,4 +4,21 @@
 
     <string name="apply_filters">Apply filters</string>
     <string name="clear_filters">Clear filters</string>
+
+    <string name="search_hint">I\'m looking for&#8230;</string>
+    <string name="search_icon">{ion-android-search}</string>
+
+    <string name="categories">Categories</string>
+    <string name="american">American</string>
+    <string name="chinese">Chinese</string>
+    <string name="fast_food">Fast Food</string>
+    <string name="french">French</string>
+    <string name="indian">Indian</string>
+    <string name="japanese">Japanese</string>
+    <string name="korean">Korean</string>
+    <string name="mediterranean">Mediterranean</string>
+    <string name="middle_eastern">Middle Eastern</string>
+    <string name="mexican">Mexican</string>
+    <string name="pizza">Pizza</string>
+    <string name="thai">Thai</string>
 </resources>
