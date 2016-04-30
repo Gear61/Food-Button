@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         }
     }
 
+    public Filter getFilter() {
+        return filter;
+    }
+
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         super.startActivityForResult(intent, requestCode);
@@ -158,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             filter = data.getParcelableExtra(FilterActivity.FILTER_KEY);
+            showSnackbar(getString(R.string.filters_updated));
         }
     }
 

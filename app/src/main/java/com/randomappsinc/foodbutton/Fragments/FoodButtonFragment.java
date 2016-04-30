@@ -21,6 +21,7 @@ import com.randomappsinc.foodbutton.API.RestClient;
 import com.randomappsinc.foodbutton.API.SearchCallback;
 import com.randomappsinc.foodbutton.Activities.MainActivity;
 import com.randomappsinc.foodbutton.Activities.SuggestionsActivity;
+import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.LocationUtils;
@@ -120,9 +121,10 @@ public class FoodButtonFragment extends Fragment {
 
     public void fetchSuggestions(String location) {
         fetchingSuggestion.show();
+        Filter filter = ((MainActivity) getActivity()).getFilter();
         RestClient.get().getYelpService()
-                .doSearch(ApiUtils.getSearchQueryMap(location))
-                .enqueue(new SearchCallback(1, location));
+                .doSearch(ApiUtils.getSearchQueryMap(location, filter))
+                .enqueue(new SearchCallback(1, location, filter));
     }
 
     private void showSnackbar(String message) {

@@ -18,12 +18,20 @@
             android:id="@+id/search_term"
             android:hint="@string/search_hint"
             android:paddingLeft="40dp"
+            android:paddingRight="40dp"
             android:layout_marginTop="0dp"
             style="@style/text_input"/>
 
         <com.joanzapata.iconify.widget.IconTextView
             android:text="@string/search_icon"
             android:layout_marginTop="0dp"
+            style="@style/input_icon"/>
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/clear_search"
+            android:text="@string/clear_icon"
+            android:layout_marginTop="0dp"
+            android:layout_gravity="center_vertical|right"
             style="@style/input_icon"/>
     </FrameLayout>
 

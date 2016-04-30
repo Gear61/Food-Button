@@ -5,6 +5,7 @@ import android.util.Base64;
 import com.randomappsinc.foodbutton.API.ApiConstants;
 import com.randomappsinc.foodbutton.API.Models.SearchResponse;
 import com.randomappsinc.foodbutton.API.RestClient;
+import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.R;
 
 import java.net.URLEncoder;
@@ -21,16 +22,22 @@ import retrofit2.Call;
  * Created by alexanderchiou on 3/26/16.
  */
 public class ApiUtils {
-    public static Map<String, String> getSearchQueryMap(String location) {
+    public static Map<String, String> getSearchQueryMap(String location, Filter filter) {
         Map<String, String> params = new LinkedHashMap<>();
+        String searchTerm = filter.getSearchTerm().isEmpty() ? "Food" : filter.getSearchTerm();
         try {
+            // Initial round of parameters are alphabetical
+            if (!filter.getCategoriesString().isEmpty()) {
+                params.put("category_filter", filter.getCategoriesString());
+            }
+
             params.put("location", location);
 
             String nonce = generateNonce();
             String currentTime = String.valueOf(System.currentTimeMillis() / 1000L);
             addOauthFieldsAlphabetical(params, nonce, currentTime);
 
-            params.put("term", "Food");
+            params.put("term", searchTerm);
 
             Call<SearchResponse> call = RestClient.get().getYelpService().doSearch(params);
             String normalizedParams = call.request().url().toString().replace(ApiConstants.BASE_URL + "search/?", "");
@@ -41,8 +48,11 @@ public class ApiUtils {
             String signature = generateOauthSignature(baseUrl);
 
             Map<String, String> finalParams = new LinkedHashMap<>();
-            finalParams.put("term", "Food");
+            finalParams.put("term", searchTerm);
             finalParams.put("location", location);
+            if (!filter.getCategoriesString().isEmpty()) {
+                finalParams.put("category_filter", filter.getCategoriesString());
+            }
             addOauthFieldsFinal(finalParams, nonce, currentTime, signature);
             finalParams.put("oauth_signature", signature);
             return finalParams;
@@ -97,29 +107,53 @@ public class ApiUtils {
     public static String getCategoryFromId(int categoryId) {
         switch (categoryId) {
             case R.id.american:
+            case R.id.american_toggle:
                 return "newamerican,tradamerican";
+
             case R.id.chinese:
+            case R.id.chinese_toggle:
                 return "chinese";
+
             case R.id.fast_food:
+            case R.id.fast_food_toggle:
                 return "hotdogs";
+
             case R.id.french:
+            case R.id.french_toggle:
                 return "french";
+
             case R.id.indian:
+            case R.id.indian_toggle:
                 return "indpak";
+
             case R.id.japanese:
+            case R.id.japanese_toggle:
                 return "japanese";
+
             case R.id.korean:
+            case R.id.korean_toggle:
                 return "korean";
+
             case R.id.mediterranean:
+            case R.id.mediterranean_toggle:
                 return "mediterranean";
+
             case R.id.middle_eastern:
+            case R.id.middle_eastern_toggle:
                 return "mideastern";
+
             case R.id.mexican:
+            case R.id.mexican_toggle:
                 return "mexican";
+
             case R.id.pizza:
+            case R.id.pizza_toggle:
                 return "pizza";
+
             case R.id.thai:
+            case R.id.thai_toggle:
                 return "thai";
+
             default:
                 return "";
         }

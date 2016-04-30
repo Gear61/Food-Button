@@ -38,7 +38,23 @@ public class Filter implements Parcelable {
             return false;
         }
     }
-    
+
+    public void clear() {
+        this.searchTerm = "";
+        this.categories.clear();
+    }
+
+    public String getCategoriesString() {
+        StringBuilder list = new StringBuilder();
+        for (int i = 0; i < categories.size(); i++) {
+            if (i != 0) {
+                list.append(",");
+            }
+            list.append(categories.get(i));
+        }
+        return list.toString();
+    }
+
     protected Filter(Parcel in) {
         searchTerm = in.readString();
         if (in.readByte() == 0x01) {

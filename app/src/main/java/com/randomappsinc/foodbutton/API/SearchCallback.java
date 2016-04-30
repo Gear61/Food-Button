@@ -4,6 +4,7 @@ import android.os.Handler;
 
 import com.randomappsinc.foodbutton.API.Models.SearchResponse;
 import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
+import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Utils.RestaurantServer;
 
@@ -26,10 +27,12 @@ public class SearchCallback implements Callback<SearchResponse> {
 
     private int tryCount;
     private String location;
+    private Filter filter;
 
-    public SearchCallback(int tryCount, String location) {
+    public SearchCallback(int tryCount, String location, Filter filter) {
         this.tryCount = tryCount;
         this.location = location;
+        this.filter = filter;
     }
 
     @Override
@@ -63,8 +66,8 @@ public class SearchCallback implements Callback<SearchResponse> {
                 }
                 else {
                     RestClient.get().getYelpService()
-                            .doSearch(ApiUtils.getSearchQueryMap(location))
-                            .enqueue(new SearchCallback(tryCount + 1, location));
+                            .doSearch(ApiUtils.getSearchQueryMap(location, filter))
+                            .enqueue(new SearchCallback(tryCount + 1, location, filter));
                 }
             }
         }, (long) Math.pow(2, tryCount) * 1000L);
