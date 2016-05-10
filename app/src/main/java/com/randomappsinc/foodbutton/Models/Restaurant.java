@@ -103,7 +103,7 @@ public class Restaurant implements Parcelable {
     public String getAddressWithDistance() {
         DecimalFormat formatter = new DecimalFormat("#.##");
         String formattedDistance = formatter.format(distance);
-        return address + " (" + formattedDistance + MyApplication.getAppContext().getString(R.string.miles);
+        return address + " (" + formattedDistance + MyApplication.getAppContext().getString(R.string.miles_away);
     }
 
     public void setAddress(String address) {
@@ -146,7 +146,7 @@ public class Restaurant implements Parcelable {
     }
 
     public String getSnippetText() {
-        return snippetText;
+        return snippetText == null ? "" :  "\"" + snippetText + "\"";
     }
 
     public void setSnippetText(String snippetText) {

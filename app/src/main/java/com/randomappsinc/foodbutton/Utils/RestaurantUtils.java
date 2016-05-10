@@ -95,6 +95,7 @@ public class RestaurantUtils {
         restaurant.setAddress(restaurantDO.getAddress());
         restaurant.setRating(restaurantDO.getRating());
         restaurant.setNumReviews(restaurantDO.getNumReviews());
+        restaurant.setSnippetText(restaurantDO.getSnippetText());
 
         return restaurant;
     }

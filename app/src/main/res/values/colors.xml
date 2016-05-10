@@ -10,4 +10,6 @@
     <color name="gray_600">#757575</color>
     <color name="gray">#9E9E9E</color>
     <color name="gray_200">#EEEEEE</color>
+
+    <color name="black">#000000</color>
 </resources>

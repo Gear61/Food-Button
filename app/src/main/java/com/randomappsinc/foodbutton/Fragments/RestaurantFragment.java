@@ -47,6 +47,8 @@ public class RestaurantFragment extends Fragment {
     @Bind(R.id.num_reviews) TextView numReviews;
     @Bind(R.id.address) TextView address;
     @Bind(R.id.phone_number) TextView phoneNumber;
+    @Bind(R.id.what_people_saying) TextView whatPeopleSaying;
+    @Bind(R.id.snippet_text) TextView snippetText;
 
     private Restaurant currentRestaurant;
 
@@ -72,6 +74,13 @@ public class RestaurantFragment extends Fragment {
 
         address.setText(currentRestaurant.getAddressWithDistance());
         phoneNumber.setText(UIUtils.humanizePhoneNumber(currentRestaurant.getPhoneNumber()));
+
+        if (currentRestaurant.getSnippetText().isEmpty()) {
+            whatPeopleSaying.setVisibility(View.GONE);
+            snippetText.setVisibility(View.GONE);
+        } else {
+            snippetText.setText(currentRestaurant.getSnippetText());
+        }
     }
 
     @OnClick(R.id.address_container)

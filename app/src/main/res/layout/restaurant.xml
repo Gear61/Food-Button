@@ -112,5 +112,24 @@
                 android:id="@+id/phone_number"
                 style="@style/restaurant_info_text"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/what_people_saying"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/what_people_saying"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/snippet_text"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 </ScrollView>

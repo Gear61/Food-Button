@@ -32,5 +32,7 @@
         and Food Button will save it here for you.
     </string>
 
-    <string name="miles">&#160;mi)</string>
+    <string name="miles_away">&#160;miles away)</string>
+
+    <string name="what_people_saying"><u>What People Are Saying</u></string>
 </resources>
