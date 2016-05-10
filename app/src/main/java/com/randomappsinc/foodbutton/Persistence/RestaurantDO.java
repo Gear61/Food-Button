@@ -20,6 +20,7 @@ public class RestaurantDO extends RealmObject {
     private String address;
     private float rating;
     private int numReviews;
+    private String snippetText;
 
     public String getYelpId() {
         return yelpId;
@@ -99,5 +100,13 @@ public class RestaurantDO extends RealmObject {
 
     public void setNumReviews(int numReviews) {
         this.numReviews = numReviews;
+    }
+
+    public String getSnippetText() {
+        return snippetText;
+    }
+
+    public void setSnippetText(String snippetText) {
+        this.snippetText = snippetText;
     }
 }

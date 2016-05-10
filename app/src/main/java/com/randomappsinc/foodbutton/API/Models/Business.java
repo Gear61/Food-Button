@@ -55,6 +55,14 @@ public class Business {
     @Expose
     private boolean isClosed;
 
+    @SerializedName("snippet_text")
+    @Expose
+    private String snippetText;
+
+    @SerializedName("distance")
+    @Expose
+    private double distance;
+
     public boolean isClosed() {
         return isClosed;
     }
@@ -99,6 +107,9 @@ public class Business {
 
         restaurant.setRating(rating);
         restaurant.setNumReviews(numReviews);
+        restaurant.setSnippetText(snippetText);
+
+        restaurant.setDistance(distance * 0.000621371);
 
         return restaurant;
     }

@@ -9,13 +9,17 @@ import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.DynamicRealm;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmMigration;
+import io.realm.RealmSchema;
 
 /**
  * Created by alexanderchiou on 4/14/16.
  */
 public class DatabaseManager {
+    private static final long CURRENT_REALM_VERSION = 1;
     private static DatabaseManager instance;
 
     public static DatabaseManager get() {
@@ -36,9 +40,25 @@ public class DatabaseManager {
 
     private DatabaseManager() {
         Context context = MyApplication.getAppContext();
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(context).build();
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(context)
+                .schemaVersion(CURRENT_REALM_VERSION)
+                .migration(migration)
+                .build();
         realm = Realm.getInstance(realmConfig);
     }
+
+    RealmMigration migration = new RealmMigration() {
+        @Override
+        public void migrate(DynamicRealm realm, long oldVersion, long newVersion) {
+            // DynamicRealm exposes an editable schema
+            RealmSchema schema = realm.getSchema();
+
+            if (oldVersion == 0) {
+                schema.get("RestaurantDO")
+                        .addField("snippetText", String.class);
+            }
+        }
+    };
 
     public void addFavorite(final Restaurant restaurant) {
         realm.executeTransaction(new Realm.Transaction() {

@@ -10,6 +10,7 @@ import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ public class Restaurant implements Parcelable {
     private String address;
     private float rating;
     private int numReviews;
+    private String snippetText;
+
+    // Distance from the search location in miles
+    private double distance;
 
     public Restaurant() {}
 
@@ -95,6 +100,12 @@ public class Restaurant implements Parcelable {
         return address;
     }
 
+    public String getAddressWithDistance() {
+        DecimalFormat formatter = new DecimalFormat("#.##");
+        String formattedDistance = formatter.format(distance);
+        return address + " (" + formattedDistance + MyApplication.getAppContext().getString(R.string.miles);
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -134,6 +145,18 @@ public class Restaurant implements Parcelable {
         return shareText.toString();
     }
 
+    public String getSnippetText() {
+        return snippetText;
+    }
+
+    public void setSnippetText(String snippetText) {
+        this.snippetText = snippetText;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
     public RestaurantDO toRestaurantDO() {
         RestaurantDO restaurantDO = new RestaurantDO();
         restaurantDO.setYelpId(yelpId);
@@ -154,6 +177,7 @@ public class Restaurant implements Parcelable {
         restaurantDO.setAddress(address);
         restaurantDO.setRating(rating);
         restaurantDO.setNumReviews(numReviews);
+        restaurantDO.setSnippetText(snippetText);
         return restaurantDO;
     }
 
@@ -162,7 +186,7 @@ public class Restaurant implements Parcelable {
         mobileUrl = in.readString();
         name = in.readString();
         if (in.readByte() == 0x01) {
-            categories = new ArrayList<String>();
+            categories = new ArrayList<>();
             in.readList(categories, String.class.getClassLoader());
         } else {
             categories = null;
@@ -173,6 +197,8 @@ public class Restaurant implements Parcelable {
         address = in.readString();
         rating = in.readFloat();
         numReviews = in.readInt();
+        snippetText = in.readString();
+        distance = in.readDouble();
     }
 
     @Override
@@ -197,6 +223,8 @@ public class Restaurant implements Parcelable {
         dest.writeString(address);
         dest.writeFloat(rating);
         dest.writeInt(numReviews);
+        dest.writeString(snippetText);
+        dest.writeDouble(distance);
     }
 
     @SuppressWarnings("unused")

@@ -70,7 +70,7 @@ public class RestaurantFragment extends Fragment {
         String numReviewsText = String.format(getString(R.string.num_reviews), currentRestaurant.getNumReviews());
         numReviews.setText(numReviewsText);
 
-        address.setText(currentRestaurant.getAddress());
+        address.setText(currentRestaurant.getAddressWithDistance());
         phoneNumber.setText(UIUtils.humanizePhoneNumber(currentRestaurant.getPhoneNumber()));
     }
 

@@ -31,4 +31,6 @@
         If you see a restaurant you like, click on the {ion-android-star-outline},
         and Food Button will save it here for you.
     </string>
+
+    <string name="miles">&#160;mi)</string>
 </resources>
