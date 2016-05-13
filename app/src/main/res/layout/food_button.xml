@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.percent.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,10 +9,10 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/food_button"
-        android:layout_marginTop="50dp"
+        app:layout_marginTopPercent="10%"
         style="@style/giant_fab"/>
 
     <ImageView
         android:id="@+id/powered_by_yelp"
         style="@style/powered_by_yelp"/>
-</FrameLayout>
+</android.support.percent.PercentRelativeLayout>

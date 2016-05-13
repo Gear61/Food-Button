@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Edit locations -->
     <string name="no_locations">You don\'t have any saved locations.</string>
     <string name="delete_title">Confirm Location Deletion</string>
     <string name="location_delete_confirmation">Are you sure you want to delete the location:&#160;</string>
     <string name="change_location_title">Change Location</string>
+    <string name="add_location">Add location</string>
 
     <string name="check_icon">{ion-checkmark}</string>
     <string name="list_icon">{ion-android-list}</string>

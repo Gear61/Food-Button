@@ -18,14 +18,15 @@
     <style name="giant_fab">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
         <item name="fabSize">normal</item>
         <item name="borderWidth">25dp</item>
     </style>
 
     <style name="powered_by_yelp">
         <item name="android:src">@drawable/powered_by_yelp</item>
-        <item name="android:layout_gravity">center_horizontal|bottom</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
         <item name="android:contentDescription">@string/powered_by_yelp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

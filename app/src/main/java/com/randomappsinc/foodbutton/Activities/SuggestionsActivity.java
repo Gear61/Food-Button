@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
+import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.Adapters.RestaurantsAdapter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
@@ -54,11 +55,17 @@ public class SuggestionsActivity extends StandardActivity {
         invalidateOptionsMenu();
     }
 
-    @OnClick(R.id.view_on_yelp)
-    public void viewOnYelp() {
+    @OnClick(R.id.start_navigation)
+    public void startNavigation() {
         int currentPosition = restaurantPager.getCurrentItem();
         Restaurant currentRestaurant = adapter.getRestaurant(currentPosition);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentRestaurant.getMobileUrl())));
+        if (!currentRestaurant.getAddress().equals(Business.NO_ADDRESS)) {
+            String mapUri = "google.navigation:q=" + currentRestaurant.getAddress()
+                    + " " + currentRestaurant.getName();
+            startActivity(Intent.createChooser(
+                    new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(mapUri)),
+                    getString(R.string.navigate_with)));
+        }
     }
 
     private void loadRandomRestaurant() {

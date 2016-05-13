@@ -8,9 +8,9 @@
     android:orientation="vertical">
 
     <com.rey.material.widget.Button
-        android:id="@+id/view_on_yelp"
+        android:id="@+id/start_navigation"
         android:layout_alignParentBottom="true"
-        android:text="@string/view_on_yelp"
+        android:text="@string/start_heading_here"
         style="@style/ripple_button_style"
         app:rd_style="@style/button_ripple_attributes"/>
 
@@ -18,5 +18,5 @@
         android:id="@+id/restaurant_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/view_on_yelp"/>
+        android:layout_above="@+id/start_navigation"/>
 </RelativeLayout>

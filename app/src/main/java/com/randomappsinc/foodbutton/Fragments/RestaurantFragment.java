@@ -83,17 +83,6 @@ public class RestaurantFragment extends Fragment {
         }
     }
 
-    @OnClick(R.id.address_container)
-    public void goToRestaurant() {
-        if (!currentRestaurant.getAddress().equals(Business.NO_ADDRESS)) {
-            String mapUri = "google.navigation:q=" + currentRestaurant.getAddress()
-                    + " " + currentRestaurant.getName();
-            startActivity(Intent.createChooser(
-                    new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(mapUri)),
-                    getString(R.string.navigate_with)));
-        }
-    }
-
     @OnClick(R.id.phone_number_container)
     public void callRestaurant() {
         if (!currentRestaurant.getPhoneNumber().equals(Business.NO_PHONE_NUMBER)) {
@@ -102,6 +91,11 @@ public class RestaurantFragment extends Fragment {
                     new Intent(Intent.ACTION_DIAL, Uri.parse(phoneUri)),
                     getString(R.string.call_with)));
         }
+    }
+
+    @OnClick(R.id.view_on_yelp)
+    public void viewOnYelp() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(currentRestaurant.getMobileUrl())));
     }
 
     @Override
