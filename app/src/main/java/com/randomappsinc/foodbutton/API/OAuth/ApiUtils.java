@@ -126,6 +126,10 @@ public class ApiUtils {
             case R.id.indian_toggle:
                 return "indpak";
 
+            case R.id.italian:
+            case R.id.italian_toggle:
+                return "italian";
+
             case R.id.japanese:
             case R.id.japanese_toggle:
                 return "japanese";
@@ -171,6 +175,8 @@ public class ApiUtils {
                 return R.id.french_toggle;
             case R.id.indian:
                 return R.id.indian_toggle;
+            case R.id.italian:
+                return R.id.italian_toggle;
             case R.id.japanese:
                 return R.id.japanese_toggle;
             case R.id.korean:

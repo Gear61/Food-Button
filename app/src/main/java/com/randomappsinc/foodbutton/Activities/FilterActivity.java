@@ -27,7 +27,7 @@ import butterknife.OnClick;
 public class FilterActivity extends StandardActivity {
     public static String FILTER_KEY = "filter";
     public static final int[] categoryIds = new int[] {R.id.american, R.id.chinese, R.id.fast_food, R.id.french,
-            R.id.indian, R.id.japanese, R.id.korean, R.id.mediterranean, R.id.middle_eastern,
+            R.id.indian, R.id.italian, R.id.japanese, R.id.korean, R.id.mediterranean, R.id.middle_eastern,
             R.id.mexican, R.id.pizza, R.id.thai};
 
     @Bind(R.id.search_term) EditText searchInput;
@@ -61,16 +61,16 @@ public class FilterActivity extends StandardActivity {
         searchInput.setText("");
     }
 
-    @OnClick({R.id.american, R.id.chinese, R.id.fast_food, R.id.french, R.id.indian, R.id.japanese, R.id.korean,
-              R.id.mediterranean, R.id.middle_eastern, R.id.mexican, R.id.pizza, R.id.thai})
+    @OnClick({R.id.american, R.id.chinese, R.id.fast_food, R.id.french, R.id.indian, R.id.italian, R.id.japanese,
+            R.id.korean, R.id.mediterranean, R.id.middle_eastern, R.id.mexican, R.id.pizza, R.id.thai})
     public void categoryClicked(View view) {
         int checkboxId = ApiUtils.getCheckboxId(view.getId());
         CheckBox checkBox = (CheckBox) findViewById(checkboxId);
         processClick(ApiUtils.getCategoryFromId(view.getId()), checkBox);
     }
 
-    @OnClick({R.id.american_toggle, R.id.chinese_toggle, R.id.fast_food_toggle, R.id.french_toggle,
-            R.id.indian_toggle, R.id.japanese_toggle, R.id.korean_toggle, R.id.mediterranean_toggle,
+    @OnClick({R.id.american_toggle, R.id.chinese_toggle, R.id.fast_food_toggle, R.id.french_toggle, R.id.indian_toggle,
+            R.id.italian_toggle, R.id.japanese_toggle, R.id.korean_toggle, R.id.mediterranean_toggle,
             R.id.middle_eastern_toggle, R.id.mexican_toggle, R.id.pizza_toggle, R.id.thai_toggle})
     public void checkboxClicked(View view) {
         filter.processCategory(ApiUtils.getCategoryFromId(view.getId()));
