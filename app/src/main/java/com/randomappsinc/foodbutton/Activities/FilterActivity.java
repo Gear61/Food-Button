@@ -176,6 +176,12 @@ public class FilterActivity extends StandardActivity {
     private void clearFilters() {
         searchInput.setText("");
 
+        // Clear distance filter
+        veryCloseToggle.setCheckedImmediately(false);
+        closeToggle.setCheckedImmediately(false);
+        farToggle.setCheckedImmediately(false);
+        veryFarToggle.setCheckedImmediately(false);
+
         for (int categoryId : categoryIds) {
             int checkboxId = ApiUtils.getCheckboxId(categoryId);
             CheckBox checkBox = (CheckBox) findViewById(checkboxId);

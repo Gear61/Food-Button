@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by alexanderchiou on 4/28/16.
  */
 public class Filter implements Parcelable {
-    public static final int MILES_IN_A_METER = 1610;
+    public static final int METERS_IN_A_MILE = 1610;
     public static final int VERY_CLOSE = 1;
     public static final int CLOSE = 3;
     public static final int FAR = 5;
@@ -74,7 +74,7 @@ public class Filter implements Parcelable {
     protected Filter(Parcel in) {
         searchTerm = in.readString();
         if (in.readByte() == 0x01) {
-            categories = new ArrayList<String>();
+            categories = new ArrayList<>();
             in.readList(categories, String.class.getClassLoader());
         } else {
             categories = null;

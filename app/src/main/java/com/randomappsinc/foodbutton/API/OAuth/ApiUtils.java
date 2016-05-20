@@ -38,6 +38,10 @@ public class ApiUtils {
             String currentTime = String.valueOf(System.currentTimeMillis() / 1000L);
             addOauthFieldsAlphabetical(params, nonce, currentTime);
 
+            if (filter.getRadius() > 0) {
+                String radius = String.valueOf(filter.getRadius() * Filter.METERS_IN_A_MILE);
+                params.put("radius_filter", radius);
+            }
             params.put("term", searchTerm);
 
             Call<SearchResponse> call = RestClient.get().getYelpService().doSearch(params);
@@ -53,6 +57,10 @@ public class ApiUtils {
             finalParams.put("location", location);
             if (!filter.getCategoriesString().isEmpty()) {
                 finalParams.put("category_filter", filter.getCategoriesString());
+            }
+            if (filter.getRadius() > 0) {
+                String radius = String.valueOf(filter.getRadius() * Filter.METERS_IN_A_MILE);
+                finalParams.put("radius_filter", radius);
             }
             addOauthFieldsFinal(finalParams, nonce, currentTime, signature);
             finalParams.put("oauth_signature", signature);
