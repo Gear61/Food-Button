@@ -1,6 +1,7 @@
 package com.randomappsinc.foodbutton.API.OAuth;
 
 import android.util.Base64;
+import android.view.View;
 
 import com.randomappsinc.foodbutton.API.ApiConstants;
 import com.randomappsinc.foodbutton.API.Models.SearchResponse;
@@ -191,6 +192,29 @@ public class ApiUtils {
                 return R.id.pizza_toggle;
             case R.id.thai:
                 return R.id.thai_toggle;
+            default:
+                return 0;
+        }
+    }
+
+    public static int getDistance(View view) {
+        switch (view.getId()) {
+            case R.id.very_close:
+            case R.id.very_close_toggle:
+                return Filter.VERY_CLOSE;
+
+            case R.id.close:
+            case R.id.close_toggle:
+                return Filter.CLOSE;
+
+            case R.id.far:
+            case R.id.far_toggle:
+                return Filter.FAR;
+
+            case R.id.very_far:
+            case R.id.very_far_toggle:
+                return Filter.VERY_FAR;
+
             default:
                 return 0;
         }

@@ -31,6 +31,10 @@ public class FilterActivity extends StandardActivity {
             R.id.mexican, R.id.pizza, R.id.thai};
 
     @Bind(R.id.search_term) EditText searchInput;
+    @Bind(R.id.very_close_toggle) CheckBox veryCloseToggle;
+    @Bind(R.id.close_toggle) CheckBox closeToggle;
+    @Bind(R.id.far_toggle) CheckBox farToggle;
+    @Bind(R.id.very_far_toggle) CheckBox veryFarToggle;
 
     private Filter filter;
 
@@ -53,6 +57,21 @@ public class FilterActivity extends StandardActivity {
                     checkBox.setCheckedImmediately(true);
                 }
             }
+        }
+
+        // Pre-fill correct distance parameter
+        switch (filter.getRadius()) {
+            case Filter.VERY_CLOSE:
+                veryCloseToggle.setCheckedImmediately(true);
+                break;
+            case Filter.CLOSE:
+                closeToggle.setCheckedImmediately(true);
+                break;
+            case Filter.FAR:
+                farToggle.setCheckedImmediately(true);
+                break;
+            case Filter.VERY_FAR:
+                veryFarToggle.setCheckedImmediately(true);
         }
     }
 
@@ -81,6 +100,76 @@ public class FilterActivity extends StandardActivity {
             checkBox.setChecked(true);
         } else {
             checkBox.setChecked(false);
+        }
+    }
+
+    // Distance checkbox clicked
+    @OnClick({R.id.very_close_toggle, R.id.close_toggle, R.id.far_toggle, R.id.very_far_toggle})
+    public void distanceToggleClick(View view) {
+        // If they're changing the radius, make sure to uncheck the previous thing and set the new radius
+        if (filter.getRadius() != ApiUtils.getDistance(view)) {
+            uncheckDistance();
+            switch (view.getId()) {
+                case R.id.very_close_toggle:
+                    filter.setRadius(Filter.VERY_CLOSE);
+                    break;
+                case R.id.close_toggle:
+                    filter.setRadius(Filter.CLOSE);
+                    break;
+                case R.id.far_toggle:
+                    filter.setRadius(Filter.FAR);
+                    break;
+                case R.id.very_far_toggle:
+                    filter.setRadius(Filter.VERY_FAR);
+            }
+        } else {
+            filter.setRadius(0);
+        }
+    }
+
+    // Distance container clicked
+    @OnClick({R.id.very_close, R.id.close, R.id.far, R.id.very_far})
+    public void distanceBoxClick(View view) {
+        // You're always unchecking something with these clicks (unless there was nothing to begin with)
+        uncheckDistance();
+        // If they're checking in something new, do the check, change radius
+        if (filter.getRadius() != ApiUtils.getDistance(view)) {
+            switch (view.getId()) {
+                case R.id.very_close:
+                    filter.setRadius(Filter.VERY_CLOSE);
+                    veryCloseToggle.setChecked(true);
+                    break;
+                case R.id.close:
+                    filter.setRadius(Filter.CLOSE);
+                    closeToggle.setChecked(true);
+                    break;
+                case R.id.far:
+                    filter.setRadius(Filter.FAR);
+                    farToggle.setChecked(true);
+                    break;
+                case R.id.very_far:
+                    filter.setRadius(Filter.VERY_FAR);
+                    veryFarToggle.setChecked(true);
+            }
+        } else {
+            // If we're here, then they're unchecking something
+            filter.setRadius(0);
+        }
+    }
+
+    private void uncheckDistance() {
+        switch (filter.getRadius()) {
+            case Filter.VERY_CLOSE:
+                veryCloseToggle.setChecked(false);
+                break;
+            case Filter.CLOSE:
+                closeToggle.setChecked(false);
+                break;
+            case Filter.FAR:
+                farToggle.setChecked(false);
+                break;
+            case Filter.VERY_FAR:
+                veryFarToggle.setChecked(false);
         }
     }
 

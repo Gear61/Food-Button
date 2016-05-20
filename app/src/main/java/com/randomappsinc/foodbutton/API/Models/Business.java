@@ -108,7 +108,6 @@ public class Business {
         restaurant.setRating(rating);
         restaurant.setNumReviews(numReviews);
         restaurant.setSnippetText(snippetText);
-
         restaurant.setDistance(distance * 0.000621371);
 
         return restaurant;

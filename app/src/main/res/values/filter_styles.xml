@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="category_container">
+    <style name="filter_field_container">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">5dp</item>
     </style>
 
-    <style name="category_text">
+    <style name="filter_field_text">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
@@ -21,5 +21,30 @@
         <item name="cbd_animDuration">@integer/shorter_anim_length</item>
         <item name="cbd_strokeColor">@color/app_red</item>
         <item name="cbd_tickColor">@color/white</item>
+    </style>
+
+    <style name="filter_card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="contentPadding">5dp</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">3dp</item>
+        <item name="cardElevation">1dp</item>
+    </style>
+
+    <style name="filter_header">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="filter_divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray</item>
+        <item name="android:layout_marginBottom">5dp</item>
     </style>
 </resources>

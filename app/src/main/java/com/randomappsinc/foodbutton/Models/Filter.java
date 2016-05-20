@@ -9,8 +9,15 @@ import java.util.ArrayList;
  * Created by alexanderchiou on 4/28/16.
  */
 public class Filter implements Parcelable {
+    public static final int MILES_IN_A_METER = 1610;
+    public static final int VERY_CLOSE = 1;
+    public static final int CLOSE = 3;
+    public static final int FAR = 5;
+    public static final int VERY_FAR = 24;
+
     private String searchTerm;
     private ArrayList<String> categories;
+    private int radius;
 
     public Filter() {
         this.searchTerm = "";
@@ -39,9 +46,18 @@ public class Filter implements Parcelable {
         }
     }
 
+    public int getRadius() {
+        return radius;
+    }
+
+    public void setRadius(int radius) {
+        this.radius = radius;
+    }
+
     public void clear() {
         this.searchTerm = "";
         this.categories.clear();
+        this.radius = 0;
     }
 
     public String getCategoriesString() {
@@ -58,11 +74,12 @@ public class Filter implements Parcelable {
     protected Filter(Parcel in) {
         searchTerm = in.readString();
         if (in.readByte() == 0x01) {
-            categories = new ArrayList<>();
+            categories = new ArrayList<String>();
             in.readList(categories, String.class.getClassLoader());
         } else {
             categories = null;
         }
+        radius = in.readInt();
     }
 
     @Override
@@ -79,6 +96,7 @@ public class Filter implements Parcelable {
             dest.writeByte((byte) (0x01));
             dest.writeList(categories);
         }
+        dest.writeInt(radius);
     }
 
     @SuppressWarnings("unused")
