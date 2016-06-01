@@ -16,6 +16,7 @@ import com.randomappsinc.foodbutton.Utils.UIUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * Created by alexanderchiou on 4/5/16.
@@ -54,5 +55,10 @@ public class MyLocationsActivity extends StandardActivity {
         } else {
             locationsAdapter.addLocation(location);
         }
+    }
+
+    @OnItemClick(R.id.locations)
+    public void showLocationOptions(int position) {
+        locationsAdapter.showOptionsDialog(position);
     }
 }

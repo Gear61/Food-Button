@@ -42,12 +42,10 @@ public class SearchCallback implements Callback<SearchResponse> {
             if (!restaurants.isEmpty()) {
                 RestaurantServer.get().setRestaurantList(restaurants);
                 EventBus.getDefault().post(RESTAURANTS_FETCHED);
-            }
-            else {
+            } else {
                 EventBus.getDefault().post(NO_RESTAURANTS);
             }
-        }
-        else {
+        } else {
             processFailure();
         }
     }
@@ -63,13 +61,12 @@ public class SearchCallback implements Callback<SearchResponse> {
             public void run() {
                 if (tryCount == FINAL_TRY_COUNT) {
                     EventBus.getDefault().post(SEARCH_FAIL);
-                }
-                else {
+                } else {
                     RestClient.get().getYelpService()
                             .doSearch(ApiUtils.getSearchQueryMap(location, filter))
                             .enqueue(new SearchCallback(tryCount + 1, location, filter));
                 }
             }
-        }, (long) Math.pow(2, tryCount) * 1000L);
+        }, (long) tryCount * 1000L);
     }
 }

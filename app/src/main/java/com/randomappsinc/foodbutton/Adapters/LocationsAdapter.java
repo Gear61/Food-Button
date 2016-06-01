@@ -113,6 +113,27 @@ public class LocationsAdapter extends BaseAdapter {
                 .show();
     }
 
+    public void showOptionsDialog(final int position) {
+        new MaterialDialog.Builder(context)
+                .title(getItem(position))
+                .items(LocationUtils.getLocationOptions(getItem(position)))
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (text.toString().equals(context.getString(R.string.set_as_default))) {
+                            PreferencesManager.get().setDefaultLocation(getItem(position));
+                            notifyDataSetChanged();
+                            UIUtils.showSnackbar(parent, context.getString(R.string.default_location_set));
+                        } else if (text.toString().equals(context.getString(R.string.change_location))) {
+                            showRenameDialog(position);
+                        } else if (text.toString().equals(context.getString(R.string.delete_location))) {
+                            showDeleteDialog(position);
+                        }
+                    }
+                })
+                .show();
+    }
+
     public class LocationViewHolder {
         @Bind(R.id.location) TextView locationText;
         @Bind(R.id.check_icon) View checkIcon;
@@ -135,24 +156,7 @@ public class LocationsAdapter extends BaseAdapter {
 
         @OnClick(R.id.list_icon)
         public void showLocationOptions() {
-            new MaterialDialog.Builder(context)
-                    .title(getItem(position))
-                    .items(LocationUtils.getLocationOptions(getItem(position)))
-                    .itemsCallback(new MaterialDialog.ListCallback() {
-                        @Override
-                        public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                            if (text.toString().equals(context.getString(R.string.set_as_default))) {
-                                PreferencesManager.get().setDefaultLocation(getItem(position));
-                                notifyDataSetChanged();
-                                UIUtils.showSnackbar(parent, context.getString(R.string.default_location_set));
-                            } else if (text.toString().equals(context.getString(R.string.change_location))) {
-                                showRenameDialog(position);
-                            } else if (text.toString().equals(context.getString(R.string.delete_location))) {
-                                showDeleteDialog(position);
-                            }
-                        }
-                    })
-                    .show();
+            showOptionsDialog(position);
         }
     }
 

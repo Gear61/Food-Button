@@ -89,8 +89,7 @@ public class FavoritesAdapter extends BaseAdapter {
             view = vi.inflate(R.layout.restaurant_cell, parent, false);
             holder = new RestaurantViewHolder(view);
             view.setTag(holder);
-        }
-        else {
+        } else {
             holder = (RestaurantViewHolder) view.getTag();
         }
         holder.loadRestaurant(getItem(position));
