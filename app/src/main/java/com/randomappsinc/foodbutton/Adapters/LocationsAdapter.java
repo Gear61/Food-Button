@@ -138,25 +138,17 @@ public class LocationsAdapter extends BaseAdapter {
         @Bind(R.id.location) TextView locationText;
         @Bind(R.id.check_icon) View checkIcon;
 
-        private int position;
-
         public LocationViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
 
         public void loadLocation(int position) {
-            this.position = position;
-            this.locationText.setText(getItem(position));
+            locationText.setText(getItem(position));
             if (getItem(position).equals(PreferencesManager.get().getDefaultLocation())) {
                 checkIcon.setAlpha(1);
             } else {
                 checkIcon.setAlpha(0);
             }
-        }
-
-        @OnClick(R.id.list_icon)
-        public void showLocationOptions() {
-            showOptionsDialog(position);
         }
     }
 
