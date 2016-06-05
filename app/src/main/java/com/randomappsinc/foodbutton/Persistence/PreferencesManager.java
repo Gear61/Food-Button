@@ -42,11 +42,11 @@ public class PreferencesManager {
         prefs = PreferenceManager.getDefaultSharedPreferences(MyApplication.getAppContext());
     }
 
-    public String getDefaultLocation() {
+    public String getCurrentLocation() {
         return prefs.getString(DEFAULT_LOCATION_KEY, MyApplication.getAppContext().getString(R.string.automatic));
     }
 
-    public void setDefaultLocation(String defaultLocation) {
+    public void setCurrentLocation(String defaultLocation) {
         prefs.edit().putString(DEFAULT_LOCATION_KEY, defaultLocation).apply();
     }
 
@@ -74,7 +74,7 @@ public class PreferencesManager {
     }
 
     public void removeSavedLocation(String location) {
-        if (location.equals(getDefaultLocation())) {
+        if (location.equals(getCurrentLocation())) {
             prefs.edit().remove(DEFAULT_LOCATION_KEY).apply();
         }
 
@@ -85,8 +85,8 @@ public class PreferencesManager {
     }
 
     public void changeSavedLocation(String oldLocation, String newLocation) {
-        if (oldLocation.equals(getDefaultLocation())) {
-            setDefaultLocation(newLocation);
+        if (oldLocation.equals(getCurrentLocation())) {
+            setCurrentLocation(newLocation);
         }
         removeSavedLocation(oldLocation);
         addSavedLocation(newLocation);
@@ -114,7 +114,7 @@ public class PreferencesManager {
 
     public int getCurrentLocationIndex() {
         String[] savedLocations = getLocationsArray();
-        String currentDefault = getDefaultLocation();
+        String currentDefault = getCurrentLocation();
         for (int i = 0; i < savedLocations.length; i++) {
             if (savedLocations[i].equals(currentDefault)) {
                 return i;

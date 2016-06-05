@@ -20,7 +20,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by alexanderchiou on 4/5/16.
@@ -120,10 +119,10 @@ public class LocationsAdapter extends BaseAdapter {
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (text.toString().equals(context.getString(R.string.set_as_default))) {
-                            PreferencesManager.get().setDefaultLocation(getItem(position));
+                        if (text.toString().equals(context.getString(R.string.set_as_current))) {
+                            PreferencesManager.get().setCurrentLocation(getItem(position));
                             notifyDataSetChanged();
-                            UIUtils.showSnackbar(parent, context.getString(R.string.default_location_set));
+                            UIUtils.showSnackbar(parent, context.getString(R.string.current_location_set));
                         } else if (text.toString().equals(context.getString(R.string.change_location))) {
                             showRenameDialog(position);
                         } else if (text.toString().equals(context.getString(R.string.delete_location))) {
@@ -144,7 +143,7 @@ public class LocationsAdapter extends BaseAdapter {
 
         public void loadLocation(int position) {
             locationText.setText(getItem(position));
-            if (getItem(position).equals(PreferencesManager.get().getDefaultLocation())) {
+            if (getItem(position).equals(PreferencesManager.get().getCurrentLocation())) {
                 checkIcon.setAlpha(1);
             } else {
                 checkIcon.setAlpha(0);

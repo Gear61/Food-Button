@@ -114,17 +114,17 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 .show();
     }
 
-    private void chooseDefaultLocation() {
+    private void chooseCurrentLocation() {
         new MaterialDialog.Builder(this)
-                .title(R.string.choose_default_location)
-                .content(R.string.default_instructions)
+                .title(R.string.choose_current_location)
+                .content(R.string.current_instructions)
                 .items(PreferencesManager.get().getLocationsArray())
                 .itemsCallbackSingleChoice(PreferencesManager.get().getCurrentLocationIndex(),
                         new MaterialDialog.ListCallbackSingleChoice() {
                             @Override
                             public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                PreferencesManager.get().setDefaultLocation(text.toString());
-                                UIUtils.showSnackbar(parent, getString(R.string.default_location_set));
+                                PreferencesManager.get().setCurrentLocation(text.toString());
+                                UIUtils.showSnackbar(parent, getString(R.string.current_location_set));
                                 return true;
                             }
                         })
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         UIUtils.loadMenuIcon(menu, R.id.filters, IoniconsIcons.ion_android_options);
-        UIUtils.loadMenuIcon(menu, R.id.set_default_location, IoniconsIcons.ion_android_map);
+        UIUtils.loadMenuIcon(menu, R.id.set_current_location, IoniconsIcons.ion_android_map);
         return true;
     }
 
@@ -191,9 +191,9 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 intent.putExtra(FilterActivity.FILTER_KEY, filter);
                 startActivityForResult(intent, 1);
                 return true;
-            case R.id.set_default_location:
+            case R.id.set_current_location:
                 drawerLayout.closeDrawers();
-                chooseDefaultLocation();
+                chooseCurrentLocation();
                 return true;
         }
         return super.onOptionsItemSelected(item);

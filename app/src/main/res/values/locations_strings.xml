@@ -9,14 +9,14 @@
     <string name="check_icon">{ion-checkmark}</string>
     <string name="list_icon">{ion-android-list}</string>
 
-    <string name="location_added">Location added. Would you like to set it as your default location?</string>
+    <string name="location_added">Location added. Would you like to set it as your current location?</string>
     <string name="location_deleted">Location deleted.</string>
     <string name="location_changed">Location changed.</string>
 
     <string name="empty_location">Locations can\'t be empty.</string>
     <string name="duplicate_location">You already have this location.</string>
 
-    <string name="set_as_default">Set as default location</string>
+    <string name="set_as_current">Set as current location</string>
     <string name="change_location">Change location</string>
     <string name="delete_location">Delete location</string>
 </resources>

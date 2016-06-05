@@ -67,7 +67,7 @@ public class FoodButtonFragment extends Fragment {
     public void findFood() {
         foodButton.setEnabled(false);
         if (PermissionUtils.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            String defaultLocation = PreferencesManager.get().getDefaultLocation();
+            String defaultLocation = PreferencesManager.get().getCurrentLocation();
             if (defaultLocation.equals(getString(R.string.automatic))) {
                 if (LocationUtils.isLocationEnabled()) {
                     String currentLocation = LocationUtils.getCurrentAddress();

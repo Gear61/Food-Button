@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/set_default_location"
-        android:title="@string/set_default_location"
+        android:id="@+id/set_current_location"
+        android:title="@string/set_current_location"
         app:showAsAction="ifRoom"/>
 </menu>

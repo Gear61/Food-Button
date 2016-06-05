@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Food Button</string>
-    <string name="set_default_location">Set default location</string>
+    <string name="set_current_location">Set current location</string>
     <string name="restaurant_view">Restaurant View</string>
     <string name="powered_by_yelp">Powered by Yelp</string>
 
@@ -21,9 +21,9 @@
     <string name="will_rate">Sure, I\'ll help</string>
     <string name="no_im_good">No, I\'m good</string>
 
-    <string name="default_location_set">Your default location has been set.</string>
-    <string name="choose_default_location">Choose Default Location</string>
-    <string name="default_instructions">Your default location is where the Food Button searches for restaurants.</string>
+    <string name="current_location_set">Your current location has been set.</string>
+    <string name="choose_current_location">Choose Current Location</string>
+    <string name="current_instructions">Your current location is where the Food Button searches for restaurants.</string>
     <string name="automatic">Automatic</string>
     <string name="choose">Choose</string>
     <string name="add_location_title">Add Location</string>
@@ -36,8 +36,8 @@
     </string>
 
     <string name="location_services_needed">
-        Your default location is currently set to \"Automatic\",
-        which means that you need to enable location services to allow Food Button to get your current location.
+        Your current location is currently set to \"Automatic\",
+        which means that you need to enable location services to allow Food Button to get it.
         Would you like to do that now?
     </string>
 </resources>

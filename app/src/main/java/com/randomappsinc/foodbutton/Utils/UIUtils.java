@@ -77,11 +77,11 @@ public class UIUtils {
         snackbar.setAction(android.R.string.yes, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferencesManager.get().setDefaultLocation(location);
+                PreferencesManager.get().setCurrentLocation(location);
                 if (adapter != null) {
                     adapter.notifyDataSetChanged();
                 }
-                showSnackbar(parent, context.getString(R.string.default_location_set));
+                showSnackbar(parent, context.getString(R.string.current_location_set));
             }
         });
         snackbar.show();

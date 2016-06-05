@@ -55,8 +55,8 @@ public class LocationUtils {
     public static String[] getLocationOptions(String location) {
         Context context = MyApplication.getAppContext();
         List<String> options = new ArrayList<>();
-        if (!location.equals(PreferencesManager.get().getDefaultLocation())) {
-            options.add(context.getString(R.string.set_as_default));
+        if (!location.equals(PreferencesManager.get().getCurrentLocation())) {
+            options.add(context.getString(R.string.set_as_current));
         }
         options.add(context.getString(R.string.change_location));
         options.add(context.getString(R.string.delete_location));
