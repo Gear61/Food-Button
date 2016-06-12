@@ -6,10 +6,10 @@
 
     <string name="finding_you_food">Finding you food&#8230;</string>
     <string name="no_restaurants">
-        There are no open restaurants near you right now. Please try again later.
+        We couldn\'t find any open restaurants matching your parameters. Please try again later.
     </string>
     <string name="search_fail">
-        We failed to find a restaurant suggestion for you. Please try again later.
+        We failed to find any restaurant suggestions for you. Please try again later.
     </string>
 
     <string name="please_rate">

@@ -60,9 +60,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        style="@style/filter_header"
-                        android:text="@string/categories"/>
+                    <LinearLayout style="@style/filter_header_container">
+                        <com.joanzapata.iconify.widget.IconTextView
+                            style="@style/filter_icon"
+                            android:text="@string/categories_icon"/>
+
+                        <TextView
+                            style="@style/filter_header"
+                            android:text="@string/categories"/>
+                    </LinearLayout>
 
                     <View style="@style/filter_divider"/>
 
@@ -246,9 +252,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        style="@style/filter_header"
-                        android:text="@string/distance"/>
+                    <LinearLayout style="@style/filter_header_container">
+                        <com.joanzapata.iconify.widget.IconTextView
+                            style="@style/filter_icon"
+                            android:text="@string/distance_icon"/>
+
+                        <TextView
+                            style="@style/filter_header"
+                            android:text="@string/distance"/>
+                    </LinearLayout>
 
                     <View style="@style/filter_divider"/>
 
@@ -301,6 +313,42 @@
 
                         <com.rey.material.widget.CheckBox
                             android:id="@+id/very_far_toggle"
+                            style="@style/checkbox_style"/>
+                    </FrameLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                style="@style/filter_card"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout style="@style/filter_header_container">
+                        <com.joanzapata.iconify.widget.IconTextView
+                            style="@style/filter_icon"
+                            android:text="@string/deals_icon"/>
+
+                        <TextView
+                            style="@style/filter_header"
+                            android:text="@string/deals"/>
+                    </LinearLayout>
+
+                    <View style="@style/filter_divider"/>
+
+                    <FrameLayout
+                        android:id="@+id/deals_filter"
+                        style="@style/filter_field_container">
+
+                        <TextView
+                            android:text="@string/deals_only"
+                            style="@style/filter_field_text"/>
+
+                        <com.rey.material.widget.CheckBox
+                            android:id="@+id/deals_toggle"
                             style="@style/checkbox_style"/>
                     </FrameLayout>
                 </LinearLayout>

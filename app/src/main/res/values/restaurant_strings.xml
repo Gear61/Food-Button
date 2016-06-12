@@ -35,4 +35,6 @@
     <string name="miles_away">&#160;miles away)</string>
 
     <string name="what_people_saying"><u>What People Are Saying</u></string>
+
+    <string name="deal_icon">{ion-pricetag}</string>
 </resources>

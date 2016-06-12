@@ -10,6 +10,7 @@
     <string name="clear_icon">{ion-android-close}</string>
 
     <!-- Categories -->
+    <string name="categories_icon">{ion-grid}</string>
     <string name="categories">Categories</string>
     <string name="american">American</string>
     <string name="chinese">Chinese</string>
@@ -26,11 +27,17 @@
     <string name="thai">Thai</string>
 
     <!-- Distances -->
+    <string name="distance_icon">{ion-android-walk}</string>
     <string name="distance">Distance</string>
     <string name="very_close">Very close (&lt; 1 mile away)</string>
     <string name="close">Close (&lt; 3 miles away)</string>
     <string name="far">Far (&lt; 5 miles away)</string>
     <string name="very_far">Very far (5+ miles away)</string>
+
+    <!-- Deals -->
+    <string name="deals_icon">{ion-pricetags}</string>
+    <string name="deals">Deals</string>
+    <string name="deals_only">Only show places with deals</string>
 
     <string name="clear_confirmation">Clear Confirmation</string>
     <string name="remove_all_filters">Are you sure you want to remove all of your current filters?</string>
