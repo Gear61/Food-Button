@@ -41,6 +41,7 @@ public class RestaurantFragment extends Fragment {
 
     @Bind(R.id.restaurant_picture) ImageView restaurantPicture;
     @Bind(R.id.restaurant_name) TextView restaurantName;
+    @Bind(R.id.current_deal) TextView currentDeal;
     @Bind(R.id.categories) TextView categories;
     @Bind({R.id.first_star, R.id.second_star, R.id.third_star,
            R.id.fourth_star, R.id.fifth_star}) List<ImageView> starViews;
@@ -66,6 +67,10 @@ public class RestaurantFragment extends Fragment {
     private void loadRestaurant() {
         Picasso.with(getActivity()).load(currentRestaurant.getImageUrl()).into(restaurantPicture);
         restaurantName.setText(currentRestaurant.getName());
+        if (!currentRestaurant.getCurrentDeal().isEmpty()) {
+            currentDeal.setText(currentRestaurant.getCurrentDeal());
+            currentDeal.setVisibility(View.VISIBLE);
+        }
         categories.setText(currentRestaurant.getCategories());
 
         RestaurantUtils.loadStarImages(starViews, currentRestaurant.getRating());

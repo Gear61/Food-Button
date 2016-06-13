@@ -18,6 +18,7 @@ public class Filter implements Parcelable {
     private String searchTerm;
     private ArrayList<String> categories;
     private int radius;
+    private boolean dealsOnly;
 
     public Filter() {
         this.searchTerm = "";
@@ -58,6 +59,7 @@ public class Filter implements Parcelable {
         this.searchTerm = "";
         this.categories.clear();
         this.radius = 0;
+        this.dealsOnly = false;
     }
 
     public String getCategoriesString() {
@@ -71,15 +73,24 @@ public class Filter implements Parcelable {
         return list.toString();
     }
 
+    public boolean isDealsOnly() {
+        return dealsOnly;
+    }
+
+    public void setDealsOnly(boolean dealsOnly) {
+        this.dealsOnly = dealsOnly;
+    }
+
     protected Filter(Parcel in) {
         searchTerm = in.readString();
         if (in.readByte() == 0x01) {
-            categories = new ArrayList<>();
+            categories = new ArrayList<String>();
             in.readList(categories, String.class.getClassLoader());
         } else {
             categories = null;
         }
         radius = in.readInt();
+        dealsOnly = in.readByte() != 0x00;
     }
 
     @Override
@@ -97,6 +108,7 @@ public class Filter implements Parcelable {
             dest.writeList(categories);
         }
         dest.writeInt(radius);
+        dest.writeByte((byte) (dealsOnly ? 0x01 : 0x00));
     }
 
     @SuppressWarnings("unused")

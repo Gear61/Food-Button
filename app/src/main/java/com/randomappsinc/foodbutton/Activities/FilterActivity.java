@@ -35,6 +35,7 @@ public class FilterActivity extends StandardActivity {
     @Bind(R.id.close_toggle) CheckBox closeToggle;
     @Bind(R.id.far_toggle) CheckBox farToggle;
     @Bind(R.id.very_far_toggle) CheckBox veryFarToggle;
+    @Bind(R.id.deals_toggle) CheckBox dealsToggle;
 
     private Filter filter;
 
@@ -73,6 +74,8 @@ public class FilterActivity extends StandardActivity {
             case Filter.VERY_FAR:
                 veryFarToggle.setCheckedImmediately(true);
         }
+
+        dealsToggle.setCheckedImmediately(filter.isDealsOnly());
     }
 
     @OnClick(R.id.clear_search)
@@ -173,6 +176,11 @@ public class FilterActivity extends StandardActivity {
         }
     }
 
+    @OnClick(R.id.deals_filter)
+    public void toggleDealsFilter() {
+        dealsToggle.toggle();
+    }
+
     private void clearFilters() {
         searchInput.setText("");
 
@@ -181,6 +189,8 @@ public class FilterActivity extends StandardActivity {
         closeToggle.setCheckedImmediately(false);
         farToggle.setCheckedImmediately(false);
         veryFarToggle.setCheckedImmediately(false);
+
+        dealsToggle.setCheckedImmediately(false);
 
         for (int categoryId : categoryIds) {
             int checkboxId = ApiUtils.getCheckboxId(categoryId);
@@ -209,6 +219,7 @@ public class FilterActivity extends StandardActivity {
         switch (item.getItemId()) {
             case R.id.apply_filters:
                 filter.setSearchTerm(searchInput.getText().toString().trim());
+                filter.setDealsOnly(dealsToggle.isChecked());
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(FILTER_KEY, filter);
                 setResult(RESULT_OK, returnIntent);

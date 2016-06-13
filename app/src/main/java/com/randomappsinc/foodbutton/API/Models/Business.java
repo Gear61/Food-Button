@@ -63,6 +63,20 @@ public class Business {
     @Expose
     private double distance;
 
+    @SerializedName("deals")
+    @Expose
+    private List<Deal> deals = new ArrayList<>();
+
+    public class Deal {
+        @SerializedName("title")
+        @Expose
+        private String title;
+
+        public String getTitle() {
+            return title;
+        }
+    }
+
     public boolean isClosed() {
         return isClosed;
     }
@@ -109,6 +123,10 @@ public class Business {
         restaurant.setNumReviews(numReviews);
         restaurant.setSnippetText(snippetText);
         restaurant.setDistance(distance * 0.000621371);
+
+        if (deals != null && !deals.isEmpty()) {
+            restaurant.setCurrentDeal(deals.get(0).getTitle());
+        }
 
         return restaurant;
     }

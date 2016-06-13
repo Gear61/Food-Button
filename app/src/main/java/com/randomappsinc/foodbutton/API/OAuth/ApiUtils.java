@@ -32,6 +32,10 @@ public class ApiUtils {
                 params.put("category_filter", filter.getCategoriesString());
             }
 
+            if (filter.isDealsOnly()) {
+                params.put("deals_filter", "true");
+            }
+
             params.put("location", location);
 
             String nonce = generateNonce();
@@ -61,6 +65,9 @@ public class ApiUtils {
             if (filter.getRadius() > 0) {
                 String radius = String.valueOf(filter.getRadius() * Filter.METERS_IN_A_MILE);
                 finalParams.put("radius_filter", radius);
+            }
+            if (filter.isDealsOnly()) {
+                finalParams.put("deals_filter", "true");
             }
             addOauthFieldsFinal(finalParams, nonce, currentTime, signature);
             finalParams.put("oauth_signature", signature);

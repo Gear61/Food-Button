@@ -31,6 +31,7 @@ public class Restaurant implements Parcelable {
     private float rating;
     private int numReviews;
     private String snippetText;
+    private String currentDeal;
 
     // Distance from the search location in miles
     private double distance;
@@ -155,6 +156,18 @@ public class Restaurant implements Parcelable {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public String getCurrentDeal() {
+        if (currentDeal != null && !currentDeal.isEmpty()) {
+            return MyApplication.getAppContext().getString(R.string.deal_icon)
+                    + " " + currentDeal;
+        }
+        return "";
+    }
+
+    public void setCurrentDeal(String currentDeal) {
+        this.currentDeal = currentDeal;
     }
 
     public RestaurantDO toRestaurantDO() {

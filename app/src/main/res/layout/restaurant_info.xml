@@ -33,6 +33,14 @@
                 android:textSize="24sp"
                 android:textColor="@color/dark_gray"/>
 
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/current_deal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/dark_gray"
+                android:visibility="gone"/>
+
             <TextView
                 android:id="@+id/categories"
                 android:layout_width="match_parent"
