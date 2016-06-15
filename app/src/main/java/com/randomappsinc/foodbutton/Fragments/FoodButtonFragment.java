@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -46,6 +47,9 @@ public class FoodButtonFragment extends Fragment {
     @Bind(R.id.food_button) FloatingActionButton foodButton;
 
     private MaterialDialog progressDialog;
+    private boolean locationFetched;
+    private Handler locationChecker;
+    private Runnable locationCheckTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +61,17 @@ public class FoodButtonFragment extends Fragment {
                 .colorRes(R.color.white));
         EventBus.getDefault().register(this);
 
+        locationChecker = new Handler();
+        locationCheckTask = new Runnable() {
+            @Override
+            public void run() {
+                SmartLocation.with(getActivity()).location().stop();
+                if (!locationFetched) {
+                    progressDialog.dismiss();
+                    showSnackbar(getString(R.string.auto_location_fail));
+                }
+            }
+        };
         progressDialog = new MaterialDialog.Builder(getActivity())
                 .progress(true, 0)
                 .cancelable(false)
@@ -74,14 +89,18 @@ public class FoodButtonFragment extends Fragment {
                 if (SmartLocation.with(getActivity()).location().state().locationServicesEnabled()) {
                     progressDialog.setContent(R.string.getting_your_location);
                     progressDialog.show();
+                    locationFetched = false;
                     SmartLocation.with(getActivity()).location()
                             .oneFix()
                             .start(new OnLocationUpdatedListener() {
                                 @Override
                                 public void onLocationUpdated(Location location) {
+                                    locationChecker.removeCallbacks(locationCheckTask);
+                                    locationFetched = true;
                                     fetchSuggestions(LocationUtils.getAddressFromLocation(location));
                                 }
                             });
+                    locationChecker.postDelayed(locationCheckTask, 10000L);
                 } else {
                     showLocationServicesDialog();
                 }

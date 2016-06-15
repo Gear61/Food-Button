@@ -32,8 +32,8 @@
     <string name="add">Add</string>
 
     <string name="auto_location_fail">
-        We are unable to get your current location right now.
-        Please use the map button in the toolbar to explicitly set a location and try again.
+        We couldn\'t get your current location.
+        Please try again or reset location services.
     </string>
 
     <string name="location_services_needed">
