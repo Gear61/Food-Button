@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -33,6 +34,8 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
 
 /**
  * Created by alexanderchiou on 4/14/16.
@@ -42,7 +45,7 @@ public class FoodButtonFragment extends Fragment {
 
     @Bind(R.id.food_button) FloatingActionButton foodButton;
 
-    private MaterialDialog fetchingSuggestion;
+    private MaterialDialog progressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,8 +57,7 @@ public class FoodButtonFragment extends Fragment {
                 .colorRes(R.color.white));
         EventBus.getDefault().register(this);
 
-        fetchingSuggestion = new MaterialDialog.Builder(getActivity())
-                .content(R.string.finding_you_food)
+        progressDialog = new MaterialDialog.Builder(getActivity())
                 .progress(true, 0)
                 .cancelable(false)
                 .build();
@@ -69,16 +71,17 @@ public class FoodButtonFragment extends Fragment {
         if (PermissionUtils.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             String defaultLocation = PreferencesManager.get().getCurrentLocation();
             if (defaultLocation.equals(getString(R.string.automatic))) {
-                if (LocationUtils.isLocationEnabled()) {
-                    String currentLocation = LocationUtils.getCurrentAddress();
-                    if (currentLocation.isEmpty()) {
-                        new MaterialDialog.Builder(getActivity())
-                                .content(R.string.auto_location_fail)
-                                .positiveText(android.R.string.yes)
-                                .show();
-                    } else {
-                        fetchSuggestions(currentLocation);
-                    }
+                if (SmartLocation.with(getActivity()).location().state().locationServicesEnabled()) {
+                    progressDialog.setContent(R.string.getting_your_location);
+                    progressDialog.show();
+                    SmartLocation.with(getActivity()).location()
+                            .oneFix()
+                            .start(new OnLocationUpdatedListener() {
+                                @Override
+                                public void onLocationUpdated(Location location) {
+                                    fetchSuggestions(LocationUtils.getAddressFromLocation(location));
+                                }
+                            });
                 } else {
                     showLocationServicesDialog();
                 }
@@ -120,7 +123,10 @@ public class FoodButtonFragment extends Fragment {
     }
 
     public void fetchSuggestions(String location) {
-        fetchingSuggestion.show();
+        progressDialog.setContent(R.string.finding_you_food);
+        if (!progressDialog.isShowing()) {
+            progressDialog.show();
+        }
         Filter filter = ((MainActivity) getActivity()).getFilter();
         RestClient.get().getYelpService()
                 .doSearch(ApiUtils.getSearchQueryMap(location, filter))
@@ -133,7 +139,7 @@ public class FoodButtonFragment extends Fragment {
 
     @Subscribe
     public void onEvent(String event) {
-        fetchingSuggestion.dismiss();
+        progressDialog.dismiss();
         switch (event) {
             case SearchCallback.RESTAURANTS_FETCHED:
                 Intent loadRestaurant = new Intent(getActivity(), SuggestionsActivity.class);

@@ -4,6 +4,7 @@
     <string name="restaurant_view">Restaurant View</string>
     <string name="powered_by_yelp">Powered by Yelp</string>
 
+    <string name="getting_your_location">Getting your location&#8230;</string>
     <string name="finding_you_food">Finding you food&#8230;</string>
     <string name="no_restaurants">
         We couldn\'t find any open restaurants matching your parameters. Please try again later.

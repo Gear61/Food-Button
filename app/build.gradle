@@ -9,8 +9,8 @@ android {
         applicationId "com.randomappsinc.foodbutton"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 250
-        versionName "2.5.0"
+        versionCode 251
+        versionName "2.5.1"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -41,4 +41,5 @@ dependencies {
     compile 'com.android.support:support-v13:23.4.0'
     compile 'com.android.support:cardview-v7:23.4.0'
     compile 'com.android.support:percent:23.4.0'
+    compile 'io.nlopez.smartlocation:library:3.2.4'
 }
