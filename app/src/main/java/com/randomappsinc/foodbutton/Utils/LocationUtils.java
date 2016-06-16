@@ -41,7 +41,7 @@ public class LocationUtils {
         if (!location.equals(PreferencesManager.get().getCurrentLocation())) {
             options.add(context.getString(R.string.set_as_current));
         }
-        options.add(context.getString(R.string.change_location));
+        options.add(context.getString(R.string.edit_location));
         options.add(context.getString(R.string.delete_location));
         return options.toArray(new String[options.size()]);
     }

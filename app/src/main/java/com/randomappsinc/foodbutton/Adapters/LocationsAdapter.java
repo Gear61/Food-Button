@@ -60,13 +60,13 @@ public class LocationsAdapter extends BaseAdapter {
         UIUtils.showSnackbar(parent, context.getString(R.string.location_deleted));
     }
 
-    public void changeLocation(int position, String newLocation) {
+    public void editLocation(int position, String newLocation) {
         String oldLocation = getItem(position);
         PreferencesManager.get().changeSavedLocation(oldLocation, newLocation);
         content.set(position, newLocation);
         Collections.sort(content);
         notifyDataSetChanged();
-        UIUtils.showSnackbar(parent, context.getString(R.string.location_changed));
+        UIUtils.showSnackbar(parent, context.getString(R.string.location_edited));
     }
 
     public void showDeleteDialog(final int position) {
@@ -87,7 +87,7 @@ public class LocationsAdapter extends BaseAdapter {
                 .show();
     }
 
-    public void showRenameDialog(final int position) {
+    public void showEditDialog(final int position) {
         new MaterialDialog.Builder(context)
                 .title(R.string.change_location_title)
                 .input(context.getString(R.string.location), getItem(position), new MaterialDialog.InputCallback() {
@@ -105,7 +105,7 @@ public class LocationsAdapter extends BaseAdapter {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (which == DialogAction.POSITIVE) {
                             String newName = dialog.getInputEditText().getText().toString();
-                            changeLocation(position, newName);
+                            editLocation(position, newName);
                         }
                     }
                 })
@@ -123,8 +123,8 @@ public class LocationsAdapter extends BaseAdapter {
                             PreferencesManager.get().setCurrentLocation(getItem(position));
                             notifyDataSetChanged();
                             UIUtils.showSnackbar(parent, context.getString(R.string.current_location_set));
-                        } else if (text.toString().equals(context.getString(R.string.change_location))) {
-                            showRenameDialog(position);
+                        } else if (text.toString().equals(context.getString(R.string.edit_location))) {
+                            showEditDialog(position);
                         } else if (text.toString().equals(context.getString(R.string.delete_location))) {
                             showDeleteDialog(position);
                         }
