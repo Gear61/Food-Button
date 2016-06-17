@@ -102,9 +102,12 @@ public class Restaurant implements Parcelable {
     }
 
     public String getAddressWithDistance() {
-        DecimalFormat formatter = new DecimalFormat("#.##");
-        String formattedDistance = formatter.format(distance);
-        return address + " (" + formattedDistance + MyApplication.getAppContext().getString(R.string.miles_away);
+        if (distance > 0) {
+            DecimalFormat formatter = new DecimalFormat("#.##");
+            String formattedDistance = formatter.format(distance);
+            return address + " (" + formattedDistance + MyApplication.getAppContext().getString(R.string.miles_away);
+        }
+        return address;
     }
 
     public void setAddress(String address) {
