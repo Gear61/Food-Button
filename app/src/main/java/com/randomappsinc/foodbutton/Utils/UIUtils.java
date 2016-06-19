@@ -57,8 +57,7 @@ public class UIUtils {
             String numberPart1 = phoneNumber.substring(4, 7) + "-";
             String numberPart2 = phoneNumber.substring(7, 11);
             return countryCode + areaCode + numberPart1 + numberPart2;
-        }
-        else {
+        } else {
             String areaCode = "(" + phoneNumber.substring(0, 3) + ") ";
             String numberPart1 = phoneNumber.substring(3, 6) + "-";
             String numberPart2 = phoneNumber.substring(6, 10);

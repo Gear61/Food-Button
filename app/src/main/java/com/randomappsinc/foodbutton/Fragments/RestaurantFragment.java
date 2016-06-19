@@ -14,7 +14,6 @@ import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
-import com.randomappsinc.foodbutton.Utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -78,7 +77,7 @@ public class RestaurantFragment extends Fragment {
         numReviews.setText(numReviewsText);
 
         address.setText(currentRestaurant.getAddressWithDistance());
-        phoneNumber.setText(UIUtils.humanizePhoneNumber(currentRestaurant.getPhoneNumber()));
+        phoneNumber.setText(RestaurantUtils.getNumberDisplay(currentRestaurant));
 
         if (currentRestaurant.getSnippetText().isEmpty()) {
             whatPeopleSaying.setVisibility(View.GONE);
@@ -91,7 +90,7 @@ public class RestaurantFragment extends Fragment {
     @OnClick(R.id.phone_number_container)
     public void callRestaurant() {
         if (!currentRestaurant.getPhoneNumber().equals(Business.NO_PHONE_NUMBER)) {
-            String phoneUri = "tel:" + phoneNumber.getText().toString();
+            String phoneUri = "tel:" + currentRestaurant.getPhoneNumber();
             startActivity(Intent.createChooser(
                     new Intent(Intent.ACTION_DIAL, Uri.parse(phoneUri)),
                     getString(R.string.call_with)));

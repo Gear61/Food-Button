@@ -83,9 +83,9 @@ public class FoodButtonFragment extends Fragment {
     @OnClick(R.id.food_button)
     public void findFood() {
         foodButton.setEnabled(false);
-        if (PermissionUtils.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
-            String defaultLocation = PreferencesManager.get().getCurrentLocation();
-            if (defaultLocation.equals(getString(R.string.automatic))) {
+        String defaultLocation = PreferencesManager.get().getCurrentLocation();
+        if (defaultLocation.equals(getString(R.string.automatic))) {
+            if (PermissionUtils.isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
                 if (SmartLocation.with(getActivity()).location().state().locationServicesEnabled()) {
                     progressDialog.setContent(R.string.getting_your_location);
                     progressDialog.show();
@@ -105,11 +105,10 @@ public class FoodButtonFragment extends Fragment {
                     showLocationServicesDialog();
                 }
             } else {
-                fetchSuggestions(defaultLocation);
+                PermissionUtils.requestPermission(this, Manifest.permission.ACCESS_FINE_LOCATION, LOCATION_REQUEST_CODE);
             }
         } else {
-            PermissionUtils.requestPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION,
-                    LOCATION_REQUEST_CODE);
+            fetchSuggestions(defaultLocation);
         }
         foodButton.setEnabled(true);
     }

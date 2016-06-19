@@ -63,7 +63,7 @@ public class RestaurantActivity extends StandardActivity {
         numReviews.setText(numReviewsText);
 
         address.setText(currentRestaurant.getAddress());
-        phoneNumber.setText(UIUtils.humanizePhoneNumber(currentRestaurant.getPhoneNumber()));
+        phoneNumber.setText(RestaurantUtils.getNumberDisplay(currentRestaurant));
 
         if (currentRestaurant.getSnippetText().isEmpty()) {
             whatPeopleSaying.setVisibility(View.GONE);
@@ -76,7 +76,7 @@ public class RestaurantActivity extends StandardActivity {
     @OnClick(R.id.phone_number_container)
     public void callRestaurant() {
         if (!currentRestaurant.getPhoneNumber().equals(Business.NO_PHONE_NUMBER)) {
-            String phoneUri = "tel:" + phoneNumber.getText().toString();
+            String phoneUri = "tel:" + currentRestaurant.getPhoneNumber();
             startActivity(Intent.createChooser(
                     new Intent(Intent.ACTION_DIAL, Uri.parse(phoneUri)),
                     getString(R.string.call_with)));
