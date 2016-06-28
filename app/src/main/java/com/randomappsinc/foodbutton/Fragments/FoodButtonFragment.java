@@ -145,7 +145,7 @@ public class FoodButtonFragment extends Fragment {
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
-        Filter filter = ((MainActivity) getActivity()).getFilter();
+        Filter filter = PreferencesManager.get().getFilter();
         RestClient.get().getYelpService()
                 .doSearch(ApiUtils.getSearchQueryMap(location, filter))
                 .enqueue(new SearchCallback(1, location, filter));

@@ -3,7 +3,9 @@ package com.randomappsinc.foodbutton.Persistence;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.R;
+import com.randomappsinc.foodbutton.Utils.JSONUtils;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class PreferencesManager {
     private static final String DEFAULT_LOCATION_KEY = "defaultLocation";
     private static final String SAVED_LOCATIONS_KEY = "savedLocations";
     private static final String FIRST_TIME_KEY = "firstTime";
+    private static final String FILTER_KEY = "filter";
     private static PreferencesManager instance;
     private SharedPreferences prefs;
 
@@ -128,5 +131,13 @@ public class PreferencesManager {
         List<String> allLocations = new ArrayList(Arrays.asList(getLocationsArray()));
         allLocations.remove(0);
         return allLocations;
+    }
+
+    public void saveFilter(Filter filter) {
+        prefs.edit().putString(FILTER_KEY, JSONUtils.serializeFilter(filter)).apply();
+    }
+
+    public Filter getFilter() {
+        return JSONUtils.extractFilter(prefs.getString(FILTER_KEY, ""));
     }
 }

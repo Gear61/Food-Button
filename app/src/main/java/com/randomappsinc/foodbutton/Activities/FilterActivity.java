@@ -1,6 +1,5 @@
 package com.randomappsinc.foodbutton.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Menu;
@@ -13,6 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
 import com.randomappsinc.foodbutton.Models.Filter;
+import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 import com.rey.material.widget.CheckBox;
@@ -46,7 +46,7 @@ public class FilterActivity extends StandardActivity {
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        filter = getIntent().getParcelableExtra(FILTER_KEY);
+        filter = PreferencesManager.get().getFilter();
         searchInput.setText(filter.getSearchTerm());
 
         for (int categoryId : categoryIds) {
@@ -201,9 +201,8 @@ public class FilterActivity extends StandardActivity {
         }
 
         filter.clear();
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(FILTER_KEY, filter);
-        setResult(RESULT_OK, returnIntent);
+        PreferencesManager.get().saveFilter(filter);
+        setResult(RESULT_OK);
     }
 
     @Override
@@ -220,9 +219,8 @@ public class FilterActivity extends StandardActivity {
             case R.id.apply_filters:
                 filter.setSearchTerm(searchInput.getText().toString().trim());
                 filter.setDealsOnly(dealsToggle.isChecked());
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra(FILTER_KEY, filter);
-                setResult(RESULT_OK, returnIntent);
+                PreferencesManager.get().saveFilter(filter);
+                setResult(RESULT_OK);
                 finish();
                 return true;
             case R.id.clear_filters:

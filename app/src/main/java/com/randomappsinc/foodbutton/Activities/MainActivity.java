@@ -16,7 +16,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Fragments.FoodButtonFragment;
 import com.randomappsinc.foodbutton.Fragments.NavigationDrawerFragment;
-import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
@@ -27,8 +26,6 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks{
     @Bind(R.id.parent) View parent;
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
-
-    private Filter filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +50,9 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         FoodButtonFragment foodButtonFragment = new FoodButtonFragment();
         fragmentManager.beginTransaction().replace(R.id.container, foodButtonFragment).commit();
 
-        filter = new Filter();
-
         if (PreferencesManager.get().shouldAskToRate()) {
             showPleaseRateDialog();
         }
-    }
-
-    public Filter getFilter() {
-        return filter;
     }
 
     @Override
@@ -169,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            filter = data.getParcelableExtra(FilterActivity.FILTER_KEY);
             showSnackbar(getString(R.string.filters_updated));
         }
     }
@@ -188,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
             case R.id.filters:
                 drawerLayout.closeDrawers();
                 Intent intent = new Intent(this, FilterActivity.class);
-                intent.putExtra(FilterActivity.FILTER_KEY, filter);
                 startActivityForResult(intent, 1);
                 return true;
             case R.id.set_current_location:
