@@ -53,7 +53,7 @@ public class FavoritesAdapter extends BaseAdapter {
     public class RestaurantViewHolder {
         @Bind(R.id.restaurant_picture) ImageView picture;
         @Bind(R.id.restaurant_name) TextView name;
-        @Bind(R.id.categories) TextView categories;
+        @Bind(R.id.address) TextView address;
 
         public RestaurantViewHolder(View view) {
             ButterKnife.bind(this, view);
@@ -62,7 +62,7 @@ public class FavoritesAdapter extends BaseAdapter {
         public void loadRestaurant(Restaurant restaurant) {
             Picasso.with(context).load(restaurant.getImageUrl()).into(picture);
             name.setText(restaurant.getName());
-            categories.setText(restaurant.getCategories());
+            address.setText(restaurant.getAddress());
         }
     }
 
