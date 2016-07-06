@@ -112,4 +112,15 @@ public class DatabaseManager {
         Collections.sort(categories);
         return categories;
     }
+
+    public List<String> getCities() {
+        List<Restaurant> restaurants = getFavorites();
+        HashSet<String> categoriesSet = new HashSet<>();
+        for (Restaurant restaurant : restaurants) {
+            categoriesSet.add(restaurant.getCity());
+        }
+        List<String> categories = new ArrayList<>(categoriesSet);
+        Collections.sort(categories);
+        return categories;
+    }
 }

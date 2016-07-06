@@ -171,6 +171,10 @@ public class Restaurant implements Parcelable {
         this.currentDeal = currentDeal;
     }
 
+    public String getCity() {
+        return city;
+    }
+
     public RestaurantDO toRestaurantDO() {
         RestaurantDO restaurantDO = new RestaurantDO();
         restaurantDO.setYelpId(yelpId);

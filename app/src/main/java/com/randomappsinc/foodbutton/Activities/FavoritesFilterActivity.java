@@ -2,10 +2,12 @@ package com.randomappsinc.foodbutton.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Models.FavoritesFilter;
@@ -68,6 +70,12 @@ public class FavoritesFilterActivity extends StandardActivity {
         }
     }
 
+    private void setFilter() {
+        Intent intent = new Intent();
+        intent.putExtra(FilterActivity.FILTER_KEY, filter);
+        setResult(RESULT_OK, intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.filter_menu, menu);
@@ -80,7 +88,7 @@ public class FavoritesFilterActivity extends StandardActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.apply_filters:
-                setResult(RESULT_OK);
+                setFilter();
                 finish();
                 return true;
             case R.id.clear_filters:
@@ -89,6 +97,14 @@ public class FavoritesFilterActivity extends StandardActivity {
                         .content(R.string.remove_all_filters)
                         .positiveText(android.R.string.yes)
                         .negativeText(android.R.string.no)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                filter.clear();
+                                setInputs();
+                                setFilter();
+                            }
+                        })
                         .show();
                 return true;
         }

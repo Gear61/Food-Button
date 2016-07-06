@@ -13,12 +13,15 @@ import com.randomappsinc.foodbutton.R;
 import com.rey.material.widget.CheckBox;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
+import butterknife.OnClick;
 
 /**
  * Created by alexanderchiou on 7/5/16.
@@ -28,23 +31,21 @@ public class OptionsAdapter extends BaseAdapter {
     private View noContent;
     private List<String> allOptions;
     private List<String> matchingOptions;
-    private Set<String> alreadyChosen;
+    private Set<String> chosen;
 
-    public OptionsAdapter(Context context, View noContent, int mode, List<String> alreadyChosen) {
+    public OptionsAdapter(Context context, View noContent, List<String> allOptions, List<String> chosen) {
         this.context = context;
         this.noContent = noContent;
-
-        switch (mode) {
-            case FavoritesFilterActivity.CATEGORIES_REQUEST:
-                this.allOptions = DatabaseManager.get().getCategories();
-                break;
-            case FavoritesFilterActivity.CITIES_REQUEST:
-                break;
-        }
-
+        this.allOptions = allOptions;
         this.matchingOptions = new ArrayList<>();
-        this.alreadyChosen = new HashSet<>(alreadyChosen);
+        this.chosen = new HashSet<>(chosen);
         refreshList("");
+    }
+
+    public List<String> getChosen() {
+        List<String> chosen = new ArrayList<>(this.chosen);
+        Collections.sort(chosen);
+        return chosen;
     }
 
     public void refreshList(String searchTerm) {
@@ -102,6 +103,26 @@ public class OptionsAdapter extends BaseAdapter {
         public void loadOption(int position) {
             this.position = position;
             this.optionText.setText(getItem(position));
+            this.optionToggle.setCheckedImmediately(chosen.contains(getItem(position)));
+        }
+
+        @OnClick(R.id.parent)
+        public void cellClicked() {
+            optionToggle.setChecked(!chosen.contains(getItem(position)));
+            processChoice();
+        }
+
+        @OnClick(R.id.option_toggle)
+        public void onToggle() {
+            processChoice();
+        }
+
+        private void processChoice() {
+            if (chosen.contains(getItem(position))) {
+                chosen.remove(getItem(position));
+            } else {
+                chosen.add(getItem(position));
+            }
         }
     }
 

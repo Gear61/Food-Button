@@ -51,4 +51,5 @@
     <string name="cities_hint">What cities are you interested in?</string>
     <string name="search">Search</string>
     <string name="no_prefix_matches">No results to display.</string>
+    <string name="confirm_choices">Confirm choices</string>
 </resources>

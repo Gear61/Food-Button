@@ -39,6 +39,11 @@ public class FavoritesFilter implements Parcelable {
         this.cities = cities;
     }
 
+    public void clear() {
+        categories.clear();
+        cities.clear();
+    }
+
     protected FavoritesFilter(Parcel in) {
         if (in.readByte() == 0x01) {
             categories = new ArrayList<>();
