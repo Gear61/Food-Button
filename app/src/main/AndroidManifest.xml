@@ -61,5 +61,10 @@
             android:label="@string/filters"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".Activities.FavoritesFilterActivity"
+            android:label="@string/filters"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 </manifest>

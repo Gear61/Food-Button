@@ -28,9 +28,13 @@
         \n\nHappy eating!
     </string>
 
+    <!-- Favorites -->
     <string name="no_favorites">
         If you see a restaurant you like, click on the {ion-android-star-outline},
         and Food Button will save it here for you.
+    </string>
+    <string name="no_favorite_matches">
+        None of your favorite restaurants match your filters.
     </string>
 
     <string name="miles_away">&#160;miles away)</string>

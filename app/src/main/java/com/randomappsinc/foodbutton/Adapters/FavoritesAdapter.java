@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.randomappsinc.foodbutton.Models.FavoritesFilter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.R;
@@ -24,13 +25,19 @@ import butterknife.ButterKnife;
  */
 public class FavoritesAdapter extends BaseAdapter {
     private Context context;
-    private View noFavorites;
+    private TextView noFavorites;
     private List<Restaurant> restaurantList;
+    private FavoritesFilter filter;
 
-    public FavoritesAdapter (Context context, View noFavorites) {
+    public FavoritesAdapter (Context context, TextView noFavorites) {
         this.context = context;
         this.noFavorites = noFavorites;
+        this.filter = new FavoritesFilter();
         syncWithDb();
+    }
+
+    public FavoritesFilter getFilter() {
+        return filter;
     }
 
     public void syncWithDb() {
@@ -40,6 +47,11 @@ public class FavoritesAdapter extends BaseAdapter {
     }
 
     public void setNoContent() {
+        if (DatabaseManager.get().getFavorites().isEmpty()) {
+            noFavorites.setText(R.string.no_favorites);
+        } else {
+            noFavorites.setText(R.string.no_favorite_matches);
+        }
         int viewVisibility = restaurantList.isEmpty() ? View.VISIBLE : View.GONE;
         noFavorites.setVisibility(viewVisibility);
     }

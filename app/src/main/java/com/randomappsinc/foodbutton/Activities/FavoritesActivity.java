@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Adapters.FavoritesAdapter;
 import com.randomappsinc.foodbutton.Fragments.RestaurantFragment;
 import com.randomappsinc.foodbutton.Models.Restaurant;
+import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
@@ -23,7 +24,7 @@ import butterknife.OnItemClick;
  */
 public class FavoritesActivity extends StandardActivity {
     @Bind(R.id.favorites) ListView favorites;
-    @Bind(R.id.no_favorites) View noFavorites;
+    @Bind(R.id.no_favorites) TextView noFavorites;
 
     private FavoritesAdapter favoritesAdapter;
 
@@ -58,7 +59,14 @@ public class FavoritesActivity extends StandardActivity {
         getMenuInflater().inflate(R.menu.favorites_menu, menu);
         if (favorites.getCount() == 0) {
             menu.findItem(R.id.load_random_restaurant).setVisible(false);
+            // Only hide filters if they legitimately have no favorites
+            if (DatabaseManager.get().getFavorites().isEmpty()) {
+                menu.findItem(R.id.filters).setVisible(false);
+            } else {
+                UIUtils.loadMenuIcon(menu, R.id.filters, IoniconsIcons.ion_android_options);
+            }
         } else {
+            UIUtils.loadMenuIcon(menu, R.id.filters, IoniconsIcons.ion_android_options);
             UIUtils.loadMenuIcon(menu, R.id.load_random_restaurant, IoniconsIcons.ion_shuffle);
         }
         return true;
@@ -67,6 +75,11 @@ public class FavoritesActivity extends StandardActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.filters:
+                Intent setFilterIntent = new Intent(this, FavoritesFilterActivity.class);
+                setFilterIntent.putExtra(FilterActivity.FILTER_KEY, favoritesAdapter.getFilter());
+                startActivity(setFilterIntent);
+                return true;
             case R.id.load_random_restaurant:
                 Intent intent = new Intent(this, RestaurantActivity.class);
                 intent.putExtra(RestaurantFragment.RESTAURANT_KEY, favoritesAdapter.getRandomRestaurant());

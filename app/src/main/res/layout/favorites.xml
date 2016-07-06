@@ -9,7 +9,6 @@
     <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/no_favorites"
         android:padding="50dp"
-        android:text="@string/no_favorites"
         android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -4,7 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/filters"
+        android:title="@string/filters"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/load_random_restaurant"
         android:title="@string/load_random_restaurant"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 </menu>
