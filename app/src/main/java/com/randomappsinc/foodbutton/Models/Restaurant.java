@@ -8,6 +8,7 @@ import com.randomappsinc.foodbutton.Persistence.CategoryDO;
 import com.randomappsinc.foodbutton.Persistence.RestaurantDO;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
+import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import java.text.DecimalFormat;
@@ -63,14 +64,11 @@ public class Restaurant implements Parcelable {
     }
 
     public String getCategories() {
-        StringBuilder categoriesString = new StringBuilder();
-        for (int i = 0; i < categories.size(); i++) {
-            if (i != 0) {
-                categoriesString.append(", ");
-            }
-            categoriesString.append(categories.get(i));
-        }
-        return categoriesString.toString();
+        return RestaurantUtils.getListString(categories);
+    }
+
+    public List<String> getCategoriesList() {
+        return categories;
     }
 
     public void setCategories(List<String> categories) {

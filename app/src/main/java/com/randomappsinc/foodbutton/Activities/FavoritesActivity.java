@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Adapters.FavoritesAdapter;
 import com.randomappsinc.foodbutton.Fragments.RestaurantFragment;
+import com.randomappsinc.foodbutton.Models.FavoritesFilter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.R;
@@ -45,6 +46,14 @@ public class FavoritesActivity extends StandardActivity {
         Intent intent = new Intent(this, RestaurantActivity.class);
         intent.putExtra(RestaurantFragment.RESTAURANT_KEY, restaurant);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            FavoritesFilter filter = data.getParcelableExtra(FilterActivity.FILTER_KEY);
+            favoritesAdapter.applyFilter(filter);
+        }
     }
 
     @Override

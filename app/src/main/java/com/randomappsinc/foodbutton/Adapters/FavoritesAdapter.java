@@ -40,6 +40,11 @@ public class FavoritesAdapter extends BaseAdapter {
         return filter;
     }
 
+    public void applyFilter(FavoritesFilter filter) {
+        this.filter = filter;
+        notifyDataSetChanged();
+    }
+
     public void syncWithDb() {
         this.restaurantList = DatabaseManager.get().getFavorites();
         notifyDataSetChanged();

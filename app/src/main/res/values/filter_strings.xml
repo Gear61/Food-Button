@@ -46,7 +46,9 @@
 
     <!-- Favorites -->
     <string name="categories_hint">What kinds of food are you craving right now?</string>
-
+    <string name="cities">Cities</string>
     <string name="location_icon">{ion-location}</string>
     <string name="cities_hint">What cities are you interested in?</string>
+    <string name="search">Search</string>
+    <string name="no_prefix_matches">No results to display.</string>
 </resources>

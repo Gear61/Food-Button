@@ -109,4 +109,15 @@ public class RestaurantUtils {
         }
         return restaurantNumber;
     }
+
+    public static String getListString(List<String> categories) {
+        StringBuilder categoriesString = new StringBuilder();
+        for (int i = 0; i < categories.size(); i++) {
+            if (i != 0) {
+                categoriesString.append(", ");
+            }
+            categoriesString.append(categories.get(i));
+        }
+        return categoriesString.toString();
+    }
 }

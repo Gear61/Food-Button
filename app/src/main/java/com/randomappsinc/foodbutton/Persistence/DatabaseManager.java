@@ -7,6 +7,8 @@ import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import io.realm.DynamicRealm;
@@ -96,5 +98,18 @@ public class DatabaseManager {
         }
 
         return restaurants;
+    }
+
+    public List<String> getCategories() {
+        List<Restaurant> restaurants = getFavorites();
+        HashSet<String> categoriesSet = new HashSet<>();
+        for (Restaurant restaurant : restaurants) {
+            for (String category : restaurant.getCategoriesList()) {
+                categoriesSet.add(category);
+            }
+        }
+        List<String> categories = new ArrayList<>(categoriesSet);
+        Collections.sort(categories);
+        return categories;
     }
 }

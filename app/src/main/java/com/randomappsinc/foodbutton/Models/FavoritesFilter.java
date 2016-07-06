@@ -27,24 +27,16 @@ public class FavoritesFilter implements Parcelable {
         return categories;
     }
 
-    public void processCategory(String category) {
-        if (categories.contains(category)) {
-            categories.remove(category);
-        } else {
-            categories.add(category);
-        }
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 
     public List<String> getCities() {
         return cities;
     }
 
-    public void processCity(String city) {
-        if (categories.contains(city)) {
-            cities.remove(city);
-        } else {
-            cities.add(city);
-        }
+    public void setCities(List<String> cities) {
+        this.cities = cities;
     }
 
     protected FavoritesFilter(Parcel in) {
