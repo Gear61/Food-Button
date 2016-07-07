@@ -34,7 +34,7 @@
         and Food Button will save it here for you.
     </string>
     <string name="no_favorite_matches">
-        None of your favorite restaurants match your filters.
+        None of your favorited restaurants match your filters.
     </string>
 
     <string name="miles_away">&#160;miles away)</string>

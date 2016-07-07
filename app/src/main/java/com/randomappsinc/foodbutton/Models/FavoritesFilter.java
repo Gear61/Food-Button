@@ -18,11 +18,6 @@ public class FavoritesFilter implements Parcelable {
         this.cities = new ArrayList<>();
     }
 
-    public FavoritesFilter(List<String> categories, List<String> cities) {
-        this.categories = categories;
-        this.cities = cities;
-    }
-
     public List<String> getCategories() {
         return categories;
     }

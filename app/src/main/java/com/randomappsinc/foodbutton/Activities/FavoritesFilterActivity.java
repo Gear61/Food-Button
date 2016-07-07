@@ -39,6 +39,7 @@ public class FavoritesFilterActivity extends StandardActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         filter = getIntent().getParcelableExtra(FilterActivity.FILTER_KEY);
+        setInputs();
     }
 
     private void setInputs() {

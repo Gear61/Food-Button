@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import butterknife.OnItemClick;
  * Created by alexanderchiou on 4/14/16.
  */
 public class FavoritesActivity extends StandardActivity {
+    @Bind(R.id.parent) View parent;
     @Bind(R.id.favorites) ListView favorites;
     @Bind(R.id.no_favorites) TextView noFavorites;
 
@@ -52,7 +54,8 @@ public class FavoritesActivity extends StandardActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             FavoritesFilter filter = data.getParcelableExtra(FilterActivity.FILTER_KEY);
-            favoritesAdapter.applyFilter(filter);
+            favoritesAdapter.setFilter(filter);
+            UIUtils.showSnackbar(parent, getString(R.string.filters_applied));
         }
     }
 
@@ -69,7 +72,7 @@ public class FavoritesActivity extends StandardActivity {
         if (favorites.getCount() == 0) {
             menu.findItem(R.id.load_random_restaurant).setVisible(false);
             // Only hide filters if they legitimately have no favorites
-            if (DatabaseManager.get().getFavorites().isEmpty()) {
+            if (DatabaseManager.get().getFavorites(new FavoritesFilter()).isEmpty()) {
                 menu.findItem(R.id.filters).setVisible(false);
             } else {
                 UIUtils.loadMenuIcon(menu, R.id.filters, IoniconsIcons.ion_android_options);
@@ -87,7 +90,7 @@ public class FavoritesActivity extends StandardActivity {
             case R.id.filters:
                 Intent setFilterIntent = new Intent(this, FavoritesFilterActivity.class);
                 setFilterIntent.putExtra(FilterActivity.FILTER_KEY, favoritesAdapter.getFilter());
-                startActivity(setFilterIntent);
+                startActivityForResult(setFilterIntent, 1);
                 return true;
             case R.id.load_random_restaurant:
                 Intent intent = new Intent(this, RestaurantActivity.class);

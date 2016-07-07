@@ -40,19 +40,18 @@ public class FavoritesAdapter extends BaseAdapter {
         return filter;
     }
 
-    public void applyFilter(FavoritesFilter filter) {
+    public void setFilter(FavoritesFilter filter) {
         this.filter = filter;
-        notifyDataSetChanged();
     }
 
     public void syncWithDb() {
-        this.restaurantList = DatabaseManager.get().getFavorites();
+        this.restaurantList = DatabaseManager.get().getFavorites(filter);
         notifyDataSetChanged();
         setNoContent();
     }
 
     public void setNoContent() {
-        if (DatabaseManager.get().getFavorites().isEmpty()) {
+        if (DatabaseManager.get().getFavorites(new FavoritesFilter()).isEmpty()) {
             noFavorites.setText(R.string.no_favorites);
         } else {
             noFavorites.setText(R.string.no_favorite_matches);

@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.randomappsinc.foodbutton.Activities.FavoritesFilterActivity;
-import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.R;
 import com.rey.material.widget.CheckBox;
 
@@ -20,7 +18,6 @@ import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**

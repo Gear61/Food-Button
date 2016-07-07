@@ -2,6 +2,7 @@ package com.randomappsinc.foodbutton.Persistence;
 
 import android.content.Context;
 
+import com.randomappsinc.foodbutton.Models.FavoritesFilter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
@@ -15,6 +16,7 @@ import io.realm.DynamicRealm;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmMigration;
+import io.realm.RealmQuery;
 import io.realm.RealmSchema;
 
 /**
@@ -89,24 +91,11 @@ public class DatabaseManager {
                 .findFirst() != null;
     }
 
-    public List<Restaurant> getFavorites() {
-        List<Restaurant> restaurants = new ArrayList<>();
-
-        List<RestaurantDO> restaurantDOs = realm.where(RestaurantDO.class).findAll();
-        for (RestaurantDO restaurantDO : restaurantDOs) {
-            restaurants.add(RestaurantUtils.extractFromDO(restaurantDO));
-        }
-
-        return restaurants;
-    }
-
     public List<String> getCategories() {
-        List<Restaurant> restaurants = getFavorites();
+        List<CategoryDO> categoryDOs = realm.where(CategoryDO.class).findAll();
         HashSet<String> categoriesSet = new HashSet<>();
-        for (Restaurant restaurant : restaurants) {
-            for (String category : restaurant.getCategoriesList()) {
-                categoriesSet.add(category);
-            }
+        for (CategoryDO categoryDO : categoryDOs) {
+            categoriesSet.add(categoryDO.getCategory());
         }
         List<String> categories = new ArrayList<>(categoriesSet);
         Collections.sort(categories);
@@ -114,7 +103,7 @@ public class DatabaseManager {
     }
 
     public List<String> getCities() {
-        List<Restaurant> restaurants = getFavorites();
+        List<Restaurant> restaurants = getFavorites(new FavoritesFilter());
         HashSet<String> categoriesSet = new HashSet<>();
         for (Restaurant restaurant : restaurants) {
             categoriesSet.add(restaurant.getCity());
@@ -122,5 +111,40 @@ public class DatabaseManager {
         List<String> categories = new ArrayList<>(categoriesSet);
         Collections.sort(categories);
         return categories;
+    }
+
+    public List<Restaurant> getFavorites(FavoritesFilter filter) {
+        RealmQuery<RestaurantDO> query = realm.where(RestaurantDO.class);
+
+        for (int i = 0; i < filter.getCategories().size(); i++) {
+            if (i != 0) {
+                query = query.or();
+            } else {
+                query = query.beginGroup();
+            }
+            query = query.equalTo("categories.category", filter.getCategories().get(i));
+            if (i == filter.getCategories().size() - 1) {
+                query = query.endGroup();
+            }
+        }
+
+        for (int i = 0; i < filter.getCities().size(); i++) {
+            if (i != 0) {
+                query = query.or();
+            } else {
+                query = query.beginGroup();
+            }
+            query = query.equalTo("city", filter.getCities().get(i));
+            if (i == filter.getCities().size() - 1) {
+                query = query.endGroup();
+            }
+        }
+
+        List<Restaurant> restaurants = new ArrayList<>();
+        List<RestaurantDO> restaurantDOs = query.findAll();
+        for (RestaurantDO restaurantDO : restaurantDOs) {
+            restaurants.add(RestaurantUtils.extractFromDO(restaurantDO));
+        }
+        return restaurants;
     }
 }
