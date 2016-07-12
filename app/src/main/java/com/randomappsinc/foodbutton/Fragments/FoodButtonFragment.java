@@ -24,6 +24,7 @@ import com.randomappsinc.foodbutton.API.SearchCallback;
 import com.randomappsinc.foodbutton.Activities.MainActivity;
 import com.randomappsinc.foodbutton.Activities.SuggestionsActivity;
 import com.randomappsinc.foodbutton.Models.Filter;
+import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.LocationUtils;
@@ -31,6 +32,8 @@ import com.randomappsinc.foodbutton.Utils.PermissionUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -158,17 +161,20 @@ public class FoodButtonFragment extends Fragment {
     @Subscribe
     public void onEvent(String event) {
         progressDialog.dismiss();
-        switch (event) {
-            case SearchCallback.RESTAURANTS_FETCHED:
-                Intent loadRestaurant = new Intent(getActivity(), SuggestionsActivity.class);
-                loadRestaurant.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                getActivity().startActivity(loadRestaurant);
-                break;
-            case SearchCallback.NO_RESTAURANTS:
-                showSnackbar(getString(R.string.no_restaurants));
-                break;
-            case SearchCallback.SEARCH_FAIL:
-                showSnackbar(getString(R.string.search_fail));
+        if (event.equals(SearchCallback.SEARCH_FAIL)) {
+            showSnackbar(getString(R.string.search_fail));
+        }
+    }
+
+    @Subscribe
+    public void onEvent(ArrayList<Restaurant> restaurants) {
+        progressDialog.dismiss();
+        if (restaurants.isEmpty()) {
+            showSnackbar(getString(R.string.no_restaurants));
+        } else {
+            Intent loadRestaurant = new Intent(getActivity(), SuggestionsActivity.class);
+            loadRestaurant.putParcelableArrayListExtra(Restaurant.RESTAURANTS_KEY, restaurants);
+            getActivity().startActivity(loadRestaurant);
         }
     }
 

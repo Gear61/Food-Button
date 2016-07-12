@@ -6,11 +6,10 @@ import com.randomappsinc.foodbutton.API.Models.SearchResponse;
 import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
 import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
-import com.randomappsinc.foodbutton.Utils.RestaurantServer;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,13 +37,8 @@ public class SearchCallback implements Callback<SearchResponse> {
     @Override
     public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
         if (response.code() == ApiConstants.HTTP_STATUS_OK) {
-            List<Restaurant> restaurants = response.body().getRestaurants();
-            if (!restaurants.isEmpty()) {
-                RestaurantServer.get().setRestaurantList(restaurants);
-                EventBus.getDefault().post(RESTAURANTS_FETCHED);
-            } else {
-                EventBus.getDefault().post(NO_RESTAURANTS);
-            }
+            ArrayList<Restaurant> restaurants = response.body().getRestaurants();
+            EventBus.getDefault().post(restaurants);
         } else {
             processFailure();
         }

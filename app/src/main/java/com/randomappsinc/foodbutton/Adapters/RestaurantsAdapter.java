@@ -6,7 +6,6 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 
 import com.randomappsinc.foodbutton.Fragments.RestaurantFragment;
 import com.randomappsinc.foodbutton.Models.Restaurant;
-import com.randomappsinc.foodbutton.Utils.RestaurantServer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,9 +17,9 @@ import java.util.List;
 public class RestaurantsAdapter extends FragmentStatePagerAdapter {
     private List<Restaurant> restaurants;
 
-    public RestaurantsAdapter(FragmentManager fragmentManager) {
+    public RestaurantsAdapter(FragmentManager fragmentManager, List<Restaurant> restaurants) {
         super(fragmentManager);
-        this.restaurants = RestaurantServer.get().getRestaurants();
+        this.restaurants = restaurants;
     }
 
     public Restaurant getRestaurant(int position) {

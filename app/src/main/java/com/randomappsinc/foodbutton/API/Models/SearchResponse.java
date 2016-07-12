@@ -15,8 +15,8 @@ public class SearchResponse {
     @Expose
     private List<Business> businesses = new ArrayList<>();
 
-    public List<Restaurant> getRestaurants() {
-        List<Restaurant> restaurants = new ArrayList<>();
+    public ArrayList<Restaurant> getRestaurants() {
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
         for (Business business : businesses) {
             if (!business.isClosed()) {
                 restaurants.add(business.toRestaurant());

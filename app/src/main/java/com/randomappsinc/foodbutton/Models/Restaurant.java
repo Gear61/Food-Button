@@ -21,6 +21,8 @@ import io.realm.RealmList;
  * Created by alexanderchiou on 3/27/16.
  */
 public class Restaurant implements Parcelable {
+    public static final String RESTAURANTS_KEY = "restaurants";
+
     private String yelpId;
     private String mobileUrl;
     private String name;
@@ -216,6 +218,7 @@ public class Restaurant implements Parcelable {
         rating = in.readFloat();
         numReviews = in.readInt();
         snippetText = in.readString();
+        currentDeal = in.readString();
         distance = in.readDouble();
     }
 
@@ -242,6 +245,7 @@ public class Restaurant implements Parcelable {
         dest.writeFloat(rating);
         dest.writeInt(numReviews);
         dest.writeString(snippetText);
+        dest.writeString(currentDeal);
         dest.writeDouble(distance);
     }
 
