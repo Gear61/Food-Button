@@ -56,9 +56,8 @@ public class SuggestionsActivity extends StandardActivity {
 
         if (PreferencesManager.get().shouldShowInstructions()) {
             new MaterialDialog.Builder(this)
-                    .title(R.string.instructions_title)
-                    .content(R.string.instructions)
-                    .positiveText(android.R.string.yes)
+                    .customView(R.layout.suggestions_instructions, false)
+                    .positiveText(R.string.got_it)
                     .show();
         }
     }

@@ -22,15 +22,16 @@
     <string name="start_heading_here">Start Heading Here</string>
 
     <string name="instructions_title">Instructions</string>
-    <string name="instructions">
+    <string name="suggestion_instructions">
         1. Swipe left and right to browse restaurants or hit the shuffle button to choose one at random.
-        \n\n2. Click the restaurant\'s phone number to give it a call.
+        \n\n2. Click the {ion-android-star-outline} in the toolbar to save restaurants you like.
         \n\nHappy eating!
     </string>
+    <string name="got_it">Got it!</string>
 
     <!-- Favorites -->
     <string name="no_favorites">
-        If you see a restaurant you like, click on the {ion-android-star-outline},
+        If you see a restaurant you like, click the {ion-android-star-outline},
         and Food Button will save it here for you.
     </string>
     <string name="no_favorite_matches">
