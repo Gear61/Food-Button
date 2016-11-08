@@ -24,13 +24,13 @@
 
         <com.joanzapata.iconify.widget.IconTextView
             android:text="@string/search_icon"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="-2dp"
             style="@style/input_icon"/>
 
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/clear_search"
             android:text="@string/clear_icon"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="-2dp"
             android:layout_gravity="center_vertical|right"
             style="@style/input_icon"/>
     </FrameLayout>

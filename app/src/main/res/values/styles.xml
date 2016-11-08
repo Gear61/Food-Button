@@ -20,7 +20,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="fabSize">normal</item>
-        <item name="borderWidth">25dp</item>
+        <item name="borderWidth">24dp</item>
     </style>
 
     <style name="powered_by_yelp">
@@ -37,7 +37,7 @@
         <item name="android:textColor">@color/dark_gray</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">28dp</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
 
@@ -47,7 +47,7 @@
         <item name="android:paddingBottom">10dp</item>
         <item name="android:textColor">@color/dark_gray</item>
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">22dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -55,20 +55,19 @@
     <style name="text_input">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
         <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/dark_gray</item>
         <item name="android:background">@drawable/text_input_border</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">8dp</item>
         <item name="android:singleLine">true</item>
         <item name="android:imeOptions">actionDone</item>
     </style>
 
     <style name="input_icon">
-        <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_width">45dp</item>
         <item name="android:layout_height">45dp</item>
         <item name="android:layout_gravity">center_vertical</item>
