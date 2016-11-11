@@ -4,5 +4,10 @@
         <item name="colorPrimary">@color/app_red</item>
         <item name="colorPrimaryDark">@color/dark_red</item>
         <item name="colorAccent">@color/app_red</item>
+
+        <!-- Dialog styling -->
+        <item name="md_positive_color">@color/app_red</item>
+        <item name="md_negative_color">@color/app_red</item>
+        <item name="md_neutral_color">@color/app_red</item>
     </style>
 </resources>
