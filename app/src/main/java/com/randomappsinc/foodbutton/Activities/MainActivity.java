@@ -105,58 +105,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 .show();
     }
 
-    private void chooseCurrentLocation() {
-        new MaterialDialog.Builder(this)
-                .title(R.string.choose_current_location)
-                .content(R.string.current_instructions)
-                .items(PreferencesManager.get().getLocationsArray())
-                .itemsCallbackSingleChoice(PreferencesManager.get().getCurrentLocationIndex(),
-                        new MaterialDialog.ListCallbackSingleChoice() {
-                            @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                PreferencesManager.get().setCurrentLocation(text.toString());
-                                UIUtils.showSnackbar(parent, getString(R.string.current_location_set));
-                                return true;
-                            }
-                        })
-                .positiveText(R.string.choose)
-                .negativeText(android.R.string.cancel)
-                .neutralText(R.string.add_location_title)
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        addLocation();
-                    }
-                })
-                .show();
-    }
-
-    private void addLocation() {
-        new MaterialDialog.Builder(this)
-                .title(R.string.add_location_title)
-                .input(getString(R.string.location), "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, @NonNull CharSequence input) {
-                        String currentInput = input.toString().trim();
-                        dialog.getActionButton(DialogAction.POSITIVE)
-                                .setEnabled(!PreferencesManager.get().alreadyHasLocation(input.toString().trim())
-                                        && !currentInput.isEmpty());
-                    }
-                })
-                .alwaysCallInputCallback()
-                .positiveText(R.string.add)
-                .negativeText(android.R.string.no)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        String newLocation = dialog.getInputEditText().getText().toString();
-                        PreferencesManager.get().addSavedLocation(newLocation);
-                        UIUtils.showAddedSnackbar(newLocation, parent, null);
-                    }
-                })
-                .show();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -168,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         UIUtils.loadMenuIcon(menu, R.id.filters, IoniconsIcons.ion_android_options);
-        UIUtils.loadMenuIcon(menu, R.id.set_current_location, IoniconsIcons.ion_android_map);
         return true;
     }
 
@@ -179,10 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 drawerLayout.closeDrawers();
                 Intent intent = new Intent(this, FilterActivity.class);
                 startActivityForResult(intent, 1);
-                return true;
-            case R.id.set_current_location:
-                drawerLayout.closeDrawers();
-                chooseCurrentLocation();
                 return true;
         }
         return super.onOptionsItemSelected(item);

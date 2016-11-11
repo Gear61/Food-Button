@@ -7,9 +7,4 @@
         android:id="@+id/filters"
         android:title="@string/filters"
         app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/set_current_location"
-        android:title="@string/set_current_location"
-        app:showAsAction="ifRoom"/>
 </menu>

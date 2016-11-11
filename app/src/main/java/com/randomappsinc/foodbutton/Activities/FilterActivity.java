@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -30,7 +31,9 @@ public class FilterActivity extends StandardActivity {
             R.id.indian, R.id.italian, R.id.japanese, R.id.korean, R.id.mediterranean, R.id.middle_eastern,
             R.id.mexican, R.id.pizza, R.id.thai};
 
+    @Bind(R.id.parent) View parent;
     @Bind(R.id.search_term) EditText searchInput;
+    @Bind(R.id.current_location) TextView currentLocation;
     @Bind(R.id.very_close_toggle) CheckBox veryCloseToggle;
     @Bind(R.id.close_toggle) CheckBox closeToggle;
     @Bind(R.id.far_toggle) CheckBox farToggle;
@@ -48,6 +51,7 @@ public class FilterActivity extends StandardActivity {
 
         filter = PreferencesManager.get().getFilter();
         searchInput.setText(filter.getSearchTerm());
+        currentLocation.setText(PreferencesManager.get().getCurrentLocation());
 
         for (int categoryId : categoryIds) {
             String category = ApiUtils.getCategoryFromId(categoryId);
@@ -81,6 +85,66 @@ public class FilterActivity extends StandardActivity {
     @OnClick(R.id.clear_search)
     public void clearSearch() {
         searchInput.setText("");
+    }
+
+    @OnClick(R.id.current_location)
+    public void setLocation() {
+        chooseCurrentLocation();
+    }
+
+    private void chooseCurrentLocation() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.choose_current_location)
+                .content(R.string.current_instructions)
+                .items(PreferencesManager.get().getLocationsArray())
+                .itemsCallbackSingleChoice(PreferencesManager.get().getCurrentLocationIndex(),
+                        new MaterialDialog.ListCallbackSingleChoice() {
+                            @Override
+                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                                PreferencesManager.get().setCurrentLocation(text.toString());
+                                currentLocation.setText(PreferencesManager.get().getCurrentLocation());
+                                UIUtils.showSnackbar(parent, getString(R.string.current_location_set));
+                                return true;
+                            }
+                        })
+                .positiveText(R.string.choose)
+                .negativeText(android.R.string.cancel)
+                .neutralText(R.string.add_location_title)
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        addLocation();
+                    }
+                })
+                .show();
+    }
+
+    private void addLocation() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.add_location_title)
+                .input(getString(R.string.location), "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, @NonNull CharSequence input) {
+                        String currentInput = input.toString().trim();
+                        dialog.getActionButton(DialogAction.POSITIVE)
+                                .setEnabled(!PreferencesManager.get().alreadyHasLocation(input.toString().trim())
+                                        && !currentInput.isEmpty());
+                    }
+                })
+                .alwaysCallInputCallback()
+                .positiveText(R.string.add)
+                .negativeText(android.R.string.no)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        String newLocation = dialog.getInputEditText().getText().toString();
+                        PreferencesManager.get().addSavedLocation(newLocation);
+                        PreferencesManager.get().setCurrentLocation(newLocation);
+                        currentLocation.setText(PreferencesManager.get().getCurrentLocation());
+                        UIUtils.showSnackbar(parent, getString(R.string.current_location_set));
+                    }
+                })
+                .show();
     }
 
     @OnClick({R.id.american, R.id.chinese, R.id.fast_food, R.id.french, R.id.indian, R.id.italian, R.id.japanese,

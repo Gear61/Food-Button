@@ -24,7 +24,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textColor">@color/dark_gray</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="checkbox_style">
@@ -50,11 +50,16 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/gray</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">16dp</item>
     </style>
 
-    <style name="filter_icon" parent="filter_header">
-        <item name="android:layout_marginRight">5dp</item>
+    <style name="filter_icon">
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="filter_divider">

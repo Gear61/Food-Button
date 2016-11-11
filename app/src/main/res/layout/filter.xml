@@ -1,366 +1,407 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/search_term_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="12dp">
-
-        <EditText
-            android:id="@+id/search_term"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/search_hint"
-            android:layout_marginLeft="26dp"
-            android:paddingRight="32dp"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:textSize="18dp"
-            android:textColor="@color/dark_gray"
-            android:textColorHint="@color/gray"
-            style="@style/filter_input"/>
-
-        <com.joanzapata.iconify.widget.IconTextView
-            android:text="@string/search_icon"
-            style="@style/filter_input_icon"/>
-
-        <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/clear_search"
-            android:text="@string/clear_icon"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="6dp"
-            style="@style/filter_input_icon"/>
-    </FrameLayout>
-
-    <View
-        android:id="@+id/search_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray_200"
-        android:layout_below="@+id/search_term_container"/>
-
-    <ScrollView
-        android:background="@color/gray_200"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/search_divider"
-        android:padding="4dp"
-        android:clipToPadding="false">
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/search_term_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/white"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="12dp">
 
-            <android.support.v7.widget.CardView style="@style/filter_card">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            <EditText
+                android:id="@+id/search_term"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_hint"
+                android:layout_marginLeft="26dp"
+                android:paddingRight="32dp"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:textSize="18dp"
+                android:textColor="@color/dark_gray"
+                android:textColorHint="@color/gray"
+                style="@style/filter_input"/>
 
-                    <LinearLayout style="@style/filter_header_container">
-                        <com.joanzapata.iconify.widget.IconTextView
-                            style="@style/filter_icon"
-                            android:text="@string/categories_icon"/>
+            <com.joanzapata.iconify.widget.IconTextView
+                android:text="@string/search_icon"
+                style="@style/filter_input_icon"/>
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/clear_search"
+                android:text="@string/clear_icon"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="6dp"
+                style="@style/filter_input_icon"/>
+        </FrameLayout>
+
+        <View
+            android:id="@+id/search_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_200"
+            android:layout_below="@+id/search_term_container"/>
+
+        <ScrollView
+            android:background="@color/gray_200"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/search_divider"
+            android:padding="4dp"
+            android:clipToPadding="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.CardView
+                    style="@style/filter_card"
+                    android:layout_marginTop="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout style="@style/filter_header_container">
+                            <com.joanzapata.iconify.widget.IconTextView
+                                style="@style/filter_icon"
+                                android:text="@string/location_icon"/>
+
+                            <TextView
+                                style="@style/filter_header"
+                                android:text="@string/location"/>
+                        </LinearLayout>
+
+                        <View style="@style/filter_divider"/>
 
                         <TextView
-                            style="@style/filter_header"
-                            android:text="@string/categories"/>
+                            android:id="@+id/current_location"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_margin="4dp"
+                            android:textSize="20dp"
+                            android:textColor="@color/dark_gray"/>
                     </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-                    <View style="@style/filter_divider"/>
+                <android.support.v7.widget.CardView
+                    style="@style/filter_card"
+                    android:layout_marginTop="4dp">
 
-                    <FrameLayout
-                        android:id="@+id/american"
-                        style="@style/filter_field_container">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:text="@string/american"
-                            style="@style/filter_field_text"/>
+                        <LinearLayout style="@style/filter_header_container">
+                            <com.joanzapata.iconify.widget.IconTextView
+                                style="@style/filter_icon"
+                                android:text="@string/categories_icon"/>
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/american_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                style="@style/filter_header"
+                                android:text="@string/categories"/>
+                        </LinearLayout>
 
-                    <FrameLayout
-                        android:id="@+id/chinese"
-                        style="@style/filter_field_container">
+                        <View style="@style/filter_divider"/>
 
-                        <TextView
-                            android:text="@string/chinese"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/american"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/chinese_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/american"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/fast_food"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/american_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/fast_food"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/chinese"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/fast_food_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/chinese"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/french"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/chinese_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/french"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/fast_food"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/french_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/fast_food"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/indian"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/fast_food_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/indian"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/french"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/indian_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/french"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/italian"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/french_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/italian"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/indian"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/italian_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/indian"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/japanese"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/indian_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/japanese"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/italian"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/japanese_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/italian"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/korean"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/italian_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/korean"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/japanese"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/korean_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/japanese"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/mediterranean"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/japanese_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/mediterranean"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/korean"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/mediterranean_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/korean"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/middle_eastern"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/korean_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/middle_eastern"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/mediterranean"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/middle_eastern_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/mediterranean"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/mexican"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/mediterranean_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/mexican"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/middle_eastern"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/mexican_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/middle_eastern"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/pizza"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/middle_eastern_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/pizza"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/mexican"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/pizza_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/mexican"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/thai"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/mexican_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/thai"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/pizza"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/thai_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                            <TextView
+                                android:text="@string/pizza"
+                                style="@style/filter_field_text"/>
 
-            <android.support.v7.widget.CardView
-                style="@style/filter_card"
-                android:layout_marginTop="5dp">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/pizza_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                        <FrameLayout
+                            android:id="@+id/thai"
+                            style="@style/filter_field_container">
 
-                    <LinearLayout style="@style/filter_header_container">
-                        <com.joanzapata.iconify.widget.IconTextView
-                            style="@style/filter_icon"
-                            android:text="@string/distance_icon"/>
+                            <TextView
+                                android:text="@string/thai"
+                                style="@style/filter_field_text"/>
 
-                        <TextView
-                            style="@style/filter_header"
-                            android:text="@string/distance"/>
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/thai_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
                     </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-                    <View style="@style/filter_divider"/>
+                <android.support.v7.widget.CardView
+                    style="@style/filter_card"
+                    android:layout_marginTop="4dp">
 
-                    <FrameLayout
-                        android:id="@+id/very_close"
-                        style="@style/filter_field_container">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:text="@string/very_close"
-                            style="@style/filter_field_text"/>
+                        <LinearLayout style="@style/filter_header_container">
+                            <com.joanzapata.iconify.widget.IconTextView
+                                style="@style/filter_icon"
+                                android:text="@string/distance_icon"/>
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/very_close_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                style="@style/filter_header"
+                                android:text="@string/distance"/>
+                        </LinearLayout>
 
-                    <FrameLayout
-                        android:id="@+id/close"
-                        style="@style/filter_field_container">
+                        <View style="@style/filter_divider"/>
 
-                        <TextView
-                            android:text="@string/close"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/very_close"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/close_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/very_close"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/far"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/very_close_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/far"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/close"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/far_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
+                            <TextView
+                                android:text="@string/close"
+                                style="@style/filter_field_text"/>
 
-                    <FrameLayout
-                        android:id="@+id/very_far"
-                        style="@style/filter_field_container">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/close_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                        <TextView
-                            android:text="@string/very_far"
-                            style="@style/filter_field_text"/>
+                        <FrameLayout
+                            android:id="@+id/far"
+                            style="@style/filter_field_container">
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/very_far_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                            <TextView
+                                android:text="@string/far"
+                                style="@style/filter_field_text"/>
 
-            <android.support.v7.widget.CardView
-                style="@style/filter_card"
-                android:layout_marginTop="5dp">
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/far_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                        <FrameLayout
+                            android:id="@+id/very_far"
+                            style="@style/filter_field_container">
 
-                    <LinearLayout style="@style/filter_header_container">
-                        <com.joanzapata.iconify.widget.IconTextView
-                            style="@style/filter_icon"
-                            android:text="@string/deals_icon"/>
+                            <TextView
+                                android:text="@string/very_far"
+                                style="@style/filter_field_text"/>
 
-                        <TextView
-                            style="@style/filter_header"
-                            android:text="@string/deals"/>
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/very_far_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
                     </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-                    <View style="@style/filter_divider"/>
+                <android.support.v7.widget.CardView
+                    style="@style/filter_card"
+                    android:layout_marginTop="4dp">
 
-                    <FrameLayout
-                        android:id="@+id/deals_filter"
-                        style="@style/filter_field_container">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:text="@string/deals_only"
-                            style="@style/filter_field_text"/>
+                        <LinearLayout style="@style/filter_header_container">
+                            <com.joanzapata.iconify.widget.IconTextView
+                                style="@style/filter_icon"
+                                android:text="@string/deals_icon"/>
 
-                        <com.rey.material.widget.CheckBox
-                            android:id="@+id/deals_toggle"
-                            style="@style/checkbox_style"/>
-                    </FrameLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+                            <TextView
+                                style="@style/filter_header"
+                                android:text="@string/deals"/>
+                        </LinearLayout>
+
+                        <View style="@style/filter_divider"/>
+
+                        <FrameLayout
+                            android:id="@+id/deals_filter"
+                            style="@style/filter_field_container">
+
+                            <TextView
+                                android:text="@string/deals_only"
+                                style="@style/filter_field_text"/>
+
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/deals_toggle"
+                                style="@style/checkbox_style"/>
+                        </FrameLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
