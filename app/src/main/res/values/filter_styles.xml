@@ -76,4 +76,28 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">5dp</item>
     </style>
+
+    <style name="favorites_filter_icon">
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:textColor">@color/gray_600</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="favorites_filter_header">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/gray_600</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="favorites_header_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 </resources>
