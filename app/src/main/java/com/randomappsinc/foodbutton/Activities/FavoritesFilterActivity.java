@@ -11,9 +11,13 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Models.FavoritesFilter;
+import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,9 +27,6 @@ import butterknife.OnClick;
  * Created by alexanderchiou on 7/3/16.
  */
 public class FavoritesFilterActivity extends StandardActivity {
-    public static final int CATEGORIES_REQUEST = 1;
-    public static final int CITIES_REQUEST = 2;
-
     @Bind(R.id.categories_input) EditText categoriesInput;
     @Bind(R.id.cities_input) EditText citiesInput;
 
@@ -49,26 +50,58 @@ public class FavoritesFilterActivity extends StandardActivity {
 
     @OnClick(R.id.categories_input)
     public void chooseCategories() {
-        Intent intent = new Intent(this, OptionsActivity.class);
-        intent.putExtra(OptionsActivity.MODE_KEY, CATEGORIES_REQUEST);
-        intent.putExtra(FilterActivity.FILTER_KEY, filter);
-        startActivityForResult(intent, CATEGORIES_REQUEST);
+        List<String> allCategories = DatabaseManager.get().getCategories();
+        Integer[] alreadyChosen = new Integer[filter.getCategories().size()];
+        for (int i = 0; i < filter.getCategories().size(); i++) {
+            alreadyChosen[i] = allCategories.indexOf(filter.getCategories().get(i));
+        }
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.categories)
+                .items(allCategories)
+                .itemsCallbackMultiChoice(alreadyChosen, new MaterialDialog.ListCallbackMultiChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                        List<String> categories = new ArrayList<>();
+                        for (CharSequence choice : text) {
+                            categories.add(choice.toString());
+                        }
+                        filter.setCategories(categories);
+                        setInputs();
+                        return true;
+                    }
+                })
+                .positiveText(R.string.choose)
+                .negativeText(android.R.string.cancel)
+                .show();
     }
 
     @OnClick(R.id.cities_input)
     public void chooseCities() {
-        Intent intent = new Intent(this, OptionsActivity.class);
-        intent.putExtra(OptionsActivity.MODE_KEY, CITIES_REQUEST);
-        intent.putExtra(FilterActivity.FILTER_KEY, filter);
-        startActivityForResult(intent, CATEGORIES_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            filter = data.getParcelableExtra(FilterActivity.FILTER_KEY);
-            setInputs();
+        List<String> allCities = DatabaseManager.get().getCities();
+        Integer[] alreadyChosen = new Integer[filter.getCities().size()];
+        for (int i = 0; i < filter.getCities().size(); i++) {
+            alreadyChosen[i] = allCities.indexOf(filter.getCities().get(i));
         }
+
+        new MaterialDialog.Builder(this)
+                .title(R.string.cities)
+                .items(allCities)
+                .itemsCallbackMultiChoice(alreadyChosen, new MaterialDialog.ListCallbackMultiChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                        List<String> cities = new ArrayList<>();
+                        for (CharSequence choice : text) {
+                            cities.add(choice.toString());
+                        }
+                        filter.setCities(cities);
+                        setInputs();
+                        return true;
+                    }
+                })
+                .positiveText(R.string.choose)
+                .negativeText(android.R.string.cancel)
+                .show();
     }
 
     private void setFilter() {
