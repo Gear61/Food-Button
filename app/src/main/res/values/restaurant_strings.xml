@@ -43,4 +43,6 @@
     <string name="what_people_saying"><u>What People Are Saying</u></string>
 
     <string name="deal_icon">{ion-pricetag}</string>
+
+    <string name="restaurant_unfavorited">Restaurant unfavorited.</string>
 </resources>

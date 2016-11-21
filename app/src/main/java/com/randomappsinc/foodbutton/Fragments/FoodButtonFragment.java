@@ -34,6 +34,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -172,6 +173,10 @@ public class FoodButtonFragment extends Fragment {
         if (restaurants.isEmpty()) {
             showSnackbar(getString(R.string.no_restaurants));
         } else {
+            if (PreferencesManager.get().getFilter().isRandomizeResults()) {
+                Collections.shuffle(restaurants);
+            }
+
             Intent loadRestaurant = new Intent(getActivity(), SuggestionsActivity.class);
             loadRestaurant.putParcelableArrayListExtra(Restaurant.RESTAURANTS_KEY, restaurants);
             getActivity().startActivity(loadRestaurant);

@@ -17,7 +17,7 @@ import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,12 +28,9 @@ import butterknife.OnPageChange;
  * Created by alexanderchiou on 3/27/16.
  */
 public class SuggestionsActivity extends StandardActivity {
-    public static final String CURRENT_POSITION_KEY = "currentPosition";
-
     @Bind(R.id.restaurant_pager) ViewPager restaurantPager;
 
     private RestaurantsAdapter adapter;
-    private ArrayList<Restaurant> restaurants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +40,9 @@ public class SuggestionsActivity extends StandardActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        int currentPosition = 0;
-        if (savedInstanceState != null) {
-            restaurants = savedInstanceState.getParcelableArrayList(Restaurant.RESTAURANTS_KEY);
-            currentPosition = savedInstanceState.getInt(CURRENT_POSITION_KEY);
-        } else {
-            restaurants = getIntent().getParcelableArrayListExtra(Restaurant.RESTAURANTS_KEY);
-        }
+        List<Restaurant> restaurants = getIntent().getParcelableArrayListExtra(Restaurant.RESTAURANTS_KEY);
         adapter = new RestaurantsAdapter(getFragmentManager(), restaurants);
         restaurantPager.setAdapter(adapter);
-        restaurantPager.setCurrentItem(currentPosition);
 
         if (PreferencesManager.get().shouldShowInstructions()) {
             new MaterialDialog.Builder(this)
@@ -60,12 +50,6 @@ public class SuggestionsActivity extends StandardActivity {
                     .positiveText(R.string.got_it)
                     .show();
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(Restaurant.RESTAURANTS_KEY, restaurants);
-        outState.putInt(CURRENT_POSITION_KEY, restaurantPager.getCurrentItem());
     }
 
     @OnPageChange(R.id.restaurant_pager)

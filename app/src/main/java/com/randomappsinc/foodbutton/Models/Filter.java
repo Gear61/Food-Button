@@ -16,10 +16,12 @@ public class Filter {
     private ArrayList<String> categories;
     private int radius;
     private boolean dealsOnly;
+    private boolean randomizeResults;
 
     public Filter() {
         this.searchTerm = "";
         this.categories = new ArrayList<>();
+        this.randomizeResults = true;
     }
 
     public String getSearchTerm() {
@@ -76,5 +78,13 @@ public class Filter {
 
     public void setDealsOnly(boolean dealsOnly) {
         this.dealsOnly = dealsOnly;
+    }
+
+    public boolean isRandomizeResults() {
+        return randomizeResults;
+    }
+
+    public void setRandomizeResults(boolean randomizeResults) {
+        this.randomizeResults = randomizeResults;
     }
 }

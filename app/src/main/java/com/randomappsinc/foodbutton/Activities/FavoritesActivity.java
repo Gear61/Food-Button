@@ -1,13 +1,18 @@
 package com.randomappsinc.foodbutton.Activities;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Adapters.FavoritesAdapter;
 import com.randomappsinc.foodbutton.Fragments.RestaurantFragment;
@@ -15,9 +20,11 @@ import com.randomappsinc.foodbutton.Models.FavoritesFilter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.R;
+import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import butterknife.Bind;
+import butterknife.BindColor;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
@@ -26,8 +33,10 @@ import butterknife.OnItemClick;
  */
 public class FavoritesActivity extends StandardActivity {
     @Bind(R.id.parent) View parent;
-    @Bind(R.id.favorites) ListView favorites;
+    @Bind(R.id.favorites) SwipeMenuListView favorites;
     @Bind(R.id.no_favorites) TextView noFavorites;
+
+    @BindColor(R.color.gray) int gray;
 
     private FavoritesAdapter favoritesAdapter;
 
@@ -40,6 +49,29 @@ public class FavoritesActivity extends StandardActivity {
 
         favoritesAdapter = new FavoritesAdapter(this, noFavorites);
         favorites.setAdapter(favoritesAdapter);
+
+        favorites.setMenuCreator(new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());
+                deleteItem.setBackground(new ColorDrawable(gray));
+                deleteItem.setWidth(UIUtils.convertDpToPixels(76));
+                deleteItem.setIcon(new IconDrawable(MyApplication.getAppContext(), IoniconsIcons.ion_trash_a)
+                        .colorRes(R.color.white)
+                        .sizeDp(32));
+                menu.addMenuItem(deleteItem);
+            }
+        });
+
+        favorites.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                favoritesAdapter.unfavoriteRestaurant(position);
+                invalidateOptionsMenu();
+                UIUtils.showSnackbar(parent, getString(R.string.restaurant_unfavorited));
+                return true;
+            }
+        });
     }
 
     @OnItemClick(R.id.favorites)

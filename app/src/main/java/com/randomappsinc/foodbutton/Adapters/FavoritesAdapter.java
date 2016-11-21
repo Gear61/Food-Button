@@ -66,6 +66,13 @@ public class FavoritesAdapter extends BaseAdapter {
         return getItem(randomIndex);
     }
 
+    public void unfavoriteRestaurant(int position) {
+        DatabaseManager.get().removeFavorite(getItem(position));
+        restaurantList.remove(position);
+        notifyDataSetChanged();
+        setNoContent();
+    }
+
     public class RestaurantViewHolder {
         @Bind(R.id.restaurant_picture) ImageView picture;
         @Bind(R.id.restaurant_name) TextView name;

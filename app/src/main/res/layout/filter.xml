@@ -130,7 +130,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/american_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -143,7 +143,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/chinese_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -156,7 +156,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/fast_food_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -169,7 +169,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/french_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -182,7 +182,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/indian_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -195,7 +195,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/italian_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -208,7 +208,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/japanese_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -221,7 +221,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/korean_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -234,7 +234,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/mediterranean_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -247,7 +247,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/middle_eastern_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -260,7 +260,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/mexican_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -273,7 +273,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/pizza_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -286,7 +286,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/thai_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -322,7 +322,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/very_close_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -335,7 +335,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/close_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -348,7 +348,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/far_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
 
                         <FrameLayout
@@ -361,7 +361,7 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/very_far_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -378,11 +378,11 @@
                         <LinearLayout style="@style/filter_header_container">
                             <com.joanzapata.iconify.widget.IconTextView
                                 style="@style/filter_icon"
-                                android:text="@string/deals_icon"/>
+                                android:text="@string/gears_icon"/>
 
                             <TextView
                                 style="@style/filter_header"
-                                android:text="@string/deals"/>
+                                android:text="@string/additional_settings"/>
                         </LinearLayout>
 
                         <View style="@style/filter_divider"/>
@@ -397,7 +397,20 @@
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/deals_toggle"
-                                style="@style/checkbox_style"/>
+                                style="@style/filter_checkbox"/>
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/random_setting"
+                            style="@style/filter_field_container">
+
+                            <TextView
+                                android:text="@string/randomize_results"
+                                style="@style/filter_field_text"/>
+
+                            <com.rey.material.widget.CheckBox
+                                android:id="@+id/random_toggle"
+                                style="@style/filter_checkbox"/>
                         </FrameLayout>
                     </LinearLayout>
                 </android.support.v7.widget.CardView>

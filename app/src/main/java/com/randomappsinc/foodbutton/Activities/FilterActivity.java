@@ -38,7 +38,10 @@ public class FilterActivity extends StandardActivity {
     @Bind(R.id.close_toggle) CheckBox closeToggle;
     @Bind(R.id.far_toggle) CheckBox farToggle;
     @Bind(R.id.very_far_toggle) CheckBox veryFarToggle;
+
+    // Additional settings
     @Bind(R.id.deals_toggle) CheckBox dealsToggle;
+    @Bind(R.id.random_toggle) CheckBox randomToggle;
 
     private Filter filter;
 
@@ -80,6 +83,7 @@ public class FilterActivity extends StandardActivity {
         }
 
         dealsToggle.setCheckedImmediately(filter.isDealsOnly());
+        randomToggle.setCheckedImmediately(filter.isRandomizeResults());
     }
 
     @OnClick(R.id.clear_search)
@@ -245,6 +249,11 @@ public class FilterActivity extends StandardActivity {
         dealsToggle.toggle();
     }
 
+    @OnClick(R.id.random_setting)
+    public void toggleRandomSetting() {
+        randomToggle.toggle();
+    }
+
     private void clearFilters() {
         searchInput.setText("");
 
@@ -255,6 +264,7 @@ public class FilterActivity extends StandardActivity {
         veryFarToggle.setCheckedImmediately(false);
 
         dealsToggle.setCheckedImmediately(false);
+        randomToggle.setCheckedImmediately(false);
 
         for (int categoryId : categoryIds) {
             int checkboxId = ApiUtils.getCheckboxId(categoryId);
@@ -283,6 +293,7 @@ public class FilterActivity extends StandardActivity {
             case R.id.apply_filters:
                 filter.setSearchTerm(searchInput.getText().toString().trim());
                 filter.setDealsOnly(dealsToggle.isChecked());
+                filter.setRandomizeResults(randomToggle.isChecked());
                 PreferencesManager.get().saveFilter(filter);
                 setResult(RESULT_OK);
                 finish();

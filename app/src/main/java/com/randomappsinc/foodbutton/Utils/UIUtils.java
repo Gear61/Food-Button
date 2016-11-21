@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -84,5 +85,10 @@ public class UIUtils {
             }
         });
         snackbar.show();
+    }
+
+    public static int convertDpToPixels(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                MyApplication.getAppContext().getResources().getDisplayMetrics());
     }
 }

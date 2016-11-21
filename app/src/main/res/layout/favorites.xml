@@ -13,13 +13,13 @@
 
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/no_favorites"
-            android:padding="50dp"
+            android:padding="48dp"
             android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"/>
 
-        <ListView
+        <com.baoyz.swipemenulistview.SwipeMenuListView
             android:id="@+id/favorites"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
