@@ -15,6 +15,7 @@ public class JSONUtils {
     public static final String RADIUS_KEY = "radius";
     public static final String DEALS_ONLY_KEY = "dealsOnly";
     public static final String RANDOMIZE_RESULTS_KEY = "randomizeResults";
+    public static final String SORT_OPTION_KEY = "sortOption";
 
     // Given a filter, converts it to a JSON and stringifies it
     public static String serializeFilter(Filter filter) {
@@ -32,6 +33,7 @@ public class JSONUtils {
             filterJson.put(RADIUS_KEY, filter.getRadius());
             filterJson.put(DEALS_ONLY_KEY, filter.isDealsOnly());
             filterJson.put(RANDOMIZE_RESULTS_KEY, filter.isRandomizeResults());
+            filterJson.put(SORT_OPTION_KEY, filter.getSortOption());
             return filterJson.toString();
         } catch (JSONException e) {
             return "";
@@ -54,6 +56,7 @@ public class JSONUtils {
             filter.setRadius(filterJson.getInt(RADIUS_KEY));
             filter.setDealsOnly(filterJson.getBoolean(DEALS_ONLY_KEY));
             filter.setRandomizeResults(filterJson.getBoolean(RANDOMIZE_RESULTS_KEY));
+            filter.setSortOption(filterJson.getInt(SORT_OPTION_KEY));
         } catch (JSONException ignored) {}
         return filter;
     }

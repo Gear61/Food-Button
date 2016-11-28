@@ -34,6 +34,12 @@
     <string name="far">Far (&lt; 5 miles away)</string>
     <string name="very_far">Very far (5+ miles away)</string>
 
+    <!-- Sorting -->
+    <string name="sort_icon">{fa-sort-amount-desc}</string>
+    <string name="sort_by">Sort By</string>
+    <string name="relevance">Relevance (default)</string>
+    <string name="rating">Rating</string>
+
     <!-- Additional Settings -->
     <string name="additional_settings">Additional Settings</string>
     <string name="gears_icon">{fa-gears}</string>

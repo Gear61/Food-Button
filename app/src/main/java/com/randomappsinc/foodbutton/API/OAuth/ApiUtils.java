@@ -46,6 +46,11 @@ public class ApiUtils {
                 String radius = String.valueOf(filter.getRadius() * Filter.METERS_IN_A_MILE);
                 params.put("radius_filter", radius);
             }
+
+            if (!filter.isRandomizeResults()) {
+                params.put("sort", String.valueOf(filter.getSortOption()));
+            }
+
             params.put("term", searchTerm);
 
             Call<SearchResponse> call = RestClient.get().getYelpService().doSearch(params);
@@ -69,11 +74,13 @@ public class ApiUtils {
             if (filter.isDealsOnly()) {
                 finalParams.put("deals_filter", "true");
             }
+            if (!filter.isRandomizeResults()) {
+                finalParams.put("sort", String.valueOf(filter.getSortOption()));
+            }
             addOauthFieldsFinal(finalParams, nonce, currentTime, signature);
             finalParams.put("oauth_signature", signature);
             return finalParams;
-        }
-        catch (Exception ignored) {}
+        } catch (Exception ignored) {}
 
         return params;
     }

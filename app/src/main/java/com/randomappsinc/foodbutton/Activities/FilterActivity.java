@@ -20,6 +20,7 @@ import com.rey.material.widget.CheckBox;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -34,10 +35,17 @@ public class FilterActivity extends StandardActivity {
     @Bind(R.id.parent) View parent;
     @Bind(R.id.search_term) EditText searchInput;
     @Bind(R.id.current_location) TextView currentLocation;
+
+    // Distance options
     @Bind(R.id.very_close_toggle) CheckBox veryCloseToggle;
     @Bind(R.id.close_toggle) CheckBox closeToggle;
     @Bind(R.id.far_toggle) CheckBox farToggle;
     @Bind(R.id.very_far_toggle) CheckBox veryFarToggle;
+
+    // Sort options
+    @Bind(R.id.relevance_toggle) CheckBox relevanceToggle;
+    @Bind(R.id.distance_toggle) CheckBox distanceToggle;
+    @Bind(R.id.rating_toggle) CheckBox ratingToggle;
 
     // Additional settings
     @Bind(R.id.deals_toggle) CheckBox dealsToggle;
@@ -82,8 +90,23 @@ public class FilterActivity extends StandardActivity {
                 veryFarToggle.setCheckedImmediately(true);
         }
 
+        if (filter.isRandomizeResults()) {
+            randomToggle.setCheckedImmediately(true);
+        } else {
+            switch (filter.getSortOption()) {
+                case Filter.RELEVANCE:
+                    relevanceToggle.setCheckedImmediately(true);
+                    break;
+                case Filter.DISTANCE:
+                    distanceToggle.setCheckedImmediately(true);
+                    break;
+                case Filter.RATING:
+                    ratingToggle.setCheckedImmediately(true);
+                    break;
+            }
+        }
+
         dealsToggle.setCheckedImmediately(filter.isDealsOnly());
-        randomToggle.setCheckedImmediately(filter.isRandomizeResults());
     }
 
     @OnClick(R.id.clear_search)
@@ -244,9 +267,61 @@ public class FilterActivity extends StandardActivity {
         }
     }
 
+    @OnClick({R.id.relevance_sort, R.id.distance_sort, R.id.rating_sort})
+    public void sortBoxClick(View view) {
+        randomToggle.setChecked(false);
+
+        switch (view.getId()) {
+            case R.id.relevance_sort:
+                distanceToggle.setChecked(false);
+                ratingToggle.setChecked(false);
+                relevanceToggle.toggle();
+                break;
+            case R.id.distance_sort:
+                relevanceToggle.setChecked(false);
+                ratingToggle.setChecked(false);
+                distanceToggle.toggle();
+                break;
+            case R.id.rating_sort:
+                relevanceToggle.setChecked(false);
+                distanceToggle.setChecked(false);
+                ratingToggle.toggle();
+                break;
+        }
+    }
+
+    @OnClick({R.id.relevance_toggle, R.id.distance_toggle, R.id.rating_toggle})
+    public void sortOptionChecked(View view) {
+        randomToggle.setChecked(false);
+
+        switch (view.getId()) {
+            case R.id.relevance_toggle:
+                distanceToggle.setChecked(false);
+                ratingToggle.setChecked(false);
+                break;
+            case R.id.distance_toggle:
+                relevanceToggle.setChecked(false);
+                ratingToggle.setChecked(false);
+                break;
+            case R.id.rating_toggle:
+                relevanceToggle.setChecked(false);
+                distanceToggle.setChecked(false);
+                break;
+        }
+    }
+
     @OnClick(R.id.deals_filter)
     public void toggleDealsFilter() {
         dealsToggle.toggle();
+    }
+
+    @OnCheckedChanged(R.id.random_toggle)
+    public void onRandomToggle() {
+        if (randomToggle.isChecked()) {
+            relevanceToggle.setChecked(false);
+            distanceToggle.setChecked(false);
+            ratingToggle.setChecked(false);
+        }
     }
 
     @OnClick(R.id.random_setting)
@@ -292,6 +367,15 @@ public class FilterActivity extends StandardActivity {
         switch (item.getItemId()) {
             case R.id.apply_filters:
                 filter.setSearchTerm(searchInput.getText().toString().trim());
+
+                if (relevanceToggle.isChecked()) {
+                    filter.setSortOption(Filter.RELEVANCE);
+                } else if (distanceToggle.isChecked()) {
+                    filter.setSortOption(Filter.DISTANCE);
+                } else if (ratingToggle.isChecked()) {
+                    filter.setSortOption(Filter.RATING);
+                }
+
                 filter.setDealsOnly(dealsToggle.isChecked());
                 filter.setRandomizeResults(randomToggle.isChecked());
                 PreferencesManager.get().saveFilter(filter);
