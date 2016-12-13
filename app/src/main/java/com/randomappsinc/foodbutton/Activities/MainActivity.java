@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.Fragments.FoodButtonFragment;
 import com.randomappsinc.foodbutton.Fragments.NavigationDrawerFragment;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
@@ -53,6 +50,10 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         if (PreferencesManager.get().shouldAskToRate()) {
             showPleaseRateDialog();
         }
+    }
+
+    public DrawerLayout getDrawerLayout() {
+        return drawerLayout;
     }
 
     @Override
@@ -103,31 +104,5 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                     }
                 })
                 .show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            showSnackbar(getString(R.string.filters_updated));
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        UIUtils.loadMenuIcon(menu, R.id.filters, IoniconsIcons.ion_android_options);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.filters:
-                drawerLayout.closeDrawers();
-                Intent intent = new Intent(this, FilterActivity.class);
-                startActivityForResult(intent, 1);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

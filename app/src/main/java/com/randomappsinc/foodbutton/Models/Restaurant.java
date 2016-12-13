@@ -1,5 +1,6 @@
 package com.randomappsinc.foodbutton.Models;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -132,19 +133,32 @@ public class Restaurant implements Parcelable {
 
     public String getShareText() {
         StringBuilder shareText = new StringBuilder();
+        Context context = MyApplication.getAppContext();
 
-        shareText.append(MyApplication.getAppContext().getString(R.string.name_prefix));
+        shareText.append(context.getString(R.string.name_prefix));
         shareText.append(name);
         shareText.append("\n\n");
 
-        shareText.append(MyApplication.getAppContext().getString(R.string.address_prefix));
+        shareText.append(context.getString(R.string.categories_prefix));
+        shareText.append(RestaurantUtils.getListString(categories));
+        shareText.append("\n\n");
+
+        shareText.append(context.getString(R.string.rating_prefix));
+        shareText.append(String.format(context.getString(R.string.rating_template), rating, numReviews));
+        shareText.append("\n\n");
+
+        shareText.append(context.getString(R.string.address_prefix));
         shareText.append(address);
+        shareText.append("\n\n");
 
         if (!phoneNumber.equals(Business.NO_PHONE_NUMBER)) {
-            shareText.append("\n\n");
-            shareText.append(MyApplication.getAppContext().getString(R.string.phone_prefix));
+            shareText.append(context.getString(R.string.phone_prefix));
             shareText.append(UIUtils.humanizePhoneNumber(phoneNumber));
+            shareText.append("\n\n");
         }
+
+        shareText.append(context.getString(R.string.view_on_yelp_prefix));
+        shareText.append(mobileUrl);
 
         return shareText.toString();
     }

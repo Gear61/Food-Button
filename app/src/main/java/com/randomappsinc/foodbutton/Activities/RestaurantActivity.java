@@ -128,7 +128,8 @@ public class RestaurantActivity extends StandardActivity {
             case R.id.share_restaurant:
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, currentRestaurant.getShareText());
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.restaurant_info));
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, currentRestaurant.getShareText());
                 startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_with)));
                 return true;
         }

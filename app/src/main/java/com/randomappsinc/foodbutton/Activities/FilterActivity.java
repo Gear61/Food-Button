@@ -351,7 +351,6 @@ public class FilterActivity extends StandardActivity {
 
         filter.clear();
         PreferencesManager.get().saveFilter(filter);
-        setResult(RESULT_OK);
     }
 
     @Override

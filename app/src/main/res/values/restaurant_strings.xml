@@ -9,11 +9,17 @@
     <string name="call">Call&#160;</string>
     <string name="navigate_with">Navigate with</string>
     <string name="call_with">Call with</string>
+    <string name="restaurant_info">Restaurant Info</string>
     <string name="share_with">Share restaurant info with</string>
 
+    <!-- Sharing -->
     <string name="name_prefix">Name:&#160;</string>
+    <string name="categories_prefix">Categories:&#160;</string>
+    <string name="rating_prefix">Rating:&#160;</string>
+    <string name="rating_template">%1$.1f out of 5 (%2$d reviews)</string>
     <string name="address_prefix">Address:&#160;</string>
     <string name="phone_prefix">Phone number:&#160;</string>
+    <string name="view_on_yelp_prefix">View on Yelp:&#160;</string>
 
     <string name="num_reviews">%d reviews</string>
     <string name="phone_icon">{ion-android-call}</string>

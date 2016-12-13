@@ -1,6 +1,7 @@
 package com.randomappsinc.foodbutton.Fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,9 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +25,7 @@ import com.joanzapata.iconify.fonts.IoniconsIcons;
 import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
 import com.randomappsinc.foodbutton.API.RestClient;
 import com.randomappsinc.foodbutton.API.SearchCallback;
+import com.randomappsinc.foodbutton.Activities.FilterActivity;
 import com.randomappsinc.foodbutton.Activities.MainActivity;
 import com.randomappsinc.foodbutton.Activities.SuggestionsActivity;
 import com.randomappsinc.foodbutton.Models.Filter;
@@ -29,6 +34,7 @@ import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.LocationUtils;
 import com.randomappsinc.foodbutton.Utils.PermissionUtils;
+import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -184,9 +190,36 @@ public class FoodButtonFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            findFood();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.main_menu, menu);
+        UIUtils.loadMenuIcon(menu, R.id.filters, IoniconsIcons.ion_android_options);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.filters:
+                ((MainActivity) getActivity()).getDrawerLayout().closeDrawers();
+                Intent intent = new Intent(getActivity(), FilterActivity.class);
+                startActivityForResult(intent, 1);
+                getActivity().overridePendingTransition(R.anim.slide_left_out, R.anim.slide_left_in);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
