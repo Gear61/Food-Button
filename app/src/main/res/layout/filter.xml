@@ -43,6 +43,7 @@
             <com.joanzapata.iconify.widget.IconTextView
                 android:id="@+id/clear_search"
                 android:text="@string/clear_icon"
+                android:visibility="gone"
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="6dp"
                 style="@style/filter_input_icon"/>

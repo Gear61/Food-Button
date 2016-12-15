@@ -2,6 +2,7 @@ package com.randomappsinc.foodbutton.Activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * Created by alexanderchiou on 4/28/16.
@@ -34,6 +36,7 @@ public class FilterActivity extends StandardActivity {
 
     @Bind(R.id.parent) View parent;
     @Bind(R.id.search_term) EditText searchInput;
+    @Bind(R.id.clear_search) View clearSearch;
     @Bind(R.id.current_location) TextView currentLocation;
 
     // Distance options
@@ -107,6 +110,11 @@ public class FilterActivity extends StandardActivity {
         }
 
         dealsToggle.setCheckedImmediately(filter.isDealsOnly());
+    }
+
+    @OnTextChanged(value = R.id.search_term, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void onSearchInput(Editable input) {
+        clearSearch.setVisibility(input.length() == 0 ? View.GONE : View.VISIBLE);
     }
 
     @OnClick(R.id.clear_search)

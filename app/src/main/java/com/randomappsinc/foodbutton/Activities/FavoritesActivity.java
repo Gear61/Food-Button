@@ -37,6 +37,7 @@ public class FavoritesActivity extends StandardActivity {
     @Bind(R.id.no_favorites) TextView noFavorites;
 
     @BindColor(R.color.gray) int gray;
+    @BindColor(R.color.app_red) int red;
 
     private FavoritesAdapter favoritesAdapter;
 
@@ -53,6 +54,14 @@ public class FavoritesActivity extends StandardActivity {
         favorites.setMenuCreator(new SwipeMenuCreator() {
             @Override
             public void create(SwipeMenu menu) {
+                SwipeMenuItem shareItem = new SwipeMenuItem(getApplicationContext());
+                shareItem.setBackground(new ColorDrawable(red));
+                shareItem.setWidth(UIUtils.convertDpToPixels(76));
+                shareItem.setIcon(new IconDrawable(MyApplication.getAppContext(), IoniconsIcons.ion_android_share_alt)
+                        .colorRes(R.color.white)
+                        .sizeDp(32));
+                menu.addMenuItem(shareItem);
+
                 SwipeMenuItem deleteItem = new SwipeMenuItem(getApplicationContext());
                 deleteItem.setBackground(new ColorDrawable(gray));
                 deleteItem.setWidth(UIUtils.convertDpToPixels(76));
@@ -66,9 +75,20 @@ public class FavoritesActivity extends StandardActivity {
         favorites.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                favoritesAdapter.unfavoriteRestaurant(position);
-                invalidateOptionsMenu();
-                UIUtils.showSnackbar(parent, getString(R.string.restaurant_unfavorited));
+                switch (index) {
+                    case 0:
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.restaurant_info));
+                        sharingIntent.putExtra(Intent.EXTRA_TEXT, favoritesAdapter.getItem(position).getShareText());
+                        startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_with)));
+                        break;
+                    case 1:
+                        favoritesAdapter.unfavoriteRestaurant(position);
+                        invalidateOptionsMenu();
+                        UIUtils.showSnackbar(parent, getString(R.string.restaurant_unfavorited));
+                        break;
+                }
                 return true;
             }
         });
@@ -129,7 +149,8 @@ public class FavoritesActivity extends StandardActivity {
                 intent.putExtra(RestaurantFragment.RESTAURANT_KEY, favoritesAdapter.getRandomRestaurant());
                 startActivity(intent);
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 }
