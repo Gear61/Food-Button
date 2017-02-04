@@ -185,6 +185,7 @@ public class FoodButtonFragment extends Fragment {
 
             Intent loadRestaurant = new Intent(getActivity(), SuggestionsActivity.class);
             loadRestaurant.putParcelableArrayListExtra(Restaurant.RESTAURANTS_KEY, restaurants);
+            loadRestaurant.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             getActivity().startActivity(loadRestaurant);
         }
     }
