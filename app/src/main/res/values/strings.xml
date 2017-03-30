@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Food Button</string>
+    <string name="app_name">Simple Restaurant Finder</string>
     <string name="set_current_location">Set current location</string>
     <string name="restaurant">Restaurant</string>
     <string name="powered_by_yelp">Powered by Yelp</string>
@@ -14,7 +14,7 @@
     </string>
 
     <string name="please_rate">
-        Like Food Button? Then please take a few seconds to rate it in the Play Store.
+        Like Simple Restaurant Finder? Then please take a few seconds to rate it in the Play Store.
         Every rating goes a long way towards motivating me to continue improving it. Thank you!
     </string>
     <string name="will_rate">Sure, I\'ll help</string>
@@ -22,7 +22,7 @@
 
     <string name="current_location_set">Your current location has been set.</string>
     <string name="choose_current_location">Choose Current Location</string>
-    <string name="current_instructions">Your current location is where the Food Button searches for restaurants.</string>
+    <string name="current_instructions">Your current location is where Simple Restaurant Finder searches for restaurants.</string>
     <string name="automatic">Automatic</string>
     <string name="choose">Choose</string>
     <string name="add_location_title">Add Location</string>
@@ -37,7 +37,7 @@
     <string name="location_services_needed">
         Your current location is \"Automatic\",
         which means that you need to enable location services
-        and then wait a couple seconds before hitting the Food Button.
+        and then wait a couple seconds before hitting the button.
         Would you like to do that now?
     </string>
 </resources>
