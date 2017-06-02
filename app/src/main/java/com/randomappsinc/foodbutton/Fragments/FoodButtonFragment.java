@@ -22,9 +22,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
 import com.randomappsinc.foodbutton.API.RestClient;
-import com.randomappsinc.foodbutton.API.SearchCallback;
 import com.randomappsinc.foodbutton.Activities.FilterActivity;
 import com.randomappsinc.foodbutton.Activities.MainActivity;
 import com.randomappsinc.foodbutton.Activities.SuggestionsActivity;
@@ -92,6 +90,8 @@ public class FoodButtonFragment extends Fragment {
 
     @OnClick(R.id.food_button)
     public void findFood() {
+        RestClient.get().doSearch();
+
         foodButton.setEnabled(false);
         String defaultLocation = PreferencesManager.get().getCurrentLocation();
         if (defaultLocation.equals(getString(R.string.automatic))) {
@@ -156,9 +156,6 @@ public class FoodButtonFragment extends Fragment {
             progressDialog.show();
         }
         Filter filter = PreferencesManager.get().getFilter();
-        RestClient.get().getYelpService()
-                .doSearch(ApiUtils.getSearchQueryMap(location, filter))
-                .enqueue(new SearchCallback(1, location, filter));
     }
 
     private void showSnackbar(String message) {
@@ -168,7 +165,7 @@ public class FoodButtonFragment extends Fragment {
     @Subscribe
     public void onEvent(String event) {
         progressDialog.dismiss();
-        if (event.equals(SearchCallback.SEARCH_FAIL)) {
+        if (event.equals("TODO: HAVE REAL STRING HERE")) {
             showSnackbar(getString(R.string.search_fail));
         }
     }

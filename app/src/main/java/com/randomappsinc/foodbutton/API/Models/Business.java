@@ -1,7 +1,5 @@
 package com.randomappsinc.foodbutton.API.Models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 
 import java.util.ArrayList;
@@ -15,61 +13,21 @@ public class Business {
     public static final String NO_PHONE_NUMBER = "No phone number provided";
     public static final String NO_ADDRESS = "No address provided";
 
-    @SerializedName("id")
-    @Expose
     private String yelpId;
-
-    @SerializedName("mobile_url")
-    @Expose
     private String mobileUrl;
-
-    @SerializedName("name")
-    @Expose
     private String name;
-
-    @SerializedName("categories")
-    @Expose
     private List<List<String>> categories = new ArrayList<>();
-
-    @SerializedName("phone")
-    @Expose
     private String phoneNumber;
-
-    @SerializedName("image_url")
-    @Expose
     private String imageUrl;
-
-    @SerializedName("location")
-    @Expose
     private Location location;
-
-    @SerializedName("rating")
-    @Expose
     private float rating;
-
-    @SerializedName("review_count")
-    @Expose
     private int numReviews;
-
-    @SerializedName("is_closed")
-    @Expose
     private boolean isClosed;
-
-    @SerializedName("snippet_text")
-    @Expose
     private String snippetText;
-
-    @SerializedName("distance")
-    @Expose
     private double distance;
-
-    @SerializedName("deals")
-    @Expose
     private List<Deal> deals = new ArrayList<>();
 
     public class Deal {
-        @SerializedName("title")
-        @Expose
         private String title;
 
         public String getTitle() {
@@ -132,12 +90,7 @@ public class Business {
     }
 
     public class Location {
-        @SerializedName("city")
-        @Expose
         private String city;
-
-        @SerializedName("display_address")
-        @Expose
         private List<String> displayAddress = new ArrayList<>();
 
         public String getCity() {
