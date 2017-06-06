@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
+import com.randomappsinc.foodbutton.Utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -64,7 +64,11 @@ public class RestaurantFragment extends Fragment {
     }
 
     private void loadRestaurant() {
-        Picasso.with(getActivity()).load(currentRestaurant.getImageUrl()).into(restaurantPicture);
+        Picasso.with(getActivity())
+                .load(currentRestaurant.getImageUrl())
+                .resize(UIUtils.convertDpToPixels(100), UIUtils.convertDpToPixels(100))
+                .centerCrop()
+                .into(restaurantPicture);
         restaurantName.setText(currentRestaurant.getName());
         if (!currentRestaurant.getCurrentDeal().isEmpty()) {
             currentDeal.setText(currentRestaurant.getCurrentDeal());
@@ -89,7 +93,7 @@ public class RestaurantFragment extends Fragment {
 
     @OnClick(R.id.phone_number_container)
     public void callRestaurant() {
-        if (!currentRestaurant.getPhoneNumber().equals(Business.NO_PHONE_NUMBER)) {
+        if (!currentRestaurant.getPhoneNumber().equals(Restaurant.NO_PHONE_NUMBER)) {
             String phoneUri = "tel:" + currentRestaurant.getPhoneNumber();
             startActivity(Intent.createChooser(
                     new Intent(Intent.ACTION_DIAL, Uri.parse(phoneUri)),

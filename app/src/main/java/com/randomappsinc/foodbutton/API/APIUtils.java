@@ -1,28 +1,57 @@
-package com.randomappsinc.foodbutton.API.OAuth;
+package com.randomappsinc.foodbutton.API;
 
-import android.util.Base64;
 import android.view.View;
 
-import com.randomappsinc.foodbutton.API.ApiConstants;
-import com.randomappsinc.foodbutton.API.Models.SearchResponse;
-import com.randomappsinc.foodbutton.API.RestClient;
 import com.randomappsinc.foodbutton.Models.Filter;
+import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 
-import java.net.URLEncoder;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import retrofit2.Call;
 
 /**
  * Created by alexanderchiou on 3/26/16.
  */
-public class ApiUtils {
+public class APIUtils {
+    public static Map<String, String> getQueryParams(String location) {
+        Map<String, String> params = new HashMap<>();
+        params.put("location", location);
+        params.put("open_now", "true");
+
+        Filter filter = PreferencesManager.get().getFilter();
+        String searchTerm = filter.getSearchTerm().isEmpty() ? "Food" : filter.getSearchTerm();
+        params.put("term", searchTerm);
+
+        if (!filter.getCategories().isEmpty()) {
+            params.put("categories", filter.getCategoriesString());
+        }
+        if (filter.getRadius() > 0) {
+            String radius = String.valueOf(filter.getRadius() * Filter.METERS_IN_A_MILE);
+            params.put("radius", radius);
+        }
+        if (filter.isDealsOnly()) {
+            params.put("attributes", "deals");
+        }
+        if (!filter.isRandomizeResults()) {
+            params.put("sort_by", getSort(filter.getSortOption()));
+        }
+
+        return params;
+    }
+
+    public static String getSort(int sortIndex) {
+        switch (sortIndex) {
+            case 0:
+                return "best_match";
+            case 1:
+                return "distance";
+            case 2:
+                return "rating";
+            default:
+                return "best_match";
+        }
+    }
+
     public static String getCategoryFromId(int categoryId) {
         switch (categoryId) {
             case R.id.american:

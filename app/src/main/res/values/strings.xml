@@ -40,4 +40,9 @@
         and then wait a couple seconds before hitting the button.
         Would you like to do that now?
     </string>
+
+    <string name="client_fail">
+        Simple Restaurant Finder cannot connect to Yelp.
+        Please check your connection and try again later.
+    </string>
 </resources>

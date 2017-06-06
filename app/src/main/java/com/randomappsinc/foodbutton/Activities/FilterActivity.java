@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.foodbutton.API.OAuth.ApiUtils;
+import com.randomappsinc.foodbutton.API.APIUtils;
 import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
@@ -68,9 +68,9 @@ public class FilterActivity extends StandardActivity {
         currentLocation.setText(PreferencesManager.get().getCurrentLocation());
 
         for (int categoryId : categoryIds) {
-            String category = ApiUtils.getCategoryFromId(categoryId);
+            String category = APIUtils.getCategoryFromId(categoryId);
             if (filter.getCategories().contains(category)) {
-                int checkboxId = ApiUtils.getCheckboxId(categoryId);
+                int checkboxId = APIUtils.getCheckboxId(categoryId);
                 CheckBox checkBox = (CheckBox) findViewById(checkboxId);
                 if (checkBox != null) {
                     checkBox.setCheckedImmediately(true);
@@ -185,16 +185,16 @@ public class FilterActivity extends StandardActivity {
     @OnClick({R.id.american, R.id.chinese, R.id.fast_food, R.id.french, R.id.indian, R.id.italian, R.id.japanese,
             R.id.korean, R.id.mediterranean, R.id.middle_eastern, R.id.mexican, R.id.pizza, R.id.thai})
     public void categoryClicked(View view) {
-        int checkboxId = ApiUtils.getCheckboxId(view.getId());
+        int checkboxId = APIUtils.getCheckboxId(view.getId());
         CheckBox checkBox = (CheckBox) findViewById(checkboxId);
-        processClick(ApiUtils.getCategoryFromId(view.getId()), checkBox);
+        processClick(APIUtils.getCategoryFromId(view.getId()), checkBox);
     }
 
     @OnClick({R.id.american_toggle, R.id.chinese_toggle, R.id.fast_food_toggle, R.id.french_toggle, R.id.indian_toggle,
             R.id.italian_toggle, R.id.japanese_toggle, R.id.korean_toggle, R.id.mediterranean_toggle,
             R.id.middle_eastern_toggle, R.id.mexican_toggle, R.id.pizza_toggle, R.id.thai_toggle})
     public void checkboxClicked(View view) {
-        filter.processCategory(ApiUtils.getCategoryFromId(view.getId()));
+        filter.processCategory(APIUtils.getCategoryFromId(view.getId()));
     }
 
     private void processClick(String category, CheckBox checkBox) {
@@ -209,7 +209,7 @@ public class FilterActivity extends StandardActivity {
     @OnClick({R.id.very_close_toggle, R.id.close_toggle, R.id.far_toggle, R.id.very_far_toggle})
     public void distanceToggleClick(View view) {
         // If they're changing the radius, make sure to uncheck the previous thing and set the new radius
-        if (filter.getRadius() != ApiUtils.getDistance(view)) {
+        if (filter.getRadius() != APIUtils.getDistance(view)) {
             uncheckDistance();
             switch (view.getId()) {
                 case R.id.very_close_toggle:
@@ -235,7 +235,7 @@ public class FilterActivity extends StandardActivity {
         // You're always unchecking something with these clicks (unless there was nothing to begin with)
         uncheckDistance();
         // If they're checking in something new, do the check, change radius
-        if (filter.getRadius() != ApiUtils.getDistance(view)) {
+        if (filter.getRadius() != APIUtils.getDistance(view)) {
             switch (view.getId()) {
                 case R.id.very_close:
                     filter.setRadius(Filter.VERY_CLOSE);
@@ -350,7 +350,7 @@ public class FilterActivity extends StandardActivity {
         randomToggle.setCheckedImmediately(false);
 
         for (int categoryId : categoryIds) {
-            int checkboxId = ApiUtils.getCheckboxId(categoryId);
+            int checkboxId = APIUtils.getCheckboxId(categoryId);
             CheckBox checkBox = (CheckBox) findViewById(checkboxId);
             if (checkBox != null) {
                 checkBox.setCheckedImmediately(false);

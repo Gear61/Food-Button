@@ -2,7 +2,6 @@ package com.randomappsinc.foodbutton.Utils;
 
 import android.widget.ImageView;
 
-import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.CategoryDO;
 import com.randomappsinc.foodbutton.Persistence.RestaurantDO;
@@ -103,7 +102,7 @@ public class RestaurantUtils {
 
     public static String getNumberDisplay(Restaurant restaurant) {
         String restaurantNumber = restaurant.getPhoneNumber();
-        if (!restaurantNumber.equals(Business.NO_PHONE_NUMBER)) {
+        if (!restaurantNumber.equals(Restaurant.NO_PHONE_NUMBER)) {
             restaurantNumber = MyApplication.getAppContext().getString(R.string.call)
                     + UIUtils.humanizePhoneNumber(restaurantNumber);
         }

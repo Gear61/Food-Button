@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.Fragments.RestaurantFragment;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
@@ -54,7 +53,11 @@ public class RestaurantActivity extends StandardActivity {
     }
 
     private void loadRestaurant() {
-        Picasso.with(this).load(currentRestaurant.getImageUrl()).into(restaurantPicture);
+        Picasso.with(this)
+                .load(currentRestaurant.getImageUrl())
+                .resize(UIUtils.convertDpToPixels(100), UIUtils.convertDpToPixels(100))
+                .centerCrop()
+                .into(restaurantPicture);
         restaurantName.setText(currentRestaurant.getName());
         categories.setText(currentRestaurant.getCategories());
 
@@ -75,7 +78,7 @@ public class RestaurantActivity extends StandardActivity {
 
     @OnClick(R.id.phone_number_container)
     public void callRestaurant() {
-        if (!currentRestaurant.getPhoneNumber().equals(Business.NO_PHONE_NUMBER)) {
+        if (!currentRestaurant.getPhoneNumber().equals(Restaurant.NO_PHONE_NUMBER)) {
             String phoneUri = "tel:" + currentRestaurant.getPhoneNumber();
             startActivity(Intent.createChooser(
                     new Intent(Intent.ACTION_DIAL, Uri.parse(phoneUri)),
@@ -90,7 +93,7 @@ public class RestaurantActivity extends StandardActivity {
 
     @OnClick(R.id.start_navigation)
     public void startNavigation() {
-        if (!currentRestaurant.getAddress().equals(Business.NO_ADDRESS)) {
+        if (!currentRestaurant.getAddress().equals(Restaurant.NO_ADDRESS)) {
             String mapUri = "google.navigation:q=" + currentRestaurant.getAddress()
                     + " " + currentRestaurant.getName();
             startActivity(Intent.createChooser(

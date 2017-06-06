@@ -4,13 +4,14 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.Persistence.CategoryDO;
 import com.randomappsinc.foodbutton.Persistence.RestaurantDO;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
+import com.yelp.fusion.client.models.Business;
+import com.yelp.fusion.client.models.Category;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ import io.realm.RealmList;
  */
 public class Restaurant implements Parcelable {
     public static final String RESTAURANTS_KEY = "restaurants";
+    public static final String NO_PHONE_NUMBER = "No phone number provided";
+    public static final String NO_ADDRESS = "No address provided";
 
     private String yelpId;
     private String mobileUrl;
@@ -41,6 +44,43 @@ public class Restaurant implements Parcelable {
     private double distance;
 
     public Restaurant() {}
+
+    public Restaurant(Business business) {
+        this.yelpId = business.getId();
+        this.mobileUrl = business.getUrl();
+        this.name = business.getName();
+
+        List<String> categories = new ArrayList<>();
+        for (Category category : business.getCategories()) {
+            categories.add(category.getTitle());
+        }
+        this.categories = categories;
+
+        this.phoneNumber = business.getPhone().replaceAll("[^0-9]", "");
+        this.imageUrl = business.getImageUrl();
+        this.city = business.getLocation().getCity();
+        List<String> displayAddress = business.getLocation().getDisplayAddress();
+        if (displayAddress != null) {
+            StringBuilder addressText = new StringBuilder();
+            for (int i = 0; i < displayAddress.size(); i++) {
+                if (i != 0) {
+                    addressText.append(", ");
+                }
+                addressText.append(displayAddress.get(i));
+            }
+            String apiAddress = addressText.toString();
+            if (!apiAddress.isEmpty()) {
+                this.address = apiAddress;
+            } else {
+                this.address = NO_ADDRESS;
+            }
+        }
+
+        this.rating = (float) business.getRating();
+        this.numReviews = business.getReviewCount();
+        this.snippetText = business.getText();
+        this.distance = business.getDistance() * 0.000621371;
+    }
 
     public String getYelpId() {
         return yelpId;
@@ -68,10 +108,6 @@ public class Restaurant implements Parcelable {
 
     public String getCategories() {
         return RestaurantUtils.getListString(categories);
-    }
-
-    public List<String> getCategoriesList() {
-        return categories;
     }
 
     public void setCategories(List<String> categories) {
@@ -151,7 +187,7 @@ public class Restaurant implements Parcelable {
         shareText.append(address);
         shareText.append("\n\n");
 
-        if (!phoneNumber.equals(Business.NO_PHONE_NUMBER)) {
+        if (!phoneNumber.equals(NO_PHONE_NUMBER)) {
             shareText.append(context.getString(R.string.phone_prefix));
             shareText.append(UIUtils.humanizePhoneNumber(phoneNumber));
             shareText.append("\n\n");
@@ -171,20 +207,12 @@ public class Restaurant implements Parcelable {
         this.snippetText = snippetText;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
-
     public String getCurrentDeal() {
         if (currentDeal != null && !currentDeal.isEmpty()) {
             return MyApplication.getAppContext().getString(R.string.deal_icon)
                     + " " + currentDeal;
         }
         return "";
-    }
-
-    public void setCurrentDeal(String currentDeal) {
-        this.currentDeal = currentDeal;
     }
 
     public String getCity() {

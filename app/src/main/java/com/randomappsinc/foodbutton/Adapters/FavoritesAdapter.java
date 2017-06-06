@@ -12,6 +12,7 @@ import com.randomappsinc.foodbutton.Models.FavoritesFilter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
 import com.randomappsinc.foodbutton.R;
+import com.randomappsinc.foodbutton.Utils.UIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -83,7 +84,11 @@ public class FavoritesAdapter extends BaseAdapter {
         }
 
         public void loadRestaurant(Restaurant restaurant) {
-            Picasso.with(context).load(restaurant.getImageUrl()).into(picture);
+            Picasso.with(context)
+                    .load(restaurant.getImageUrl())
+                    .resize(UIUtils.convertDpToPixels(60), UIUtils.convertDpToPixels(60))
+                    .centerCrop()
+                    .into(picture);
             name.setText(restaurant.getName());
             address.setText(restaurant.getAddress());
         }

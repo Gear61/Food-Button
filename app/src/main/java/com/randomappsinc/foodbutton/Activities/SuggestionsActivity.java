@@ -9,7 +9,6 @@ import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
-import com.randomappsinc.foodbutton.API.Models.Business;
 import com.randomappsinc.foodbutton.Adapters.RestaurantsAdapter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.DatabaseManager;
@@ -61,7 +60,7 @@ public class SuggestionsActivity extends StandardActivity {
     public void startNavigation() {
         int currentPosition = restaurantPager.getCurrentItem();
         Restaurant currentRestaurant = adapter.getRestaurant(currentPosition);
-        if (!currentRestaurant.getAddress().equals(Business.NO_ADDRESS)) {
+        if (!currentRestaurant.getAddress().equals(Restaurant.NO_ADDRESS)) {
             String mapUri = "google.navigation:q=" + currentRestaurant.getAddress()
                     + " " + currentRestaurant.getName();
             startActivity(Intent.createChooser(

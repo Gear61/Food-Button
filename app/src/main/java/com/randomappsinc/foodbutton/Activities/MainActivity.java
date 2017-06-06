@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.randomappsinc.foodbutton.API.RestClient;
 import com.randomappsinc.foodbutton.Fragments.FoodButtonFragment;
 import com.randomappsinc.foodbutton.Fragments.NavigationDrawerFragment;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;

@@ -26,7 +26,6 @@ import com.randomappsinc.foodbutton.API.RestClient;
 import com.randomappsinc.foodbutton.Activities.FilterActivity;
 import com.randomappsinc.foodbutton.Activities.MainActivity;
 import com.randomappsinc.foodbutton.Activities.SuggestionsActivity;
-import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
@@ -58,6 +57,7 @@ public class FoodButtonFragment extends Fragment {
     private boolean locationFetched;
     private Handler locationChecker;
     private Runnable locationCheckTask;
+    private RestClient restClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +65,7 @@ public class FoodButtonFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         setHasOptionsMenu(true);
 
+        restClient = RestClient.get();
         foodButton.setImageDrawable(new IconDrawable(getActivity(), IoniconsIcons.ion_android_restaurant)
                 .colorRes(R.color.white));
         EventBus.getDefault().register(this);
@@ -90,8 +91,6 @@ public class FoodButtonFragment extends Fragment {
 
     @OnClick(R.id.food_button)
     public void findFood() {
-        RestClient.get().doSearch();
-
         foodButton.setEnabled(false);
         String defaultLocation = PreferencesManager.get().getCurrentLocation();
         if (defaultLocation.equals(getString(R.string.automatic))) {
@@ -155,7 +154,7 @@ public class FoodButtonFragment extends Fragment {
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
-        Filter filter = PreferencesManager.get().getFilter();
+        restClient.doSearch(location, (MainActivity) getActivity());
     }
 
     private void showSnackbar(String message) {
@@ -165,7 +164,7 @@ public class FoodButtonFragment extends Fragment {
     @Subscribe
     public void onEvent(String event) {
         progressDialog.dismiss();
-        if (event.equals("TODO: HAVE REAL STRING HERE")) {
+        if (event.equals(RestClient.SEARCH_FAIL)) {
             showSnackbar(getString(R.string.search_fail));
         }
     }
