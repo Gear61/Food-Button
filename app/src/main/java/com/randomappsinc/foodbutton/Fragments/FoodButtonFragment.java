@@ -33,9 +33,6 @@ import com.randomappsinc.foodbutton.Utils.LocationUtils;
 import com.randomappsinc.foodbutton.Utils.PermissionUtils;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -46,7 +43,7 @@ import butterknife.Unbinder;
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 
-public class FoodButtonFragment extends Fragment {
+public class FoodButtonFragment extends Fragment implements RestClient.RestaurantsListener {
 
     public static final int LOCATION_REQUEST_CODE = 1;
 
@@ -65,10 +62,10 @@ public class FoodButtonFragment extends Fragment {
         unbinder = ButterKnife.bind(this, rootView);
         setHasOptionsMenu(true);
 
-        restClient = RestClient.get();
+        restClient = RestClient.getInstance();
+        restClient.registerRestaurantsListener(this);
         foodButton.setImageDrawable(new IconDrawable(getActivity(), IoniconsIcons.ion_android_restaurant)
                 .colorRes(R.color.white));
-        EventBus.getDefault().register(this);
 
         locationChecker = new Handler();
         locationCheckTask = new Runnable() {
@@ -154,23 +151,15 @@ public class FoodButtonFragment extends Fragment {
         if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
-        restClient.doSearch(location, (MainActivity) getActivity());
+        restClient.findRestaurants(location);
     }
 
     private void showSnackbar(String message) {
         ((MainActivity) getActivity()).showSnackbar(message);
     }
 
-    @Subscribe
-    public void onEvent(String event) {
-        progressDialog.dismiss();
-        if (event.equals(RestClient.SEARCH_FAIL)) {
-            showSnackbar(getString(R.string.search_fail));
-        }
-    }
-
-    @Subscribe
-    public void onEvent(ArrayList<Restaurant> restaurants) {
+    @Override
+    public void onRestaurantsFetched(ArrayList<Restaurant> restaurants) {
         progressDialog.dismiss();
         if (restaurants.isEmpty()) {
             showSnackbar(getString(R.string.no_restaurants));
@@ -196,8 +185,9 @@ public class FoodButtonFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
         unbinder.unbind();
+        restClient.cancelRestaurantsFetch();
+        restClient.unregisterRestaurantsListener();
     }
 
     @Override

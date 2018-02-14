@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,8 +34,6 @@ public class RestaurantActivity extends StandardActivity {
     @BindView(R.id.num_reviews) TextView numReviews;
     @BindView(R.id.address) TextView address;
     @BindView(R.id.phone_number) TextView phoneNumber;
-    @BindView(R.id.what_people_saying) TextView whatPeopleSaying;
-    @BindView(R.id.snippet_text) TextView snippetText;
 
     private Restaurant currentRestaurant;
 
@@ -66,13 +63,6 @@ public class RestaurantActivity extends StandardActivity {
 
         address.setText(currentRestaurant.getAddress());
         phoneNumber.setText(RestaurantUtils.getNumberDisplay(currentRestaurant));
-
-        if (currentRestaurant.getSnippetText().isEmpty()) {
-            whatPeopleSaying.setVisibility(View.GONE);
-            snippetText.setVisibility(View.GONE);
-        } else {
-            snippetText.setText(currentRestaurant.getSnippetText());
-        }
     }
 
     @OnClick(R.id.phone_number_container)

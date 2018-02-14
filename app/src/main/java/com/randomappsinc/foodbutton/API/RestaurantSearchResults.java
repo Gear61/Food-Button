@@ -138,8 +138,8 @@ public class RestaurantSearchResults {
         }
     }
 
-    public List<Restaurant> getRestaurants() {
-        List<Restaurant> restaurants = new ArrayList<>();
+    public ArrayList<Restaurant> getRestaurants() {
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
         for (Business business : businesses) {
             restaurants.add(business.toRestaurant());
         }

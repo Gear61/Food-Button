@@ -3,10 +3,13 @@ package com.randomappsinc.foodbutton.API;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
+import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -16,12 +19,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestClient {
 
     public interface RestaurantsListener {
-        void onRestaurantsFetched(List<Restaurant> places);
+        void onRestaurantsFetched(ArrayList<Restaurant> restaurants);
     }
 
     private static final RestaurantsListener DUMMY_RESTAURANTS_LISTENER = new RestaurantsListener() {
         @Override
-        public void onRestaurantsFetched(List<Restaurant> places) {}
+        public void onRestaurantsFetched(ArrayList<Restaurant> restaurants) {}
     };
 
     private static RestClient mInstance;
@@ -60,17 +63,19 @@ public class RestClient {
         mHandler = new Handler(backgroundThread.getLooper());
     }
 
-    public Retrofit getRetrofitInstance() {
-        return mRetrofit;
-    }
-
-    public void findRestaurants(final String searchTerm, final String location) {
+    public void findRestaurants(final String location) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 if (currentFindRestaurantsCall != null) {
                     currentFindRestaurantsCall.cancel();
                 }
+
+                Filter filter = PreferencesManager.get().getFilter();
+                String searchTerm = TextUtils.isEmpty(filter.getSearchTerm())
+                        ? ApiConstants.DEFAULT_SEARCH_TERM
+                        : filter.getSearchTerm();
+
                 currentFindRestaurantsCall = mYelpService.findRestaurants(
                         searchTerm,
                         location,
@@ -89,7 +94,7 @@ public class RestClient {
         mRestaurantsListener = DUMMY_RESTAURANTS_LISTENER;
     }
 
-    public void processRestaurants(List<Restaurant> restaurants) {
+    void processRestaurants(ArrayList<Restaurant> restaurants) {
         mRestaurantsListener.onRestaurantsFetched(restaurants);
     }
 

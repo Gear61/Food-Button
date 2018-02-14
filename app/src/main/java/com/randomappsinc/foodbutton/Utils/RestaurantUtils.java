@@ -10,10 +10,8 @@ import com.randomappsinc.foodbutton.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by alexanderchiou on 3/28/16.
- */
 public class RestaurantUtils {
+
     public static void loadStarImages(List<ImageView> starPictures, float rating) {
         int[] starIds = getStarIds(rating);
         for (int i = 0; i < 5; i++) {
@@ -95,7 +93,6 @@ public class RestaurantUtils {
         restaurant.setAddress(restaurantDO.getAddress());
         restaurant.setRating(restaurantDO.getRating());
         restaurant.setNumReviews(restaurantDO.getNumReviews());
-        restaurant.setSnippetText(restaurantDO.getSnippetText());
 
         return restaurant;
     }

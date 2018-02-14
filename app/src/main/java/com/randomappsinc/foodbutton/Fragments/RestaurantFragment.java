@@ -47,8 +47,6 @@ public class RestaurantFragment extends Fragment {
     @BindView(R.id.num_reviews) TextView numReviews;
     @BindView(R.id.address) TextView address;
     @BindView(R.id.phone_number) TextView phoneNumber;
-    @BindView(R.id.what_people_saying) TextView whatPeopleSaying;
-    @BindView(R.id.snippet_text) TextView snippetText;
 
     private Restaurant currentRestaurant;
     private Unbinder unbinder;
@@ -71,10 +69,6 @@ public class RestaurantFragment extends Fragment {
                 .centerCrop()
                 .into(restaurantPicture);
         restaurantName.setText(currentRestaurant.getName());
-        if (!currentRestaurant.getCurrentDeal().isEmpty()) {
-            currentDeal.setText(currentRestaurant.getCurrentDeal());
-            currentDeal.setVisibility(View.VISIBLE);
-        }
         categories.setText(currentRestaurant.getCategories());
 
         RestaurantUtils.loadStarImages(starViews, currentRestaurant.getRating());
@@ -83,13 +77,6 @@ public class RestaurantFragment extends Fragment {
 
         address.setText(currentRestaurant.getAddressWithDistance());
         phoneNumber.setText(RestaurantUtils.getNumberDisplay(currentRestaurant));
-
-        if (currentRestaurant.getSnippetText().isEmpty()) {
-            whatPeopleSaying.setVisibility(View.GONE);
-            snippetText.setVisibility(View.GONE);
-        } else {
-            snippetText.setText(currentRestaurant.getSnippetText());
-        }
     }
 
     @OnClick(R.id.phone_number_container)

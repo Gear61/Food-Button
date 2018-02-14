@@ -4,6 +4,7 @@ public class ApiConstants {
 
     static final String BASE_URL = "https://api.yelp.com";
 
+    static final String DEFAULT_SEARCH_TERM = "food";
     static final String AUTHORIZATION = "Authorization";
     static final String BEARER_PREFIX = "Bearer ";
 
