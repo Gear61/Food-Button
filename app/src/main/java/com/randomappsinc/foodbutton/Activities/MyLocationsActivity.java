@@ -13,20 +13,18 @@ import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
-/**
- * Created by alexanderchiou on 4/5/16.
- */
 public class MyLocationsActivity extends StandardActivity {
-    @Bind(R.id.parent) View parent;
-    @Bind(R.id.location_input) EditText locationInput;
-    @Bind(R.id.plus_icon) ImageView plusIcon;
-    @Bind(R.id.locations) ListView locations;
-    @Bind(R.id.no_locations) View noLocations;
+
+    @BindView(R.id.parent) View parent;
+    @BindView(R.id.location_input) EditText locationInput;
+    @BindView(R.id.plus_icon) ImageView plusIcon;
+    @BindView(R.id.locations) ListView locations;
+    @BindView(R.id.no_locations) View noLocations;
 
     private LocationsAdapter locationsAdapter;
 

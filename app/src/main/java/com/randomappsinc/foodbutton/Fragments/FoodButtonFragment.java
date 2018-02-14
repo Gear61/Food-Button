@@ -39,30 +39,30 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
 import io.nlopez.smartlocation.SmartLocation;
 
-/**
- * Created by alexanderchiou on 4/14/16.
- */
 public class FoodButtonFragment extends Fragment {
+
     public static final int LOCATION_REQUEST_CODE = 1;
 
-    @Bind(R.id.food_button) FloatingActionButton foodButton;
+    @BindView(R.id.food_button) FloatingActionButton foodButton;
 
     private MaterialDialog progressDialog;
     private boolean locationFetched;
     private Handler locationChecker;
     private Runnable locationCheckTask;
     private RestClient restClient;
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.food_button, container, false);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
         setHasOptionsMenu(true);
 
         restClient = RestClient.get();
@@ -197,7 +197,7 @@ public class FoodButtonFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

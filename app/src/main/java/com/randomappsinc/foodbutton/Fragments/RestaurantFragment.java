@@ -18,14 +18,14 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
-/**
- * Created by alexanderchiou on 4/9/16.
- */
 public class RestaurantFragment extends Fragment {
+
     public static final String RESTAURANT_KEY = "restaurant";
 
     public static RestaurantFragment create(Restaurant restaurant) {
@@ -38,24 +38,25 @@ public class RestaurantFragment extends Fragment {
         return restaurantFragment;
     }
 
-    @Bind(R.id.restaurant_picture) ImageView restaurantPicture;
-    @Bind(R.id.restaurant_name) TextView restaurantName;
-    @Bind(R.id.current_deal) TextView currentDeal;
-    @Bind(R.id.categories) TextView categories;
-    @Bind({R.id.first_star, R.id.second_star, R.id.third_star,
-           R.id.fourth_star, R.id.fifth_star}) List<ImageView> starViews;
-    @Bind(R.id.num_reviews) TextView numReviews;
-    @Bind(R.id.address) TextView address;
-    @Bind(R.id.phone_number) TextView phoneNumber;
-    @Bind(R.id.what_people_saying) TextView whatPeopleSaying;
-    @Bind(R.id.snippet_text) TextView snippetText;
+    @BindView(R.id.restaurant_picture) ImageView restaurantPicture;
+    @BindView(R.id.restaurant_name) TextView restaurantName;
+    @BindView(R.id.current_deal) TextView currentDeal;
+    @BindView(R.id.categories) TextView categories;
+    @BindViews({R.id.first_star, R.id.second_star, R.id.third_star,
+                R.id.fourth_star, R.id.fifth_star}) List<ImageView> starViews;
+    @BindView(R.id.num_reviews) TextView numReviews;
+    @BindView(R.id.address) TextView address;
+    @BindView(R.id.phone_number) TextView phoneNumber;
+    @BindView(R.id.what_people_saying) TextView whatPeopleSaying;
+    @BindView(R.id.snippet_text) TextView snippetText;
 
     private Restaurant currentRestaurant;
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.restaurant, container, false);
-        ButterKnife.bind(this, rootView);
+        unbinder = ButterKnife.bind(this, rootView);
 
         currentRestaurant = getArguments().getParcelable(RESTAURANT_KEY);
         loadRestaurant();
@@ -109,6 +110,6 @@ public class RestaurantFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

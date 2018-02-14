@@ -19,40 +19,38 @@ import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 import com.rey.material.widget.CheckBox;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-/**
- * Created by alexanderchiou on 4/28/16.
- */
 public class FilterActivity extends StandardActivity {
+
     public static String FILTER_KEY = "filter";
     public static final int[] categoryIds = new int[] {R.id.american, R.id.chinese, R.id.fast_food, R.id.french,
             R.id.indian, R.id.italian, R.id.japanese, R.id.korean, R.id.mediterranean, R.id.middle_eastern,
             R.id.mexican, R.id.pizza, R.id.thai};
 
-    @Bind(R.id.parent) View parent;
-    @Bind(R.id.search_term) EditText searchInput;
-    @Bind(R.id.clear_search) View clearSearch;
-    @Bind(R.id.current_location) TextView currentLocation;
+    @BindView(R.id.parent) View parent;
+    @BindView(R.id.search_term) EditText searchInput;
+    @BindView(R.id.clear_search) View clearSearch;
+    @BindView(R.id.current_location) TextView currentLocation;
 
     // Distance options
-    @Bind(R.id.very_close_toggle) CheckBox veryCloseToggle;
-    @Bind(R.id.close_toggle) CheckBox closeToggle;
-    @Bind(R.id.far_toggle) CheckBox farToggle;
-    @Bind(R.id.very_far_toggle) CheckBox veryFarToggle;
+    @BindView(R.id.very_close_toggle) CheckBox veryCloseToggle;
+    @BindView(R.id.close_toggle) CheckBox closeToggle;
+    @BindView(R.id.far_toggle) CheckBox farToggle;
+    @BindView(R.id.very_far_toggle) CheckBox veryFarToggle;
 
     // Sort options
-    @Bind(R.id.relevance_toggle) CheckBox relevanceToggle;
-    @Bind(R.id.distance_toggle) CheckBox distanceToggle;
-    @Bind(R.id.rating_toggle) CheckBox ratingToggle;
+    @BindView(R.id.relevance_toggle) CheckBox relevanceToggle;
+    @BindView(R.id.distance_toggle) CheckBox distanceToggle;
+    @BindView(R.id.rating_toggle) CheckBox ratingToggle;
 
     // Additional settings
-    @Bind(R.id.deals_toggle) CheckBox dealsToggle;
-    @Bind(R.id.random_toggle) CheckBox randomToggle;
+    @BindView(R.id.deals_toggle) CheckBox dealsToggle;
+    @BindView(R.id.random_toggle) CheckBox randomToggle;
 
     private Filter filter;
 

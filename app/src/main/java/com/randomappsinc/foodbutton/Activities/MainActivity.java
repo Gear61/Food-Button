@@ -17,12 +17,13 @@ import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-    @Bind(R.id.parent) View parent;
-    @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
+
+    @BindView(R.id.parent) View parent;
+    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -8,19 +8,17 @@ import android.widget.ListView;
 import com.randomappsinc.foodbutton.Adapters.IconItemsAdapter;
 import com.randomappsinc.foodbutton.R;
 
-import butterknife.Bind;
 import butterknife.BindString;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
-/**
- * Created by alexanderchiou on 3/27/16.
- */
 public class SettingsActivity extends StandardActivity {
+
     public static final String SUPPORT_EMAIL = "chessnone@gmail.com";
     public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/dev?id=9093438553713389916";
 
-    @Bind(R.id.settings_options) ListView settingsOptions;
+    @BindView(R.id.settings_options) ListView settingsOptions;
     @BindString(R.string.feedback_subject) String feedbackSubject;
     @BindString(R.string.send_email) String sendEmail;
 

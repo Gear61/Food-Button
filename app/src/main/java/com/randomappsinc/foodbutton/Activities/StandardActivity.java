@@ -7,10 +7,8 @@ import android.view.MenuItem;
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
-/**
- * Created by alexanderchiou on 3/27/16.
- */
 public class StandardActivity extends AppCompatActivity {
+
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
         UIUtils.hideKeyboard(this);

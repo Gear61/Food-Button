@@ -18,16 +18,14 @@ import com.randomappsinc.foodbutton.Utils.UIUtils;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnPageChange;
 
-/**
- * Created by alexanderchiou on 3/27/16.
- */
 public class SuggestionsActivity extends StandardActivity {
-    @Bind(R.id.restaurant_pager) ViewPager restaurantPager;
+
+    @BindViews(R.id.restaurant_pager) ViewPager restaurantPager;
 
     private RestaurantsAdapter adapter;
 

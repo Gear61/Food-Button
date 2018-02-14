@@ -23,18 +23,16 @@ import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
 
-import butterknife.Bind;
 import butterknife.BindColor;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
-/**
- * Created by alexanderchiou on 4/14/16.
- */
 public class FavoritesActivity extends StandardActivity {
-    @Bind(R.id.parent) View parent;
-    @Bind(R.id.favorites) SwipeMenuListView favorites;
-    @Bind(R.id.no_favorites) TextView noFavorites;
+
+    @BindView(R.id.parent) View parent;
+    @BindView(R.id.favorites) SwipeMenuListView favorites;
+    @BindView(R.id.no_favorites) TextView noFavorites;
 
     @BindColor(R.color.gray) int gray;
     @BindColor(R.color.app_red) int red;

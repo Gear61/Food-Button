@@ -19,14 +19,13 @@ import android.widget.ListView;
 import com.randomappsinc.foodbutton.Adapters.IconItemsAdapter;
 import com.randomappsinc.foodbutton.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import butterknife.Unbinder;
 
-/**
- * Created by alexanderchiou on 4/14/16.
- */
 public class NavigationDrawerFragment extends Fragment {
+
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private NavigationDrawerCallbacks mCallbacks;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -34,9 +33,10 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private View mFragmentContainerView;
 
-    @Bind(R.id.nav_drawer_tabs) ListView mDrawerListView;
+    @BindView(R.id.nav_drawer_tabs) ListView mDrawerListView;
 
     private int mCurrentSelectedPosition = 0;
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout navDrawer = (LinearLayout) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        ButterKnife.bind(this, navDrawer);
+        unbinder = ButterKnife.bind(this, navDrawer);
         mDrawerListView.setAdapter(new IconItemsAdapter(getActivity(),
                 R.array.nav_drawer_tabs, R.array.nav_drawer_icons));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
@@ -70,7 +70,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {

@@ -19,16 +19,14 @@ import com.randomappsinc.foodbutton.Utils.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by alexanderchiou on 7/3/16.
- */
 public class FavoritesFilterActivity extends StandardActivity {
-    @Bind(R.id.categories_input) EditText categoriesInput;
-    @Bind(R.id.cities_input) EditText citiesInput;
+
+    @BindView(R.id.categories_input) EditText categoriesInput;
+    @BindView(R.id.cities_input) EditText citiesInput;
 
     private FavoritesFilter filter;
 
