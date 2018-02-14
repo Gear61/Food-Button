@@ -103,7 +103,7 @@ public class FoodButtonFragment extends Fragment implements RestClient.Restauran
                                 public void onLocationUpdated(Location location) {
                                     locationChecker.removeCallbacks(locationCheckTask);
                                     locationFetched = true;
-                                    fetchSuggestions(LocationUtils.getAddressFromLocation(location));
+                                    fetchSuggestions(LocationUtils.getLatLongString(location));
                                 }
                             });
                     locationChecker.postDelayed(locationCheckTask, 10000L);
