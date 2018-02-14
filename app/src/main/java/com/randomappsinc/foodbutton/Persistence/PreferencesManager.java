@@ -15,10 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by alexanderchiou on 3/28/16.
- */
 public class PreferencesManager {
+
     private static final String NUM_APP_OPENS_KEY = "numAppOpens";
     private static final String DEFAULT_LOCATION_KEY = "defaultLocation";
     private static final String SAVED_LOCATIONS_KEY = "savedLocations";

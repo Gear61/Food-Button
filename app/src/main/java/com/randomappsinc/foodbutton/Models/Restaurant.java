@@ -10,8 +10,6 @@ import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
 import com.randomappsinc.foodbutton.Utils.RestaurantUtils;
 import com.randomappsinc.foodbutton.Utils.UIUtils;
-import com.yelp.fusion.client.models.Business;
-import com.yelp.fusion.client.models.Category;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -19,10 +17,8 @@ import java.util.List;
 
 import io.realm.RealmList;
 
-/**
- * Created by alexanderchiou on 3/27/16.
- */
 public class Restaurant implements Parcelable {
+
     public static final String RESTAURANTS_KEY = "restaurants";
     public static final String NO_PHONE_NUMBER = "No phone number provided";
     public static final String NO_ADDRESS = "No address provided";
@@ -37,50 +33,11 @@ public class Restaurant implements Parcelable {
     private String address;
     private float rating;
     private int numReviews;
-    private String snippetText;
-    private String currentDeal;
 
     // Distance from the search location in miles
     private double distance;
 
     public Restaurant() {}
-
-    public Restaurant(Business business) {
-        this.yelpId = business.getId();
-        this.mobileUrl = business.getUrl();
-        this.name = business.getName();
-
-        List<String> categories = new ArrayList<>();
-        for (Category category : business.getCategories()) {
-            categories.add(category.getTitle());
-        }
-        this.categories = categories;
-
-        this.phoneNumber = business.getPhone().replaceAll("[^0-9]", "");
-        this.imageUrl = business.getImageUrl();
-        this.city = business.getLocation().getCity();
-        List<String> displayAddress = business.getLocation().getDisplayAddress();
-        if (displayAddress != null) {
-            StringBuilder addressText = new StringBuilder();
-            for (int i = 0; i < displayAddress.size(); i++) {
-                if (i != 0) {
-                    addressText.append(", ");
-                }
-                addressText.append(displayAddress.get(i));
-            }
-            String apiAddress = addressText.toString();
-            if (!apiAddress.isEmpty()) {
-                this.address = apiAddress;
-            } else {
-                this.address = NO_ADDRESS;
-            }
-        }
-
-        this.rating = (float) business.getRating();
-        this.numReviews = business.getReviewCount();
-        this.snippetText = business.getText();
-        this.distance = business.getDistance() * 0.000621371;
-    }
 
     public String getYelpId() {
         return yelpId;
@@ -199,24 +156,12 @@ public class Restaurant implements Parcelable {
         return shareText.toString();
     }
 
-    public String getSnippetText() {
-        return snippetText == null ? "" :  "\"" + snippetText + "\"";
-    }
-
-    public void setSnippetText(String snippetText) {
-        this.snippetText = snippetText;
-    }
-
-    public String getCurrentDeal() {
-        if (currentDeal != null && !currentDeal.isEmpty()) {
-            return MyApplication.getAppContext().getString(R.string.deal_icon)
-                    + " " + currentDeal;
-        }
-        return "";
-    }
-
     public String getCity() {
         return city;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public RestaurantDO toRestaurantDO() {
@@ -239,7 +184,6 @@ public class Restaurant implements Parcelable {
         restaurantDO.setAddress(address);
         restaurantDO.setRating(rating);
         restaurantDO.setNumReviews(numReviews);
-        restaurantDO.setSnippetText(snippetText);
         return restaurantDO;
     }
 
@@ -259,8 +203,6 @@ public class Restaurant implements Parcelable {
         address = in.readString();
         rating = in.readFloat();
         numReviews = in.readInt();
-        snippetText = in.readString();
-        currentDeal = in.readString();
         distance = in.readDouble();
     }
 
@@ -286,8 +228,6 @@ public class Restaurant implements Parcelable {
         dest.writeString(address);
         dest.writeFloat(rating);
         dest.writeInt(numReviews);
-        dest.writeString(snippetText);
-        dest.writeString(currentDeal);
         dest.writeDouble(distance);
     }
 

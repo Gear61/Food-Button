@@ -1,81 +1,106 @@
 package com.randomappsinc.foodbutton.API;
 
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.support.annotation.NonNull;
 
-import com.randomappsinc.foodbutton.Activities.MainActivity;
 import com.randomappsinc.foodbutton.Models.Restaurant;
-import com.randomappsinc.foodbutton.R;
-import com.randomappsinc.foodbutton.Utils.MyApplication;
-import com.yelp.fusion.client.connection.YelpFusionApi;
-import com.yelp.fusion.client.connection.YelpFusionApiFactory;
-import com.yelp.fusion.client.models.Business;
-import com.yelp.fusion.client.models.SearchResponse;
 
-import org.greenrobot.eventbus.EventBus;
+import java.util.List;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by alexanderchiou on 3/26/16.
- */
 public class RestClient {
-    public static final int HTTP_STATUS_OK = 200;
-    public static final String SEARCH_FAIL = "searchFail";
 
-    private static final String APP_ID = "Y6mN70GyUV5fdqOvceOrVQ";
-    private static final String APP_SECRET = "I9mmDM1JqyqijjY1JR9i0XYMPEeiUZQCQIc0vSY0iaoah2rm90mfisHYV1oPVtwl";
-
-    private static RestClient restClient;
-
-    public static RestClient get() {
-        if (restClient == null) {
-            restClient = new RestClient();
-        }
-        return restClient;
+    public interface RestaurantsListener {
+        void onRestaurantsFetched(List<Restaurant> places);
     }
 
-    private YelpFusionApi yelpFusionApi;
+    private static final RestaurantsListener DUMMY_RESTAURANTS_LISTENER = new RestaurantsListener() {
+        @Override
+        public void onRestaurantsFetched(List<Restaurant> places) {}
+    };
+
+    private static RestClient mInstance;
+
+    private Retrofit mRetrofit;
+    private YelpService mYelpService;
+    private Handler mHandler;
+
+    // Places
+    @NonNull
+    private RestaurantsListener mRestaurantsListener = DUMMY_RESTAURANTS_LISTENER;
+    private Call<RestaurantSearchResults> currentFindRestaurantsCall;
+
+    public static RestClient getInstance() {
+        if (mInstance == null) {
+            mInstance = new RestClient();
+        }
+        return mInstance;
+    }
 
     private RestClient() {
-        AsyncTask.execute(new Runnable() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new AuthInterceptor())
+                .build();
+
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(ApiConstants.BASE_URL)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mYelpService = mRetrofit.create(YelpService.class);
+
+        HandlerThread backgroundThread = new HandlerThread("");
+        backgroundThread.start();
+        mHandler = new Handler(backgroundThread.getLooper());
+    }
+
+    public Retrofit getRetrofitInstance() {
+        return mRetrofit;
+    }
+
+    public void findRestaurants(final String searchTerm, final String location) {
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
-                try {
-                    yelpFusionApi = new YelpFusionApiFactory().createAPI(APP_ID, APP_SECRET);
-                } catch (IOException ignored) {}
+                if (currentFindRestaurantsCall != null) {
+                    currentFindRestaurantsCall.cancel();
+                }
+                currentFindRestaurantsCall = mYelpService.findRestaurants(
+                        searchTerm,
+                        location,
+                        ApiConstants.DEFAULT_NUM_RESTAURANTS,
+                        true);
+                currentFindRestaurantsCall.enqueue(new FindRestaurantsCallback());
             }
         });
     }
 
-    public void doSearch(String location, MainActivity activity) {
-        if (yelpFusionApi != null) {
-            Call<SearchResponse> call = yelpFusionApi.getBusinessSearch(APIUtils.getQueryParams(location));
-            call.enqueue(new Callback<SearchResponse>() {
-                @Override
-                public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
-                    if (response.code() == HTTP_STATUS_OK) {
-                        ArrayList<Restaurant> restaurants = new ArrayList<>();
-                        for (Business business : response.body().getBusinesses()) {
-                            restaurants.add(new Restaurant(business));
-                        }
-                        EventBus.getDefault().post(restaurants);
-                    } else {
-                        EventBus.getDefault().post(SEARCH_FAIL);
-                    }
-                }
+    public void registerRestaurantsListener(RestaurantsListener restaurantsListener) {
+        mRestaurantsListener = restaurantsListener;
+    }
 
-                @Override
-                public void onFailure(Call<SearchResponse> call, Throwable t) {
-                    EventBus.getDefault().post(SEARCH_FAIL);
+    public void unregisterRestaurantsListener() {
+        mRestaurantsListener = DUMMY_RESTAURANTS_LISTENER;
+    }
+
+    public void processRestaurants(List<Restaurant> restaurants) {
+        mRestaurantsListener.onRestaurantsFetched(restaurants);
+    }
+
+    public void cancelRestaurantsFetch() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (currentFindRestaurantsCall != null) {
+                    currentFindRestaurantsCall.cancel();
                 }
-            });
-        } else {
-            activity.showSnackbar(MyApplication.getAppContext().getString(R.string.client_fail));
-        }
+            }
+        });
     }
 }
