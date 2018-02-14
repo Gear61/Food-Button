@@ -9,13 +9,11 @@ import android.widget.TextView;
 
 import com.randomappsinc.foodbutton.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by alexanderchiou on 4/14/16.
- */
 public class IconItemsAdapter extends BaseAdapter {
+
     private Context context;
     private String[] itemNames;
     private String[] itemIcons;
@@ -42,8 +40,8 @@ public class IconItemsAdapter extends BaseAdapter {
     }
 
     public class IconItemViewHolder {
-        @Bind(R.id.item_icon) TextView itemIcon;
-        @Bind(R.id.item_name) TextView itemName;
+        @BindView(R.id.item_icon) TextView itemIcon;
+        @BindView(R.id.item_name) TextView itemName;
 
         public IconItemViewHolder(View view) {
             ButterKnife.bind(this, view);

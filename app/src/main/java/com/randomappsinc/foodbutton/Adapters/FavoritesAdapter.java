@@ -18,7 +18,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -75,9 +75,9 @@ public class FavoritesAdapter extends BaseAdapter {
     }
 
     public class RestaurantViewHolder {
-        @Bind(R.id.restaurant_picture) ImageView picture;
-        @Bind(R.id.restaurant_name) TextView name;
-        @Bind(R.id.address) TextView address;
+        @BindView(R.id.restaurant_picture) ImageView picture;
+        @BindView(R.id.restaurant_name) TextView name;
+        @BindView(R.id.address) TextView address;
 
         public RestaurantViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -18,13 +18,11 @@ import com.randomappsinc.foodbutton.Utils.UIUtils;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by alexanderchiou on 4/5/16.
- */
 public class LocationsAdapter extends BaseAdapter {
+
     private Context context;
     private List<String> content;
     private View noContent;
@@ -134,8 +132,8 @@ public class LocationsAdapter extends BaseAdapter {
     }
 
     public class LocationViewHolder {
-        @Bind(R.id.location) TextView locationText;
-        @Bind(R.id.check_icon) View checkIcon;
+        @BindView(R.id.location) TextView locationText;
+        @BindView(R.id.check_icon) View checkIcon;
 
         public LocationViewHolder(View view) {
             ButterKnife.bind(this, view);
