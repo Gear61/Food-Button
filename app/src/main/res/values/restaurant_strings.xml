@@ -38,7 +38,7 @@
     <!-- Favorites -->
     <string name="no_favorites">
         If you see a restaurant you like, click the {ion-android-star-outline},
-        and Simple Restaurant Finder will save it here for you.
+        and Food Button will save it here for you.
     </string>
     <string name="no_favorite_matches">
         None of your favorited restaurants match your filters.
