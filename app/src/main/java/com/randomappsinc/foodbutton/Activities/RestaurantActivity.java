@@ -49,7 +49,7 @@ public class RestaurantActivity extends StandardActivity {
     }
 
     private void loadRestaurant() {
-        Picasso.with(this)
+        Picasso.get()
                 .load(currentRestaurant.getImageUrl())
                 .resize(UIUtils.convertDpToPixels(100), UIUtils.convertDpToPixels(100))
                 .centerCrop()

@@ -1,6 +1,5 @@
 package com.randomappsinc.foodbutton.Fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.R;
@@ -63,7 +64,7 @@ public class RestaurantFragment extends Fragment {
     }
 
     private void loadRestaurant() {
-        Picasso.with(getActivity())
+        Picasso.get()
                 .load(currentRestaurant.getImageUrl())
                 .resize(UIUtils.convertDpToPixels(100), UIUtils.convertDpToPixels(100))
                 .centerCrop()

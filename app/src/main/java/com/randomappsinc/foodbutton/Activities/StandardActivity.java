@@ -1,8 +1,9 @@
 package com.randomappsinc.foodbutton.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.randomappsinc.foodbutton.R;
 import com.randomappsinc.foodbutton.Utils.UIUtils;

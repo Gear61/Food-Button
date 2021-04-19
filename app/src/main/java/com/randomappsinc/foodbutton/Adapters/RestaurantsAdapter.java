@@ -1,8 +1,8 @@
 package com.randomappsinc.foodbutton.Adapters;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.randomappsinc.foodbutton.Fragments.RestaurantFragment;
 import com.randomappsinc.foodbutton.Models.Restaurant;

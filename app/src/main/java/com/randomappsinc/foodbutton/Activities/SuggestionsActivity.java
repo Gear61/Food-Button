@@ -3,9 +3,10 @@ package com.randomappsinc.foodbutton.Activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joanzapata.iconify.fonts.IoniconsIcons;
@@ -38,7 +39,7 @@ public class SuggestionsActivity extends StandardActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         List<Restaurant> restaurants = getIntent().getParcelableArrayListExtra(Restaurant.RESTAURANTS_KEY);
-        adapter = new RestaurantsAdapter(getFragmentManager(), restaurants);
+        adapter = new RestaurantsAdapter(getSupportFragmentManager(), restaurants);
         restaurantPager.setAdapter(adapter);
 
         if (PreferencesManager.get().shouldShowInstructions()) {

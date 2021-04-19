@@ -84,7 +84,7 @@ public class FavoritesAdapter extends BaseAdapter {
         }
 
         public void loadRestaurant(Restaurant restaurant) {
-            Picasso.with(context)
+            Picasso.get()
                     .load(restaurant.getImageUrl())
                     .resize(UIUtils.convertDpToPixels(60), UIUtils.convertDpToPixels(60))
                     .centerCrop()

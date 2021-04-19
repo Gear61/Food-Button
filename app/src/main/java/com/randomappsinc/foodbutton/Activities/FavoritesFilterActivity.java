@@ -2,10 +2,11 @@ package com.randomappsinc.foodbutton.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -57,17 +58,14 @@ public class FavoritesFilterActivity extends StandardActivity {
         new MaterialDialog.Builder(this)
                 .title(R.string.categories)
                 .items(allCategories)
-                .itemsCallbackMultiChoice(alreadyChosen, new MaterialDialog.ListCallbackMultiChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
-                        List<String> categories = new ArrayList<>();
-                        for (CharSequence choice : text) {
-                            categories.add(choice.toString());
-                        }
-                        filter.setCategories(categories);
-                        setInputs();
-                        return true;
+                .itemsCallbackMultiChoice(alreadyChosen, (dialog, which, text) -> {
+                    List<String> categories = new ArrayList<>();
+                    for (CharSequence choice : text) {
+                        categories.add(choice.toString());
                     }
+                    filter.setCategories(categories);
+                    setInputs();
+                    return true;
                 })
                 .positiveText(R.string.choose)
                 .negativeText(android.R.string.cancel)
@@ -85,17 +83,14 @@ public class FavoritesFilterActivity extends StandardActivity {
         new MaterialDialog.Builder(this)
                 .title(R.string.cities)
                 .items(allCities)
-                .itemsCallbackMultiChoice(alreadyChosen, new MaterialDialog.ListCallbackMultiChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
-                        List<String> cities = new ArrayList<>();
-                        for (CharSequence choice : text) {
-                            cities.add(choice.toString());
-                        }
-                        filter.setCities(cities);
-                        setInputs();
-                        return true;
+                .itemsCallbackMultiChoice(alreadyChosen, (dialog, which, text) -> {
+                    List<String> cities = new ArrayList<>();
+                    for (CharSequence choice : text) {
+                        cities.add(choice.toString());
                     }
+                    filter.setCities(cities);
+                    setInputs();
+                    return true;
                 })
                 .positiveText(R.string.choose)
                 .negativeText(android.R.string.cancel)
@@ -129,13 +124,10 @@ public class FavoritesFilterActivity extends StandardActivity {
                         .content(R.string.remove_all_filters)
                         .positiveText(android.R.string.yes)
                         .negativeText(android.R.string.no)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                filter.clear();
-                                setInputs();
-                                setFilter();
-                            }
+                        .onPositive((dialog, which) -> {
+                            filter.clear();
+                            setInputs();
+                            setFilter();
                         })
                         .show();
                 return true;

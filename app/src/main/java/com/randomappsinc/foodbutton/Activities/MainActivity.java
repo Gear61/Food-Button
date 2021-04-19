@@ -1,13 +1,14 @@
 package com.randomappsinc.foodbutton.Activities;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
 
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, drawerLayout);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FoodButtonFragment foodButtonFragment = new FoodButtonFragment();
         fragmentManager.beginTransaction().replace(R.id.container, foodButtonFragment).commit();
 
@@ -94,14 +95,11 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 .content(R.string.please_rate)
                 .negativeText(R.string.no_im_good)
                 .positiveText(R.string.will_rate)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        if (getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
-                            startActivity(intent);
-                        }
+                .onPositive((dialog, which) -> {
+                    Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    if (getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
+                        startActivity(intent);
                     }
                 })
                 .show();

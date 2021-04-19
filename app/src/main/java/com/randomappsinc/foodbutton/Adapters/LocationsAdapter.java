@@ -1,12 +1,13 @@
 package com.randomappsinc.foodbutton.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -76,35 +77,24 @@ public class LocationsAdapter extends BaseAdapter {
                 .content(confirmDeletionMessage)
                 .positiveText(android.R.string.yes)
                 .negativeText(android.R.string.no)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        removeLocation(position);
-                    }
-                })
+                .onPositive((dialog, which) -> removeLocation(position))
                 .show();
     }
 
     public void showEditDialog(final int position) {
         new MaterialDialog.Builder(context)
                 .title(R.string.change_location_title)
-                .input(context.getString(R.string.location), getItem(position), new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        boolean submitEnabled = !(input.toString().trim().isEmpty()
-                                || PreferencesManager.get().alreadyHasLocation(input.toString()));
-                        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(submitEnabled);
-                    }
+                .input(context.getString(R.string.location), getItem(position), (dialog, input) -> {
+                    boolean submitEnabled = !(input.toString().trim().isEmpty()
+                            || PreferencesManager.get().alreadyHasLocation(input.toString()));
+                    dialog.getActionButton(DialogAction.POSITIVE).setEnabled(submitEnabled);
                 })
                 .alwaysCallInputCallback()
                 .negativeText(android.R.string.no)
-                .onAny(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (which == DialogAction.POSITIVE) {
-                            String newName = dialog.getInputEditText().getText().toString();
-                            editLocation(position, newName);
-                        }
+                .onAny((dialog, which) -> {
+                    if (which == DialogAction.POSITIVE) {
+                        String newName = dialog.getInputEditText().getText().toString();
+                        editLocation(position, newName);
                     }
                 })
                 .show();
@@ -114,18 +104,15 @@ public class LocationsAdapter extends BaseAdapter {
         new MaterialDialog.Builder(context)
                 .title(getItem(position))
                 .items(LocationUtils.getLocationOptions(getItem(position)))
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (text.toString().equals(context.getString(R.string.set_as_current))) {
-                            PreferencesManager.get().setCurrentLocation(getItem(position));
-                            notifyDataSetChanged();
-                            UIUtils.showSnackbar(parent, context.getString(R.string.current_location_set));
-                        } else if (text.toString().equals(context.getString(R.string.edit_location))) {
-                            showEditDialog(position);
-                        } else if (text.toString().equals(context.getString(R.string.delete_location))) {
-                            showDeleteDialog(position);
-                        }
+                .itemsCallback((dialog, view, which, text) -> {
+                    if (text.toString().equals(context.getString(R.string.set_as_current))) {
+                        PreferencesManager.get().setCurrentLocation(getItem(position));
+                        notifyDataSetChanged();
+                        UIUtils.showSnackbar(parent, context.getString(R.string.current_location_set));
+                    } else if (text.toString().equals(context.getString(R.string.edit_location))) {
+                        showEditDialog(position);
+                    } else if (text.toString().equals(context.getString(R.string.delete_location))) {
+                        showDeleteDialog(position);
                     }
                 })
                 .show();

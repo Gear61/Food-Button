@@ -1,13 +1,14 @@
 package com.randomappsinc.foodbutton.Activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -131,51 +132,37 @@ public class FilterActivity extends StandardActivity {
                 .content(R.string.current_instructions)
                 .items(PreferencesManager.get().getLocationsArray())
                 .itemsCallbackSingleChoice(PreferencesManager.get().getCurrentLocationIndex(),
-                        new MaterialDialog.ListCallbackSingleChoice() {
-                            @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                PreferencesManager.get().setCurrentLocation(text.toString());
-                                currentLocation.setText(PreferencesManager.get().getCurrentLocation());
-                                UIUtils.showSnackbar(parent, getString(R.string.current_location_set));
-                                return true;
-                            }
+                        (dialog, view, which, text) -> {
+                            PreferencesManager.get().setCurrentLocation(text.toString());
+                            currentLocation.setText(PreferencesManager.get().getCurrentLocation());
+                            UIUtils.showSnackbar(parent, getString(R.string.current_location_set));
+                            return true;
                         })
                 .positiveText(R.string.choose)
                 .negativeText(android.R.string.cancel)
                 .neutralText(R.string.add_location_title)
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        addLocation();
-                    }
-                })
+                .onNeutral((dialog, which) -> addLocation())
                 .show();
     }
 
     private void addLocation() {
         new MaterialDialog.Builder(this)
                 .title(R.string.add_location_title)
-                .input(getString(R.string.location), "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, @NonNull CharSequence input) {
-                        String currentInput = input.toString().trim();
-                        dialog.getActionButton(DialogAction.POSITIVE)
-                                .setEnabled(!PreferencesManager.get().alreadyHasLocation(input.toString().trim())
-                                        && !currentInput.isEmpty());
-                    }
+                .input(getString(R.string.location), "", (dialog, input) -> {
+                    String currentInput = input.toString().trim();
+                    dialog.getActionButton(DialogAction.POSITIVE)
+                            .setEnabled(!PreferencesManager.get().alreadyHasLocation(input.toString().trim())
+                                    && !currentInput.isEmpty());
                 })
                 .alwaysCallInputCallback()
                 .positiveText(R.string.add)
                 .negativeText(android.R.string.no)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        String newLocation = dialog.getInputEditText().getText().toString();
-                        PreferencesManager.get().addSavedLocation(newLocation);
-                        PreferencesManager.get().setCurrentLocation(newLocation);
-                        currentLocation.setText(PreferencesManager.get().getCurrentLocation());
-                        UIUtils.showSnackbar(parent, getString(R.string.current_location_set));
-                    }
+                .onPositive((dialog, which) -> {
+                    String newLocation = dialog.getInputEditText().getText().toString();
+                    PreferencesManager.get().addSavedLocation(newLocation);
+                    PreferencesManager.get().setCurrentLocation(newLocation);
+                    currentLocation.setText(PreferencesManager.get().getCurrentLocation());
+                    UIUtils.showSnackbar(parent, getString(R.string.current_location_set));
                 })
                 .show();
     }
@@ -393,12 +380,7 @@ public class FilterActivity extends StandardActivity {
                         .content(R.string.remove_all_filters)
                         .positiveText(android.R.string.yes)
                         .negativeText(android.R.string.no)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                clearFilters();
-                            }
-                        })
+                        .onPositive((dialog, which) -> clearFilters())
                         .show();
                 return true;
         }

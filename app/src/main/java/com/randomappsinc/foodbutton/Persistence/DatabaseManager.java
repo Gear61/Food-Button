@@ -1,6 +1,6 @@
 package com.randomappsinc.foodbutton.Persistence;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.randomappsinc.foodbutton.Models.FavoritesFilter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
@@ -50,35 +50,24 @@ public class DatabaseManager {
         realm = Realm.getInstance(realmConfig);
     }
 
-    RealmMigration migration = new RealmMigration() {
-        @Override
-        public void migrate(@NonNull DynamicRealm realm, long oldVersion, long newVersion) {
-            RealmSchema schema = realm.getSchema();
-            if (oldVersion == 0) {
-                schema.get("RestaurantDO").addField("snippetText", String.class);
-            }
+    RealmMigration migration = (realm, oldVersion, newVersion) -> {
+        RealmSchema schema = realm.getSchema();
+        if (oldVersion == 0) {
+            schema.get("RestaurantDO").addField("snippetText", String.class);
         }
     };
 
     public void addFavorite(final Restaurant restaurant) {
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(@NonNull Realm realm) {
-                realm.copyToRealm(restaurant.toRestaurantDO());
-            }
-        });
+        realm.executeTransaction(realm -> realm.copyToRealm(restaurant.toRestaurantDO()));
     }
 
     public void removeFavorite(final Restaurant restaurant) {
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(@NonNull Realm realm) {
-                RestaurantDO restaurantDO = realm.where(RestaurantDO.class)
-                        .equalTo("yelpId", restaurant.getYelpId())
-                        .findFirst();
-                if (restaurantDO != null) {
-                    restaurantDO.deleteFromRealm();
-                }
+        realm.executeTransaction(realm -> {
+            RestaurantDO restaurantDO = realm.where(RestaurantDO.class)
+                    .equalTo("yelpId", restaurant.getYelpId())
+                    .findFirst();
+            if (restaurantDO != null) {
+                restaurantDO.deleteFromRealm();
             }
         });
     }

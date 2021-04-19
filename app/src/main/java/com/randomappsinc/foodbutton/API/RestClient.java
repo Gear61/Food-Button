@@ -2,8 +2,9 @@ package com.randomappsinc.foodbutton.API;
 
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
