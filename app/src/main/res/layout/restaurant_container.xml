@@ -4,18 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <com.rey.material.widget.Button
         android:id="@+id/start_navigation"
         android:layout_alignParentBottom="true"
         android:text="@string/start_heading_here"
         style="@style/ripple_button_style"
-        app:rd_style="@style/button_ripple_attributes"/>
+        app:rd_style="@style/button_ripple_attributes"
+        />
 
-    <android.support.v4.view.ViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/restaurant_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/start_navigation"/>
+        android:layout_above="@+id/start_navigation"
+        />
 </RelativeLayout>

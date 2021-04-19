@@ -41,8 +41,6 @@ public class APIUtils {
 
     public static String getSort(int sortIndex) {
         switch (sortIndex) {
-            case 0:
-                return "best_match";
             case 1:
                 return "distance";
             case 2:

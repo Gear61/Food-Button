@@ -4,13 +4,15 @@
     android:id="@+id/parent"
     android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        >
 
         <FrameLayout
             android:id="@+id/search_term_container"
@@ -20,7 +22,8 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:paddingLeft="8dp"
-            android:paddingRight="12dp">
+            android:paddingRight="12dp"
+            >
 
             <EditText
                 android:id="@+id/search_term"
@@ -34,11 +37,13 @@
                 android:textSize="18dp"
                 android:textColor="@color/dark_gray"
                 android:textColorHint="@color/gray"
-                style="@style/filter_input"/>
+                style="@style/filter_input"
+                />
 
             <com.joanzapata.iconify.widget.IconTextView
                 android:text="@string/search_icon"
-                style="@style/filter_input_icon"/>
+                style="@style/filter_input_icon"
+                />
 
             <com.joanzapata.iconify.widget.IconTextView
                 android:id="@+id/clear_search"
@@ -46,7 +51,8 @@
                 android:visibility="gone"
                 android:layout_gravity="center_vertical|right"
                 android:layout_marginRight="6dp"
-                style="@style/filter_input_icon"/>
+                style="@style/filter_input_icon"
+                />
         </FrameLayout>
 
         <View
@@ -54,7 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/gray_200"
-            android:layout_below="@+id/search_term_container"/>
+            android:layout_below="@+id/search_term_container"
+            />
 
         <ScrollView
             android:background="@color/gray_200"
@@ -69,23 +76,27 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/filter_card"
-                    android:layout_marginTop="4dp">
+                    android:layout_marginTop="4dp"
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        >
 
                         <LinearLayout style="@style/filter_header_container">
                             <com.joanzapata.iconify.widget.IconTextView
                                 style="@style/filter_icon"
-                                android:text="@string/location_icon"/>
+                                android:text="@string/location_icon"
+                                />
 
                             <TextView
                                 style="@style/filter_header"
-                                android:text="@string/location"/>
+                                android:text="@string/location"
+                                />
                         </LinearLayout>
 
                         <View style="@style/filter_divider"/>
@@ -96,11 +107,12 @@
                             android:layout_width="match_parent"
                             android:layout_margin="4dp"
                             android:textSize="20dp"
-                            android:textColor="@color/dark_gray"/>
+                            android:textColor="@color/dark_gray"
+                            />
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/filter_card"
                     android:layout_marginTop="4dp">
 
@@ -112,135 +124,166 @@
                         <LinearLayout style="@style/filter_header_container">
                             <com.joanzapata.iconify.widget.IconTextView
                                 style="@style/filter_icon"
-                                android:text="@string/categories_icon"/>
+                                android:text="@string/categories_icon"
+                                />
 
                             <TextView
                                 style="@style/filter_header"
-                                android:text="@string/categories"/>
+                                android:text="@string/categories"
+                                />
                         </LinearLayout>
 
-                        <View style="@style/filter_divider"/>
+                        <View style="@style/filter_divider"
+                            />
 
                         <FrameLayout
                             android:id="@+id/american"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/american"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/american_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/chinese"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/chinese"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/chinese_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/fast_food"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/fast_food"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/fast_food_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/french"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/french"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/french_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/indian"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/indian"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/indian_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/italian"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/italian"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/italian_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/japanese"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/japanese"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/japanese_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/korean"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/korean"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/korean_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/mediterranean"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/mediterranean"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/mediterranean_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/middle_eastern"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/middle_eastern"
@@ -290,9 +333,9 @@
                                 style="@style/filter_checkbox"/>
                         </FrameLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/filter_card"
                     android:layout_marginTop="4dp">
 
@@ -365,9 +408,9 @@
                                 style="@style/filter_checkbox"/>
                         </FrameLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/filter_card"
                     android:layout_marginTop="4dp">
 
@@ -427,9 +470,9 @@
                                 style="@style/filter_checkbox"/>
                         </FrameLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/filter_card"
                     android:layout_marginTop="4dp">
 
@@ -456,27 +499,32 @@
 
                             <TextView
                                 android:text="@string/deals_only"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/deals_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
 
                         <FrameLayout
                             android:id="@+id/random_setting"
-                            style="@style/filter_field_container">
+                            style="@style/filter_field_container"
+                            >
 
                             <TextView
                                 android:text="@string/randomize_results"
-                                style="@style/filter_field_text"/>
+                                style="@style/filter_field_text"
+                                />
 
                             <com.rey.material.widget.CheckBox
                                 android:id="@+id/random_toggle"
-                                style="@style/filter_checkbox"/>
+                                style="@style/filter_checkbox"
+                                />
                         </FrameLayout>
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
