@@ -15,7 +15,7 @@ import butterknife.OnItemClick;
 
 public class SettingsActivity extends StandardActivity {
 
-    public static final String SUPPORT_EMAIL = "chessnone@gmail.com";
+    public static final String SUPPORT_EMAIL = "randomappsinc61@gmail.com";
     public static final String OTHER_APPS_URL = "https://play.google.com/store/apps/dev?id=9093438553713389916";
 
     @BindView(R.id.settings_options) ListView settingsOptions;
