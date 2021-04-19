@@ -1,7 +1,5 @@
 package com.randomappsinc.foodbutton.Persistence;
 
-import androidx.annotation.NonNull;
-
 import com.randomappsinc.foodbutton.Models.FavoritesFilter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
 import com.randomappsinc.foodbutton.Utils.MyApplication;
@@ -12,7 +10,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
-import io.realm.DynamicRealm;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmMigration;

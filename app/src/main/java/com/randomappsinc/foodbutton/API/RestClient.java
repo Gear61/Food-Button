@@ -2,13 +2,10 @@ package com.randomappsinc.foodbutton.API;
 
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 
-import com.randomappsinc.foodbutton.Models.Filter;
 import com.randomappsinc.foodbutton.Models.Restaurant;
-import com.randomappsinc.foodbutton.Persistence.PreferencesManager;
 
 import java.util.ArrayList;
 
@@ -65,25 +62,13 @@ public class RestClient {
     }
 
     public void findRestaurants(final String location) {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (currentFindRestaurantsCall != null) {
-                    currentFindRestaurantsCall.cancel();
-                }
-
-                Filter filter = PreferencesManager.get().getFilter();
-                String searchTerm = TextUtils.isEmpty(filter.getSearchTerm())
-                        ? ApiConstants.DEFAULT_SEARCH_TERM
-                        : filter.getSearchTerm();
-
-                currentFindRestaurantsCall = mYelpService.findRestaurants(
-                        searchTerm,
-                        location,
-                        ApiConstants.DEFAULT_NUM_RESTAURANTS,
-                        true);
-                currentFindRestaurantsCall.enqueue(new FindRestaurantsCallback());
+        mHandler.post(() -> {
+            if (currentFindRestaurantsCall != null) {
+                currentFindRestaurantsCall.cancel();
             }
+
+            currentFindRestaurantsCall = mYelpService.findRestaurants(APIUtils.getQueryParams(location));
+            currentFindRestaurantsCall.enqueue(new FindRestaurantsCallback());
         });
     }
 
@@ -100,12 +85,9 @@ public class RestClient {
     }
 
     public void cancelRestaurantsFetch() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (currentFindRestaurantsCall != null) {
-                    currentFindRestaurantsCall.cancel();
-                }
+        mHandler.post(() -> {
+            if (currentFindRestaurantsCall != null) {
+                currentFindRestaurantsCall.cancel();
             }
         });
     }

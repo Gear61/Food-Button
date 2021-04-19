@@ -5,12 +5,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.randomappsinc.foodbutton.Fragments.FoodButtonFragment;
 import com.randomappsinc.foodbutton.Fragments.NavigationDrawerFragment;

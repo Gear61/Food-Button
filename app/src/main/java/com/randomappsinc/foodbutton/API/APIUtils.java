@@ -15,6 +15,7 @@ import java.util.Map;
 public class APIUtils {
     public static Map<String, String> getQueryParams(String location) {
         Map<String, String> params = new HashMap<>();
+
         params.put("location", location);
         params.put("open_now", "true");
 
